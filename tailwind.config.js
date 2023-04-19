@@ -4,7 +4,15 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ["Lexend", "serif"]
+    },
+    extend: {
+      fontFamily: {
+        spectral: ["Spectral SC", "sans-serif"],
+        lexend: ["Lexend", "serif"]
+      }
+    },
   },
   plugins: [],
 }
