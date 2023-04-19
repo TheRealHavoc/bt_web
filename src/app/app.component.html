@@ -1,2 +1,5 @@
-<p>Welcome to</p>
-<h1 class="font-spectral">Baldur's Trials</h1>
+<ng-container *ngIf="appContent">
+    <h1 class="font-spectral">{{appContent.title}}</h1>
+    <p>{{appContent.description}}</p>
+    <p>{{appContent.features}}</p>
+</ng-container>
