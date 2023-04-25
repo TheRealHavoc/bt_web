@@ -14,9 +14,5 @@ export class AppComponent {
 
   public appContent?: AppContent;
 
-  constructor(private http: HttpClient) {
-    this.http.get<AppContent>(`${environment.apiUrl}appcontent`).subscribe((res: AppContent) => {
-      this.appContent = res;
-    })
-  }
+  constructor(private http: HttpClient) {}
 }
