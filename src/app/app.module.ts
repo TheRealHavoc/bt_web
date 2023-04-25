@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
     LandingPageComponent,
-    AlertsComponent
+    AlertsComponent,
+    LogInPageComponent
   ],
   imports: [
     BrowserModule,

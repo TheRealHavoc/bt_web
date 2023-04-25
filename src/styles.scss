@@ -16,6 +16,10 @@
     .btn-secondary {
         @apply btn-primary bg-appSlate800 text-white;
     }
+
+    .input {
+        @apply rounded-lg bg-appSlate800 py-2 px-6;
+    }
 }
 
 .material-symbols-outlined {
