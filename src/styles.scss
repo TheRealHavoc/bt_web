@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .badge {
+        @apply px-6 py-1 border rounded-lg text-sm;
+    }
+
+    .btn-primary {
+        @apply
+            transition bg-white text-appSlate py-2 px-6 font-bold rounded-lg
+            hover:opacity-60;
+    }
+
+    .btn-secondary {
+        @apply btn-primary bg-appSlate800 text-white;
+    }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
