@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,

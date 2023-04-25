@@ -1,0 +1,6 @@
+<div>
+    <div *ngFor="let alert of alerts" [ngClass]="className(alert)">
+        <h3>{{alert.title}}</h3>
+        <p *ngIf="alert.message">{{alert.message}}</p>
+    </div>
+</div>
