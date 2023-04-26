@@ -1,5 +1,5 @@
-<div class="absolute inset-x-0 bottom-0 flex flex-col items-start p-8 gap-4">
-    <div *ngFor="let alert of alerts" [ngClass]="className(alert)" class="bg-white shrink p-4 rounded-lg text-appSlate">
+<div *ngIf="alerts.length > 0" class="absolute inset-x-0 bottom-0 flex flex-col items-start p-8 gap-4">
+    <div *ngFor="let alert of alerts" class="p-4 rounded-lg text-appSlate" [ngClass]="className(alert)">
         <h3 class="font-bold text-lg">{{alert.title}}</h3>
         <p *ngIf="alert.message">{{alert.message}}</p>
     </div>

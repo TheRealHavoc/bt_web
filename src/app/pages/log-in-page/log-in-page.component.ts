@@ -21,8 +21,10 @@ export class LogInPageComponent {
   ) { }
 
   public onSubmit() {
+    if (this.form.invalid) return;
+
     this.authService.logIn(this.form.value).subscribe({next: (res: User) => {
-      this.alertService.success(`Welcome ${res.username}`);
+      this.alertService.success(`Welcome ${res.username}`!);
     }, error: (res) => {
       this.alertService.error(res.error);
     }})
