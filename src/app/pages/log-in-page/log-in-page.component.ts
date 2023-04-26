@@ -28,11 +28,11 @@ export class LogInPageComponent {
   public onSubmit() {
     if (this.form.invalid) return;
 
-    this.authService.logIn(this.form.value).then(res => {
+    this.authService.logIn(this.form.value).then((res) => {
       this.alertService.success(`Welcome ${res.username}`!);
 
       this.router.navigate(['/menu']);
-    }).catch(error => {
+    }).catch((error) => {
       if (error.status === 0) {
         this.alertService.error("Something went wrong connecting to the server. Try again later.");
       } else {
