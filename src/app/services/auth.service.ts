@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  public userSubject$ = new Subject<User>();
   public user?: User;
 
   private httpOptions = {
@@ -19,7 +18,25 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.refreshSession();
+  }
+
+  public refreshSession(): void {
+    const refreshToken: string | null = localStorage.getItem("refreshToken");
+
+    if (refreshToken == null) return;
+
+    this.http.post<User>(`${environment.apiUrl}User/GetUserByRefreshToken`, `"${refreshToken}"`, this.httpOptions).subscribe({next: (res) => {
+      this.user = res;
+
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('refreshToken', res.refreshToken);
+    }, error: (error) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+    }})
+  }
 
   public isAuthenticated(): boolean {
     return (this.user != null);
@@ -29,9 +46,9 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions).subscribe({next: (res) => {
         this.user = res;
-        this.userSubject$.next(res);
 
-        localStorage.setItem('token', res.token)
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('refreshToken', res.refreshToken);
 
         resolve(res);
       }, error: (error) => {
