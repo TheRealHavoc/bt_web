@@ -6,6 +6,10 @@
     input {
         @apply input;
     }
+
+    a {
+        @apply cursor-pointer;
+    }
 }
 
 @layer components {
