@@ -60,4 +60,14 @@ export class AuthService {
       }})
     })
   }
+
+  public register(body: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<User>(`${environment.apiUrl}User/Register`, body, this.httpOptions).subscribe({next: (res) => {
+        resolve(res);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
 }
