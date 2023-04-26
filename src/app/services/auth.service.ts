@@ -18,28 +18,19 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) {
-    this.refreshSession();
-  }
-
-  public refreshSession(): void {
-    const refreshToken: string | null = localStorage.getItem("refreshToken");
-
-    if (refreshToken == null) return;
-
-    this.http.post<User>(`${environment.apiUrl}User/GetUserByRefreshToken`, `"${refreshToken}"`, this.httpOptions).subscribe({next: (res) => {
-      this.user = res;
-
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('refreshToken', res.refreshToken);
-    }, error: (error) => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
-    }})
-  }
+  ) { }
 
   public isAuthenticated(): boolean {
-    return (this.user != null);
+    const _isAuthenticated = (this.user != null);
+
+    if (_isAuthenticated) return true;
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+
+    this.user = undefined;
+
+    return false;
   }
 
   public logIn(body: any): Promise<any> {
