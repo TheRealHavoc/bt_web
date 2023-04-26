@@ -21,7 +21,7 @@ export class LogInPageComponent {
     private router: Router,
   ) {
     this.authService.isAuthenticated().then(() => {
-      this.router.navigate(['/menu'])
+      this.router.navigate(['/game'])
     })
   }
 
@@ -31,7 +31,7 @@ export class LogInPageComponent {
     this.authService.logIn(this.form.value).then((res) => {
       this.alertService.success(`Welcome ${res.username}`!);
 
-      this.router.navigate(['/menu']);
+      this.router.navigate(['/game']);
     }).catch((error) => {
       if (error.status === 0) {
         this.alertService.error("Something went wrong connecting to the server. Try again later.");

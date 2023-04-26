@@ -6,12 +6,16 @@ import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { CharacterPageComponent } from './pages/character-page/character-page.component';
 
 const routes: Routes = [
   {path: '', title: 'Landing page', component: LandingPageComponent},
   {path: 'login', title: 'Log in', component: LogInPageComponent},
   {path: 'register', title: 'Register', component: RegisterPageComponent},
-  {path: 'menu', title: 'Menu', component: MenuPageComponent, canActivate: [AuthGuard]},
+  {path: 'game', canActivate: [AuthGuard], children: [
+    {path: '', title: 'Menu', component: MenuPageComponent, pathMatch: 'full'},
+    {path: 'character/:id', title: 'Character', component: CharacterPageComponent},
+  ]},
   {path: '**', title: 'Page not found', component: NotFoundPageComponent}
 ];
 

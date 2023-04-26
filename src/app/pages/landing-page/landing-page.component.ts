@@ -13,7 +13,7 @@ export class LandingPageComponent {
     private router: Router
   ) {
     this.authService.isAuthenticated().then(() => {
-      this.router.navigate(['/menu'])
+      this.router.navigate(['/game'])
     })
   }
 }
