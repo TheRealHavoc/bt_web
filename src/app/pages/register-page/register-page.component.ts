@@ -30,6 +30,12 @@ export class RegisterPageComponent {
   public onSubmit() {
     if (this.form.invalid) return;
 
+    if (this.form.get('password') !== this.form.get('rePassword')) {
+      this.alertService.warning("Passwords do not match.");
+
+      return;
+    }
+
     this.authService.register(this.form.value).then((res) => {
       this.alertService.success("Account created.");
 
