@@ -9,5 +9,5 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'Baldur\'s Trials';
 
-  constructor (public authService: AuthService) {}
+  constructor () {}
 }
