@@ -11,6 +11,7 @@ import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { CharacterCardComponent } from './components/character-card/character-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     AlertsComponent,
     LogInPageComponent,
     MenuPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    CharacterCardComponent
   ],
   imports: [
     BrowserModule,

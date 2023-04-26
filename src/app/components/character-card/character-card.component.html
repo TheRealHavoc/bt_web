@@ -1,0 +1,40 @@
+<div class="aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden transition hover:scale-105 cursor-pointer">
+    <div class="flex flex-col items-center h-full gap-6 relative z-10">
+        <h2 class="font-spectral text-3xl font-bold">{{this.character.name}}</h2>
+
+        <div class="flex flex-col grow justify-center gap-4">
+            <div class="flex flex-col items-center">
+                <p>Armor Class</p>
+                <p class="text-3xl font-bold">{{this.character.armorClass}}</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <p>Max Hit Points</p>
+                <p class="text-3xl font-bold">{{this.character.maxHitPoints}}</p>
+            </div>
+        </div>
+
+        <div class="flex justify-around w-full">
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">STR</h3>
+                <p class="text-2xl font-bold">{{this.calculateAbilityModifier(this.character.strengthScore)}}</p>
+                <p>{{this.character.strengthScore}}</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">DEX</h3>
+                <p class="text-2xl font-bold">{{this.calculateAbilityModifier(this.character.dexterityScore)}}</p>
+                <p>{{this.character.dexterityScore}}</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">CON</h3>
+                <p class="text-2xl font-bold">{{this.calculateAbilityModifier(this.character.constitutionScore)}}</p>
+                <p>{{this.character.constitutionScore}}</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    <img src="{{this.character.avatarUrl}}" alt="" class="absolute inset-0 opacity-30">
+</div>

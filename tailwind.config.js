@@ -18,6 +18,9 @@ module.exports = {
         appSlate800: '#222225',
         appSlate700: '#2B2B2E',
         appSlate600: '#7A7A7C'
+      },
+      aspectRatio: {
+        'card': '3 / 4'
       }
     },
   },
