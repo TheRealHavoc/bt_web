@@ -36,7 +36,7 @@ export class MenuPageComponent {
   ];
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private alertService: AlertService,
     private router: Router
   ) { }
