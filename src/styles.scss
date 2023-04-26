@@ -29,7 +29,7 @@
     }
 
     .btn-flex {
-        @apply flex justify-between;
+        @apply flex justify-between gap-4;
     }
 
     .input {
