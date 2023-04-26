@@ -27,7 +27,7 @@ export class AlertService {
     this._subject.next(new Alert(this._id++, AlertType.warning, title, timeout, message));
   }
 
-  error(title: string, message?: string, timeout = 0) {
+  error(title: string, message?: string, timeout = 4000) {
     this._subject.next(new Alert(this._id++, AlertType.error, title, timeout, message));
   }
 }

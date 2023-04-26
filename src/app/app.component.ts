@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AppContent } from './models/app-content';
 import { catchError, throwError } from 'rxjs';
 
 @Component({
@@ -11,8 +10,6 @@ import { catchError, throwError } from 'rxjs';
 })
 export class AppComponent {
   title = 'Baldur\'s Trials';
-
-  public appContent?: AppContent;
 
   constructor(private http: HttpClient) {}
 }

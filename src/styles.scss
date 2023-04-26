@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-    button {
-        @apply 
-            btn-primary;
-    }
-
     input {
         @apply input;
     }

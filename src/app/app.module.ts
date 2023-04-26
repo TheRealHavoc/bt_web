@@ -8,6 +8,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
