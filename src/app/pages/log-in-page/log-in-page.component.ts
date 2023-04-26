@@ -19,7 +19,11 @@ export class LogInPageComponent {
     private authService: AuthService,
     private alertService: AlertService,
     private router: Router,
-  ) { }
+  ) {
+    this.authService.isAuthenticated().then(() => {
+      this.router.navigate(['/menu'])
+    })
+  }
 
   public onSubmit() {
     if (this.form.invalid) return;

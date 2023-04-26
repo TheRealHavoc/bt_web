@@ -12,7 +12,8 @@ export class LandingPageComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    if (this.authService.user)
+    this.authService.isAuthenticated().then(() => {
       this.router.navigate(['/menu'])
+    })
   }
 }
