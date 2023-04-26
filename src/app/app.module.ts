@@ -9,6 +9,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotFoundPageComponent,
     LandingPageComponent,
     AlertsComponent,
-    LogInPageComponent
+    LogInPageComponent,
+    MenuPageComponent
   ],
   imports: [
     BrowserModule,

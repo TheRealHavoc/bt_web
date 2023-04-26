@@ -21,6 +21,10 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
+  public isAuthenticated(): boolean {
+    return (this.user != null);
+  }
+
   public logIn(body: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions).subscribe({next: (res) => {
