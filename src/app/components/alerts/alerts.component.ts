@@ -38,13 +38,13 @@ export class AlertsComponent {
   className(alert: Alert): string {
     switch (alert.type) {
       case AlertType.success:
-        return "success";
+        return "bg-green-400";
       case AlertType.warning:
-        return "warning";
+        return "bg-yellow-400";
       case AlertType.error:
-        return "error";
+        return "bg-red-400";
       default:
-        return "info";
+        return "bg-blue-400";
     }
   }
 }
