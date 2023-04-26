@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/models/User';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -20,8 +21,8 @@ export class LogInPageComponent {
   ) { }
 
   public onSubmit() {
-    this.authService.logIn(this.form.value).subscribe({next: (res) => {
-      console.log(res)
+    this.authService.logIn(this.form.value).subscribe({next: (res: User) => {
+      this.alertService.success(`Welcome ${res.username}`);
     }, error: (res) => {
       this.alertService.error(res.error);
     }})
