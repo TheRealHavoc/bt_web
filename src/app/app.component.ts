@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +7,4 @@ import { catchError, throwError } from 'rxjs';
 })
 export class AppComponent {
   title = 'Baldur\'s Trials';
-
-  constructor(private http: HttpClient) {}
 }

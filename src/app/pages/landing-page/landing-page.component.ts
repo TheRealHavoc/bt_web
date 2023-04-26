@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent {
-
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    if (this.authService.user)
+      this.router.navigate(['/menu'])
+  }
 }

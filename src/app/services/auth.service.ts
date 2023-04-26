@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from 'src/environments/environment';
 
@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  public userSubject$ = new Subject<User>();
+  public user?: User;
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -18,7 +21,18 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  public logIn(body: any) {
-    return this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions)
+  public logIn(body: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions).subscribe({next: (res) => {
+        this.user = res;
+        this.userSubject$.next(res);
+
+        localStorage.setItem('token', res.token)
+
+        resolve(res);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
   }
 }

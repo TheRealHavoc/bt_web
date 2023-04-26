@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,16 +17,19 @@ export class LogInPageComponent {
 
   constructor(
     private authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router,
   ) { }
 
   public onSubmit() {
     if (this.form.invalid) return;
 
-    this.authService.logIn(this.form.value).subscribe({next: (res: User) => {
+    this.authService.logIn(this.form.value).then(res => {
       this.alertService.success(`Welcome ${res.username}`!);
-    }, error: (res) => {
-      this.alertService.error(res.error);
-    }})
+
+      this.router.navigate(['']);
+    }).catch(error => {
+      this.alertService.error(error.error);
+    });
   }
 }
