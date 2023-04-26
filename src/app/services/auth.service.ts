@@ -70,4 +70,11 @@ export class AuthService {
       }})
     })
   }
+
+  public logOut() {
+    this.user = undefined;
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+  }
 }

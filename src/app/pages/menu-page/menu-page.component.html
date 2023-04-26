@@ -1,3 +1,10 @@
-<p>menu-page works!</p>
+<div class="flex flex-col h-screen">
+    <div class="flex justify-between py-6 px-12">
+        <h2 class="font-spectral text-2xl font-bold">Baldur's Trials</h2>
+        <button class="btn-primary btn-flex" (click)="onLogOutClick()">Log out <span class="material-symbols-outlined">logout</span></button>
+    </div>
 
-<button class="btn-primary" [routerLink]="['/login']">Something</button>
+    <div>
+        <p>menu-page works!</p>
+    </div>
+</div>
