@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LogInPageComponent {
   form: FormGroup = new FormGroup({
-    username: new FormControl('s', Validators.required),
-    password: new FormControl('s', Validators.required)
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   constructor(
