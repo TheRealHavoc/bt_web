@@ -27,9 +27,13 @@ export class LogInPageComponent {
     this.authService.logIn(this.form.value).then(res => {
       this.alertService.success(`Welcome ${res.username}`!);
 
-      this.router.navigate(['']);
+      this.router.navigate(['/menu']);
     }).catch(error => {
-      this.alertService.error(error.error);
+      if (error.status === 0) {
+        this.alertService.error("Something went wrong connecting to the server. Try again later.");
+      } else {
+        this.alertService.error(error.error);
+      }
     });
   }
 }

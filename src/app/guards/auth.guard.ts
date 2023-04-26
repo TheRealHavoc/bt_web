@@ -19,15 +19,14 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (!this.authService.isAuthenticated()) {
+      return this.authService.isAuthenticated().then(() => {
+        return true;
+      }).catch(() => {
         this.router.navigate(['/login']);
 
         this.alertService.warning('You must be logged in to play.');
 
         return false;
-      }
-
-      return true;
-  }
-  
+      })
+    }
 }

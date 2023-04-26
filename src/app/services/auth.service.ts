@@ -12,7 +12,7 @@ export class AuthService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
     })
   }
 
@@ -20,17 +20,30 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  public isAuthenticated(): boolean {
-    const _isAuthenticated = (this.user != null);
+  public isAuthenticated(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.user !== undefined)
+        resolve();
 
-    if (_isAuthenticated) return true;
+      const refreshToken: string | null = localStorage.getItem('refreshToken');
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
+      if (refreshToken === null)
+        return reject();
 
-    this.user = undefined;
+      this.http.post<User>(`${environment.apiUrl}User/GetUserByRefreshToken`, `"${refreshToken}"`, this.httpOptions).subscribe({next: (res) => {
+        this.user = res;
 
-    return false;
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('refreshToken', res.refreshToken);
+
+        resolve();
+      }, error: (error) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+
+        reject();
+      }});
+    });
   }
 
   public logIn(body: any): Promise<any> {
