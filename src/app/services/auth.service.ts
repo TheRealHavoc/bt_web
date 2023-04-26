@@ -19,6 +19,6 @@ export class AuthService {
   ) { }
 
   public logIn(body: any) {
-    return this.http.post(`${environment.apiUrl}User/Login`, body, this.httpOptions)
+    return this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions)
   }
 }
