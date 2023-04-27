@@ -1,73 +1,84 @@
 <div class="flex flex-col h-screen">
     <app-menu-top-bar></app-menu-top-bar>
 
-    <div *ngIf="this.character" class="flex flex-col items-center">
-        <div class="flex gap-6 bg-appSlate900 p-6 rounded-lg w-1/2">
-            <form class="basis-1/2 flex flex-col gap-6" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div class="flex flex-col gap-2">
-                    <input type="text" id="name" class="input" formControlName="name">
-                    <input type="text" id="avatarUrl" class="input" formControlName="avatarUrl">
-                </div>
+    <div *ngIf="this.character" class="flex flex-col items-center justify-center h-full">
+        <div class="w-1/2 flex flex-col gap-4">
+            <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Go back
+            </a>
 
-                <div class="flex gap-4">
+            <div class="flex gap-6 bg-appSlate900 p-6 rounded-lg">
+                <form class="basis-1/2 flex flex-col gap-6" [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="flex flex-col gap-2">
-                        <div class="flex flex-col justify-between items-center w-full h-full gap-4">
-                            <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                <h3 class="font-spectral text-xl font-bold">STR</h3>
-                                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('strScore')?.value)}}</p>
-                                <input type="number" class="input w-12 px-0 text-center" formControlName="strScore">
+                        <input readonly type="text" id="name" class="input" formControlName="name">
+                        <input readonly type="text" id="avatarUrl" class="input" formControlName="avatarUrl">
+                    </div>
+
+                    <div class="flex gap-6">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex flex-col justify-between items-center w-full h-full gap-4">
+                                <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
+                                    <h3 class="font-spectral text-xl font-bold">STR</h3>
+                                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('strScore')?.value)}}</p>
+                                    <input readonly type="number" class="input w-12 px-0 text-center" formControlName="strScore">
+                                </div>
+                
+                                <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
+                                    <h3 class="font-spectral text-xl font-bold">DEX</h3>
+                                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}}</p>
+                                    <input readonly type="number" class="input w-12 px-0 text-center" formControlName="dexScore">
+                                </div>
+                
+                                <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
+                                    <h3 class="font-spectral text-xl font-bold">CON</h3>
+                                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('conScore')?.value)}}</p>
+                                    <input readonly type="number" class="input w-12 px-0 text-center" formControlName="conScore">
+                                </div>
                             </div>
-            
-                            <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                <h3 class="font-spectral text-xl font-bold">DEX</h3>
-                                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}}</p>
-                                <input type="number" class="input w-12 px-0 text-center" formControlName="dexScore">
+                        </div>
+
+                        <div class="flex flex-col gap-6 grow">
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
+                                    <h3 class="font-spectral text-xl font-bold">AC</h3>
+                                    <p class="text-3xl font-bold">{{11 + this.getAbilityModifier(this.form.get('conScore')?.value)}}</p>
+                                </div>
+                                <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
+                                    <h3 class="font-spectral text-xl font-bold">Max HP</h3>
+                                    <p class="text-3xl font-bold">{{(this.form.get('conScore')?.value * 2) + this.getAbilityModifier(this.form.get('conScore')?.value)}}</p>
+                                </div>
                             </div>
-            
-                            <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                <h3 class="font-spectral text-xl font-bold">CON</h3>
-                                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.form.get('conScore')?.value)}}</p>
-                                <input type="number" class="input w-12 px-0 text-center" formControlName="conScore">
+
+                            <div class="flex flex-col gap-2 bg-appSlate800 p-4 rounded-lg grow">
+                                <div class="flex justify-between">
+                                    <p class="font-bold w-full">Longsword</p>
+                                    <p class="font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value + 2)}}</p>
+                                    <p class="font-bold w-full text-right">1d8{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}} Slashing</p>
+                                </div>
+                                <div class="flex justify-between">
+                                    <p class="font-bold w-full">Bow</p>
+                                    <p class="font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value + 2)}}</p>
+                                    <p class="font-bold w-full text-right">1d6{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}} Piercing</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 grow">
-                        <div class="flex gap-4">
-                            <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
-                                <h3 class="font-spectral text-xl font-bold">AC</h3>
-                                <p class="text-3xl font-bold">{{11 + this.getAbilityModifier(this.form.get('conScore')?.value)}}</p>
-                            </div>
-                            <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
-                                <h3 class="font-spectral text-xl font-bold">Max HP</h3>
-                                <p class="text-3xl font-bold">{{(this.form.get('conScore')?.value * 2) + this.getAbilityModifier(this.form.get('conScore')?.value)}}</p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-2 bg-appSlate800 p-4 rounded-lg grow">
-                            <div class="flex justify-between">
-                                <p class="font-bold w-full">Longsword</p>
-                                <p class="font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value + 2)}}</p>
-                                <p class="font-bold w-full text-right">1d8{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}} Slashing</p>
-                            </div>
-                            <div class="flex justify-between">
-                                <p class="font-bold w-full">Bow</p>
-                                <p class="font-bold">{{this.calculateAbilityModifier(this.form.get('dexScore')?.value + 2)}}</p>
-                                <p class="font-bold w-full text-right">1d6{{this.calculateAbilityModifier(this.form.get('dexScore')?.value)}} Piercing</p>
-                            </div>
-                        </div>
+                    <div class="flex flex-col gap-2 justify-center items-center bg-appSlate800 p-4 rounded-lg">
+                        <h2>Demo character</h2>
                     </div>
-                </div>
 
-                <div class="flex flex-col gap-2 justify-end">
-                    <button type="submit" class="btn-primary btn-flex">Save character<span class="material-symbols-outlined">save</span></button>
-                    <button type="button" class="btn-secondary btn-flex">Reset values<span class="material-symbols-outlined">restart_alt</span></button>
-                </div>
-            </form>
+                    <!-- <div class="flex flex-col gap-2 justify-end">
+                        <button type="submit" class="btn-primary btn-flex">Save character<span class="material-symbols-outlined">save</span></button>
+                        <button type="button" class="btn-secondary btn-flex">Reset values<span class="material-symbols-outlined">restart_alt</span></button>
+                    </div> -->
+                </form>
 
-            <div class="basis-1/2">
-                <img src="{{this.form.get('avatarUrl')?.value}}" alt="" class="aspect-card object-cover bg-center h-full w-full rounded-lg">
-            </div>
+                <div class="basis-1/2">
+                    <img src="{{this.form.get('avatarUrl')?.value}}" alt="" class="aspect-card object-cover bg-center h-full w-full rounded-lg">
+                </div>
+            </div> 
         </div>
     </div>
 </div>

@@ -2,20 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 @layer base {
+
+
     input {
         @apply input;
+
+        &:read-only {
+            @apply border-none;
+        }
     }
 
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
 
-    /* Firefox */
     input[type=number] {
-    -moz-appearance: textfield;
+        -moz-appearance: textfield;
     }
 
     a {
