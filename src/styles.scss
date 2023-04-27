@@ -30,7 +30,7 @@
     }
 
     a {
-        @apply cursor-pointer;
+        @apply transition cursor-pointer hover:opacity-60;
     }
 }
 
