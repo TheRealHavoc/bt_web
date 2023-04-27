@@ -11,7 +11,7 @@ import { CharacterService } from 'src/app/services/character.service';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent {
-  public readonly _MAXCHARACTERCOUNT = 3;
+  public readonly _MAXCHARACTERCOUNT;
 
   public characters: Character[] | undefined;
 
@@ -22,6 +22,8 @@ export class MenuPageComponent {
     private characterService: CharacterService
   ) {
     this.characters = this.characterService.characters;
+
+    this._MAXCHARACTERCOUNT = this.characters.length;
   }
 
   public onLogOutClick() {

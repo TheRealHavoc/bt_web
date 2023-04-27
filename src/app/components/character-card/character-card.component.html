@@ -1,5 +1,5 @@
 <ng-container *ngIf="this.character">
-    <div class="aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden transition hover:scale-105 cursor-pointer">
+    <div class="group aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden transition hover:scale-105 cursor-pointer">
         <div class="flex flex-col h-full gap-6 relative z-10">
             <h2 class="font-spectral text-3xl font-bold text-center h-full">{{this.character.name}}</h2>
 
@@ -37,6 +37,6 @@
         </div>
         
         
-        <img src="{{this.character.avatarUrl}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+        <img src="{{this.character.avatarUrl}}" alt="" class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
     </div>
 </ng-container>
