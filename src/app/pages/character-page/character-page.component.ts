@@ -1,10 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Attack } from 'src/app/models/Attack';
 import { Character } from 'src/app/models/Character';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
 import { Helpers } from 'src/app/utils/helpers';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-character-page',
@@ -13,8 +16,14 @@ import { Helpers } from 'src/app/utils/helpers';
 })
 export class CharacterPageComponent {
   public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
+  public convertAttackAttrStringToValue = Helpers.convertAttackAttrStringToValue;
+  public convertModifierToString = Helpers.convertModifierToString;
+
+  generateAttackString = Helpers.generateAttackString;
+  generateDamageString = Helpers.generateDamageString;
 
   public character: Character | undefined;
+  public attacks: Attack[] | undefined;
 
   form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -27,6 +36,8 @@ export class CharacterPageComponent {
   constructor(
     public characterService: CharacterService,
     private route: ActivatedRoute,
+
+    private http: HttpClient // temp
   ) {
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -37,15 +48,10 @@ export class CharacterPageComponent {
     this.form.get('strScore')?.setValue(this.character?.strengthScore);
     this.form.get('dexScore')?.setValue(this.character?.dexterityScore);
     this.form.get('conScore')?.setValue(this.character?.constitutionScore);
-  }
 
-  public calculateAbilityModifier(score: number): string {
-    let modifier = Helpers.convertAbilityScoreToAbilityScoreModifier(score);
-
-    if (modifier < 0)
-      return `${modifier}`;
-
-    return `+${modifier}`;
+    this.http.get<Attack[]>(`${environment.apiUrl}Attack/GetAllAttacks`).subscribe({next: (res) => { // temp
+      this.attacks = res;
+    }})
   }
 
   public onSubmit() {
