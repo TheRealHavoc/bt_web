@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Character } from 'src/app/models/Character';
-import { AbilityModifier } from 'src/app/utils/ability-modifier';
+import { Helpers } from 'src/app/utils/helpers';
 
 @Component({
   selector: 'app-character-card',
@@ -11,7 +11,7 @@ export class CharacterCardComponent {
   @Input() character: Character | undefined;
 
   public calculateAbilityModifier(score: number): string {
-    let modifier = AbilityModifier.calculate(score);
+    let modifier = Helpers.convertAbilityScoreToAbilityScoreModifier(score);
 
     if (modifier < 0)
       return `${modifier}`;

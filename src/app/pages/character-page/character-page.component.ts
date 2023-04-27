@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Character } from 'src/app/models/Character';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
-import { AbilityModifier } from 'src/app/utils/ability-modifier';
+import { Helpers } from 'src/app/utils/helpers';
 
 @Component({
   selector: 'app-character-page',
@@ -12,7 +12,7 @@ import { AbilityModifier } from 'src/app/utils/ability-modifier';
   styleUrls: ['./character-page.component.scss']
 })
 export class CharacterPageComponent {
-  public getAbilityModifier = AbilityModifier.calculate;
+  public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
 
   public character: Character | undefined;
 
@@ -40,7 +40,7 @@ export class CharacterPageComponent {
   }
 
   public calculateAbilityModifier(score: number): string {
-    let modifier = AbilityModifier.calculate(score);
+    let modifier = Helpers.convertAbilityScoreToAbilityScoreModifier(score);
 
     if (modifier < 0)
       return `${modifier}`;
