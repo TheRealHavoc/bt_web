@@ -19,7 +19,7 @@ export class CharacterService {
     {
       id: "zyxv",
       name: "Mardok The Cruel",
-      avatarUrl: "https://b2358178.smushcdn.com/2358178/wp-content/uploads/2022/01/HalfOrc-Illustration.jpg?lossy=1&strip=1&webp=1",
+      avatarUrl: "https://cdnb.artstation.com/p/assets/images/images/053/718/019/large/matthaeus-milletti-kpeaze-orc-wearing-armor-style-of-dnd-character-concept-intrica-01bacfe9-4187-4495-bab0-a02498c30221.jpg?1663521038",
       armorClass: 10,
       maxHitPoints: 32,
       strengthScore: 16,
