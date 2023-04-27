@@ -30,7 +30,7 @@ export class RegisterPageComponent {
   public onSubmit() {
     if (this.form.invalid) return;
 
-    if (this.form.get('password') !== this.form.get('rePassword')) {
+    if (this.form.get('password')?.value !== this.form.get('rePassword')?.value) {
       this.alertService.warning("Passwords do not match.");
 
       return;
