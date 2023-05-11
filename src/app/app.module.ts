@@ -14,6 +14,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { CharacterCardComponent } from './components/character-card/character-card.component';
 import { CharacterPageComponent } from './pages/character-page/character-page.component';
 import { MenuTopBarComponent } from './components/menu-top-bar/menu-top-bar.component';
+import { OrDividerComponent } from './components/or-divider/or-divider.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MenuTopBarComponent } from './components/menu-top-bar/menu-top-bar.comp
     RegisterPageComponent,
     CharacterCardComponent,
     CharacterPageComponent,
-    MenuTopBarComponent
+    MenuTopBarComponent,
+    OrDividerComponent
   ],
   imports: [
     BrowserModule,

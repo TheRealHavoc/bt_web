@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Character } from 'src/app/models/Character';
 import { AlertService } from 'src/app/services/alert.service';
@@ -11,6 +12,12 @@ import { CharacterService } from 'src/app/services/character.service';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent {
+  processingRequest: boolean = false;
+
+  joinForm: FormGroup = new FormGroup({
+    code: new FormControl('', Validators.required)
+  });
+
   public readonly _MAXCHARACTERCOUNT;
 
   public characters: Character[] | undefined;
@@ -34,5 +41,17 @@ export class MenuPageComponent {
 
   public onNewCharacterCardClick() {
 
+  }
+
+  public onJoinSubmit() {
+    if (this.joinForm.invalid) return;
+
+    this.processingRequest = true;
+
+    setTimeout(() => {
+      this.processingRequest = false;
+
+      this.alertService.error(`Could not find game with code ${this.joinForm.get('code')?.value}`);
+    }, 1600);
   }
 }
