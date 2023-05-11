@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent {
+  processingRequest: boolean = false;
+
   form: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -30,6 +32,8 @@ export class RegisterPageComponent {
   public onSubmit() {
     if (this.form.invalid) return;
 
+    this.processingRequest = true;
+
     if (this.form.get('password')?.value !== this.form.get('rePassword')?.value) {
       this.alertService.warning("Passwords do not match.");
 
@@ -46,6 +50,8 @@ export class RegisterPageComponent {
       } else {
         this.alertService.error(error.error);
       }
+    }).finally(() => {
+      this.processingRequest = false;
     });
   }
 }
