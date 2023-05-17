@@ -18,7 +18,7 @@ export class MenuPageComponent {
     code: new FormControl('', Validators.required)
   });
 
-  public readonly _MAXCHARACTERCOUNT;
+  public  _MAXCHARACTERCOUNT = 0;
 
   public characters: Character[] | undefined;
 
@@ -28,9 +28,11 @@ export class MenuPageComponent {
     private router: Router,
     private characterService: CharacterService
   ) {
-    this.characters = this.characterService.characters;
+    this.characterService.getCharacters().then(characters => {
+      this.characters = characters;
 
-    this._MAXCHARACTERCOUNT = this.characters.length;
+      this._MAXCHARACTERCOUNT = characters.length;
+    })
   }
 
   public onLogOutClick() {

@@ -1,7 +1,7 @@
 export interface Character {
     id: string;
     name: string;
-    avatarUrl: string;
+    avatarURL: string;
     proficiencyBonus: number;
     armorClass: number;
     maxHitPoints: number;

@@ -27,7 +27,7 @@ export class CharacterPageComponent {
 
   form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-    avatarUrl: new FormControl('', Validators.required),
+    avatarURL: new FormControl('', Validators.required),
     strScore: new FormControl('', Validators.required),
     dexScore: new FormControl('', Validators.required),
     conScore: new FormControl('', Validators.required)
@@ -41,10 +41,10 @@ export class CharacterPageComponent {
   ) {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.character = this.characterService.characters.find(item => item.id == id);
+    // this.character = this.characterService.characters.find(item => item.id == id);
 
     this.form.get('name')?.setValue(this.character?.name);
-    this.form.get('avatarUrl')?.setValue(this.character?.avatarUrl);
+    this.form.get('avatarURL')?.setValue(this.character?.avatarURL);
     this.form.get('strScore')?.setValue(this.character?.strengthScore);
     this.form.get('dexScore')?.setValue(this.character?.dexterityScore);
     this.form.get('conScore')?.setValue(this.character?.constitutionScore);
