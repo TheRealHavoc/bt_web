@@ -20,4 +20,14 @@ export class CharacterService {
         }})
       })
     }
+
+    public getCharacter(id: string): Promise<any> {
+      return new Promise((resolve, reject) => {
+        this.http.get<Character[]>(`${environment.apiUrl}Character/GetCharacter?characterId=${id}`).subscribe({next: (res) => {
+          resolve(res);
+        }, error: (error) => {
+          reject(error);
+        }})
+      })
+    }
 }

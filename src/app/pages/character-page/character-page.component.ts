@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Attack } from 'src/app/models/Attack';
 import { Character } from 'src/app/models/Character';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
 import { Helpers } from 'src/app/utils/helpers';
@@ -36,22 +37,24 @@ export class CharacterPageComponent {
   constructor(
     public characterService: CharacterService,
     private route: ActivatedRoute,
-
-    private http: HttpClient // temp
+    private alertService: AlertService
   ) {
     const id = this.route.snapshot.paramMap.get('id');
 
-    // this.character = this.characterService.characters.find(item => item.id == id);
+    if (id == null) {
+      this.alertService.error('No character ID given.');
+      return;
+    }
 
-    this.form.get('name')?.setValue(this.character?.name);
-    this.form.get('avatarURL')?.setValue(this.character?.avatarURL);
-    this.form.get('strScore')?.setValue(this.character?.strengthScore);
-    this.form.get('dexScore')?.setValue(this.character?.dexterityScore);
-    this.form.get('conScore')?.setValue(this.character?.constitutionScore);
+    this.characterService.getCharacter(id).then(character => {
+      this.character = character;
 
-    this.http.get<Attack[]>(`${environment.apiUrl}Attack/GetAllAttacks`).subscribe({next: (res) => { // temp
-      this.attacks = res;
-    }})
+      this.form.get('name')?.setValue(this.character?.name);
+      this.form.get('avatarURL')?.setValue(this.character?.avatarURL);
+      this.form.get('strScore')?.setValue(this.character?.strengthScore);
+      this.form.get('dexScore')?.setValue(this.character?.dexterityScore);
+      this.form.get('conScore')?.setValue(this.character?.constitutionScore);
+    })
   }
 
   public onSubmit() {
