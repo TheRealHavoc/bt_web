@@ -15,6 +15,7 @@ import { CharacterCardComponent } from './components/character-card/character-ca
 import { CharacterPageComponent } from './pages/character-page/character-page.component';
 import { MenuTopBarComponent } from './components/menu-top-bar/menu-top-bar.component';
 import { OrDividerComponent } from './components/or-divider/or-divider.component';
+import { FullLoaderComponent } from './components/full-loader/full-loader.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { OrDividerComponent } from './components/or-divider/or-divider.component
     CharacterCardComponent,
     CharacterPageComponent,
     MenuTopBarComponent,
-    OrDividerComponent
+    OrDividerComponent,
+    FullLoaderComponent
   ],
   imports: [
     BrowserModule,

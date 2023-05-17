@@ -72,3 +72,18 @@
   'GRAD' 0,
   'opsz' 24
 }
+
+.loader {
+    margin: auto;
+    border: 12px solid white;
+    border-radius: 50%;
+    border-top: 12px solid theme('colors.appSlate600');
+    width: 120px;
+    height: 120px;
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
