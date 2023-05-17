@@ -12,8 +12,6 @@ import { CharacterService } from 'src/app/services/character.service';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent {
-  loadingCharacters: boolean = true;
-
   processingRequest: boolean = false;
 
   joinForm: FormGroup = new FormGroup({
@@ -34,8 +32,6 @@ export class MenuPageComponent {
       this.characters = characters;
 
       this._MAXCHARACTERCOUNT = characters.length;
-
-      this.loadingCharacters = false;
     })
   }
 
