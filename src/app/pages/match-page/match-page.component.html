@@ -1,7 +1,7 @@
 <div class="flex flex-col h-screen">
     <app-menu-top-bar></app-menu-top-bar>
 
-    <div *ngIf="this.matchService.activeMatch !== undefined">
+    <ng-container *ngIf="this.matchService.activeMatch !== undefined">
         <div *ngIf="this.matchService.activeMatch" class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-56">
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between items-center w-full">
@@ -11,7 +11,7 @@
                     </a>
 
                     <button *ngIf="this.matchService.activeMatch.hostUser.username === this.authService.user?.username" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
-                    <button *ngIf="this.matchService.activeMatch.hostUser.username != this.authService.user?.username" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+                    <button *ngIf="this.matchService.activeMatch.hostUser.username !== this.authService.user?.username" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
                 </div>
 
                 <div class="flex gap-4 justify-between items-center w-full">
@@ -63,7 +63,15 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <div *ngIf="!this.matchService.activeMatch" class="flex flex-col gap-4 items-center justify-center h-full">
+            <h1 class="font-spectral text-5xl font-bold">Page not found</h1>
+            <button [routerLink]="['']" class="btn-flex">
+                Go home
+                <span class="material-symbols-outlined">fort</span>
+            </button>
+        </div>
+    </ng-container>
 
     <app-full-loader class="h-full" *ngIf="this.matchService.activeMatch === undefined"/>
 </div>
