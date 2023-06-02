@@ -15,7 +15,11 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent implements OnDestroy {
-  processingRequest: boolean = false;
+  public processingJoin: boolean = false;
+
+  public joinForm: FormGroup = new FormGroup({
+    code: new FormControl('', Validators.required)
+  });
 
   public characters: Character[] | undefined;
   public match: Match | null | undefined;
@@ -45,6 +49,23 @@ export class MenuPageComponent implements OnDestroy {
       this.router.navigate(['/game/match']);
       this.alertService.success('Match created.');
     })
+  }
+
+  public onJoinSubmit() {
+    this.processingJoin = true;
+
+    if (this.joinForm.invalid) return;
+
+    let value = this.joinForm.get('code')?.value;
+
+    if (value === null) return;
+
+    this.matchService.joinMatch(value).then((match) => {
+      this.router.navigate(['/game/match']);
+      this.alertService.success('Match joined.');
+    })
+
+    this.processingJoin = false;
   }
 
   ngOnDestroy(): void {

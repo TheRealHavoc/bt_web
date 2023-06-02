@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Character } from 'src/app/models/Character';
 import { Match } from 'src/app/models/Match';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
 import { MatchService } from 'src/app/services/match.service';
 
@@ -17,6 +18,7 @@ export class MatchPageComponent implements OnDestroy {
 
   constructor(
     public matchService: MatchService,
+    public authService: AuthService,
     private alertService: AlertService,
     private characterService: CharacterService,
     private router: Router,
@@ -34,12 +36,26 @@ export class MatchPageComponent implements OnDestroy {
   }
 
   public onEndMatchClick() {
-
     if (!this.matchService.activeMatch) return;
 
     this.matchService.endMatch(this.matchService.activeMatch.id).then((match) => {
       this.alertService.success("Match has ended.");
       this.router.navigate(['/game']);
+    }).catch((err) => {
+      if (err.status === 401)
+        this.alertService.error("You are not authorized to end the match.");
+    });
+  }
+
+  public onLeaveMatchClick() {
+    if (!this.matchService.activeMatch) return;
+
+    this.matchService.leaveMatch(this.matchService.activeMatch.id).then((match) => {
+      this.alertService.success("You have left the match.");
+      this.router.navigate(['/game']);
+    }).catch((err) => {
+      if (err.status === 401)
+        this.alertService.error("You are not authorized to end the match.");
     });
   }
   

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { Match } from '../models/Match';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
@@ -31,6 +30,7 @@ export class MatchService {
 
       this.interval = setInterval(() => {
         this.getMatchByAuth().then((match) => {
+          console.log(match)
           this.activeMatch = match;
         }).catch((res) => {
           if (res.status === 404)
@@ -57,6 +57,16 @@ export class MatchService {
     })
   }
 
+  public joinMatch(matchId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/JoinMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {
@@ -70,6 +80,16 @@ export class MatchService {
   public endMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/EndMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
+  public leaveMatch(matchId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/LeaveMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
         resolve(res as Match);
       }, error: (error) => {
         reject(error);

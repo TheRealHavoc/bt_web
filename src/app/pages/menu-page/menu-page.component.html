@@ -6,9 +6,20 @@
             <div class="flex flex-col justify-around gap-4 h-full">
 
                 <div *ngIf="this.matchService.activeMatch !== undefined">
-                    <div *ngIf="!this.matchService.activeMatch" class="flex flex-col items-stretch gap-4">
-                        <h1 class="text-2xl text-center">Create new match</h1>
-                        <button class="btn-primary" (click)="this.onCreateMatchClick()">Create</button>
+                    <div *ngIf="!this.matchService.activeMatch" class="flex flex-col justify-around gap-4 h-full">
+                        <div class="flex flex-col items-stretch gap-4">
+                            <h1 class="text-2xl text-center">Create new match</h1>
+                            <button class="btn-primary" (click)="this.onCreateMatchClick()">Create</button>
+                        </div>
+
+                        <app-or-divider/>
+
+                        <form class="flex flex-col items-stretch gap-4" [formGroup]="joinForm" (ngSubmit)="this.onJoinSubmit()">
+                            <h1 class="text-2xl text-center">Join a game</h1>
+                            <input type="text" id="code" class="input" placeholder="S3CR3T" formControlName="code">
+                            <button *ngIf="!this.processingJoin" class="btn-primary" type="submit" [disabled]="joinForm.invalid">Join game</button>
+                            <button *ngIf="this.processingJoin" type="button" class="btn-primary" disabled>Joining game...</button>
+                        </form>
                     </div>
 
                     <div *ngIf="this.matchService.activeMatch" class="flex flex-col items-stretch gap-4">
