@@ -26,11 +26,15 @@ export class MatchService {
   ) { }
 
   public startPing() {
-    this.interval = setInterval(() => {
-      this.getMatchByAuth().then((match) => {
-        this.activeMatch = match;
-      });
-    }, environment.pingInterval);
+    this.getMatchByAuth().then((match) => {
+      this.activeMatch = match;
+
+      this.interval = setInterval(() => {
+        this.getMatchByAuth().then((match) => {
+          this.activeMatch = match;
+        });
+      }, environment.pingInterval);
+    });
   }
 
   public endPing() {
