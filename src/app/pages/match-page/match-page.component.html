@@ -1,8 +1,8 @@
 <div class="flex flex-col h-screen">
     <app-menu-top-bar></app-menu-top-bar>
 
-    <div *ngIf="this.match !== undefined">
-        <div *ngIf="this.match" class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-56">
+    <div *ngIf="this.matchService.activeMatch !== undefined">
+        <div *ngIf="this.matchService.activeMatch" class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-56">
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between items-center w-full">
                     <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
@@ -15,7 +15,7 @@
 
                 <div class="flex gap-4 justify-between items-center w-full">
                     <button class="btn-flex btn-primary text-2xl bg-green-400" disabled>Ready <span class="material-symbols-outlined">check</span></button>
-                    <button class="btn-flex text-4xl" (click)="copyToClipboard(this.match.id)">{{this.match.id}} <span class="material-symbols-outlined">content_copy</span></button>
+                    <button class="btn-flex text-4xl" (click)="copyToClipboard(this.matchService.activeMatch.id)">{{this.matchService.activeMatch.id}} <span class="material-symbols-outlined">content_copy</span></button>
                 </div>
             </div>
 
@@ -64,5 +64,5 @@
         </div>
     </div>
 
-    <app-full-loader class="h-full" *ngIf="this.match === undefined"/>
+    <app-full-loader class="h-full" *ngIf="this.matchService.activeMatch === undefined"/>
 </div>

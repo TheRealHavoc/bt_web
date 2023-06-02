@@ -18,7 +18,7 @@ export class MatchService {
     })
   }
 
-  public activeMatch$ = new Subject<Match>();
+  public activeMatch: Match | null | undefined;
 
   constructor(
     private http: HttpClient,
@@ -28,7 +28,7 @@ export class MatchService {
   public startPing() {
     this.interval = setInterval(() => {
       this.getMatchByAuth().then((match) => {
-        this.activeMatch$.next(match);
+        this.activeMatch = match;
       });
     }, environment.pingInterval);
   }

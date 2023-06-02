@@ -12,22 +12,16 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./match-page.component.scss']
 })
 export class MatchPageComponent implements OnDestroy {
-  private matchSubscription: Subscription;
-
   public characters: Character[] | undefined;
-  public match: Match | undefined;
+  public match: Match | null | undefined;
 
   constructor(
+    public matchService: MatchService,
     private alertService: AlertService,
     private characterService: CharacterService,
-    private matchService: MatchService,
   ) {
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
-    });
-
-    this.matchSubscription = this.matchService.activeMatch$.subscribe((match) => {
-      this.match = match;
     });
 
     this.matchService.startPing();
@@ -39,7 +33,6 @@ export class MatchPageComponent implements OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.matchSubscription.unsubscribe();
     this.matchService.endPing();
   }
 }
