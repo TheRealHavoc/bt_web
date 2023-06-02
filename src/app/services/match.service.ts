@@ -32,8 +32,14 @@ export class MatchService {
       this.interval = setInterval(() => {
         this.getMatchByAuth().then((match) => {
           this.activeMatch = match;
-        });
+        }).catch((res) => {
+          if (res.status === 404)
+            this.activeMatch = null;
+        })
       }, environment.pingInterval);
+    }).catch((res) => {
+      if (res.status === 404)
+        this.activeMatch = null;
     });
   }
 
@@ -54,6 +60,16 @@ export class MatchService {
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
+  public endMatch(matchId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/EndMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
