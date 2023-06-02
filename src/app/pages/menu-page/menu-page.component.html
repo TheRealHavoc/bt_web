@@ -1,32 +1,27 @@
 <div class="flex flex-col h-screen">
     <app-menu-top-bar></app-menu-top-bar>
 
+    <button [routerLink]="['match']">heyo</button>
+
     <div *ngIf="this.characters" class="flex items-center justify-center gap-4 h-full">
         <div class="play-card">
             <div class="flex flex-col justify-around gap-4 h-full">
-                <div class="flex flex-col items-stretch gap-4">
-                    <h1 class="text-2xl text-center">Create new lobby</h1>
-                    <button class="btn-primary">Create</button>
+
+                <div *ngIf="this.match !== undefined">
+                    <div *ngIf="!this.match" class="flex flex-col items-stretch gap-4">
+                        <h1 class="text-2xl text-center">Create new match</h1>
+                        <button class="btn-primary" (click)="this.onCreateMatchClick()">Create</button>
+                    </div>
+
+                    <div *ngIf="this.match" class="flex flex-col items-stretch gap-4">
+                        <h1 class="text-2xl text-center">Match in progress</h1>
+                        <button class="btn-primary" [routerLink]="['match']">Join</button>
+                    </div>
                 </div>
-
-                <app-or-divider></app-or-divider>
-
-                <form class="flex flex-col items-stretch gap-4" [formGroup]="joinForm" (ngSubmit)="this.onJoinSubmit()">
-                    <h1 class="text-2xl text-center">Join a game</h1>
-                    <input type="text" id="code" class="input" placeholder="S3CR3T" formControlName="code">
-                    <button *ngIf="!this.processingRequest" class="btn-primary" type="submit" [disabled]="joinForm.invalid">Join game</button>
-                    <button *ngIf="this.processingRequest" type="button" class="btn-primary" disabled>Joining game...</button>
-                </form>
+                <app-full-loader *ngIf="this.match === undefined"/>
             </div>
         </div>
 
-        <ng-container *ngFor="let item of [].constructor(this._MAXCHARACTERCOUNT); let i = index">
-            <app-character-card *ngIf="i < this.characters.length" [character]="this.characters[i]" [routerLink]="['character', this.characters[i].id]"></app-character-card>
-
-            <div (click)="this.onNewCharacterCardClick()" *ngIf="i >= this.characters.length" class="flex flex-col items-center justify-center aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden transition hover:opacity-60 cursor-pointer">
-                <h2 class="font-bold text-2xl">Empty slot</h2>
-                <p>Click to add new character</p>
-            </div>
-        </ng-container>
+        <app-character-card *ngFor="let character of this.characters" [character]="character" [routerLink]="['character', character.id]" ></app-character-card>
     </div>
 </div>

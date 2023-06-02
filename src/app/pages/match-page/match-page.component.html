@@ -1,50 +1,68 @@
 <div class="flex flex-col h-screen">
     <app-menu-top-bar></app-menu-top-bar>
 
-    <div class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-96">
-        <div class="flex justify-between items-center w-full">
-            <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
-                <span class="material-symbols-outlined">arrow_back</span>
-                Go back
-            </a>
+    <div *ngIf="this.match !== undefined">
+        <div *ngIf="this.match" class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-56">
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between items-center w-full">
+                    <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Go back
+                    </a>
 
-            <button class="btn-secondary">Match settings</button>
-        </div>
+                    <button class="btn-secondary">Leave match</button>
+                </div>
 
-        <div class="flex gap-4 justify-between items-center w-full">
-            <button class="btn-flex btn-primary text-2xl bg-green-400" disabled>Ready <span class="material-symbols-outlined">check</span></button>
-            <button class="btn-flex text-4xl">S3CR3T <span class="material-symbols-outlined">content_copy</span></button>
-        </div>
+                <div class="flex gap-4 justify-between items-center w-full">
+                    <button class="btn-flex btn-primary text-2xl bg-green-400" disabled>Ready <span class="material-symbols-outlined">check</span></button>
+                    <button class="btn-flex text-4xl" (click)="copyToClipboard(this.match.id)">{{this.match.id}} <span class="material-symbols-outlined">content_copy</span></button>
+                </div>
+            </div>
 
-        <div *ngIf="this.characters" class="flex gap-4 justify-between w-full">
-            <div class="rounded-lg px-4 py-2 relative overflow-hidden">
-                <div class="flex gap-12 relative z-10 items-center">
-                    <div class="font-spectral text-2xl font-bold">Tara Qim</div>
-                    <div class="flex gap-2 items-center">
-                        <div class="opacity-60">Getting ready</div>
-                        <span class="material-symbols-outlined">check_box_outline_blank</span>
+            <app-divider class="w-full"/>
+
+            <div class="flex gap-8 justify-between w-full">
+                <div *ngIf="this.characters" class="w-4/12 flex flex-col gap-4">
+                    <div class="flex gap-4 items-center">
+                        <div class="w-full rounded-lg px-4 py-2 relative overflow-hidden">
+                            <div class="flex gap-12 relative z-10 items-center justify-between">
+                                <div class="font-spectral text-2xl font-bold">string</div>
+                                <div class="flex gap-2 items-center">
+                                    <div class="opacity-40">Getting ready</div>
+                                    <span class="material-symbols-outlined">check_box_outline_blank</span>
+                                </div>
+                            </div>
+                            <img src="{{this.characters[0].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+                        </div>
+
+                        <span class="w-2/12">Host</span>
+                    </div>
+                    <div class="flex gap-4 items-center">
+                        <div class="w-full outline outline-offset-2 outline-2 outline-green-400 rounded-lg px-4 py-2 relative overflow-hidden">
+                            <div class="flex gap-12 relative z-10 items-center justify-between">
+                                <div class="font-spectral text-2xl font-bold">Noobmaster69</div>
+                                <div class="flex gap-2 items-center">
+                                    <div>Ready!</div>
+                                    <span class="material-symbols-outlined">check_box</span>
+                                </div>
+                            </div>
+                            <img src="{{this.characters[1].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+                        </div>
+
+                        <span class="w-2/12"></span>
                     </div>
                 </div>
-                <img src="{{this.characters[0].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
-            </div>
-            <div class="outline outline-offset-2 outline-2 outline-green-400 rounded-lg px-4 py-2 relative overflow-hidden">
-                <div class="flex gap-12 relative z-10 items-center">
-                    <div class="font-spectral text-2xl font-bold">Marduk the Cruel</div>
-                    <div class="flex gap-2 items-center">
-                        <div>Ready!</div>
-                        <span class="material-symbols-outlined">check_box</span>
+
+                <div class="flex flex-col gap-4">
+                    <h2 class="text-2xl font-bold">Select a character</h2>
+
+                    <div class="flex flex-col gap-4 h-full">
+                        <app-character-card *ngFor="let character of this.characters" [character]="character"></app-character-card>
                     </div>
                 </div>
-                <img src="{{this.characters[1].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
             </div>
-        </div>
-
-        <app-divider class="w-full"/>
-
-        <h2 class="text-2xl font-bold">Choose a character</h2>
-
-        <div class="flex gap-4">
-            <app-character-card *ngFor="let character of this.characters" [character]="character"></app-character-card>
         </div>
     </div>
+
+    <app-full-loader class="h-full" *ngIf="this.match === undefined"/>
 </div>

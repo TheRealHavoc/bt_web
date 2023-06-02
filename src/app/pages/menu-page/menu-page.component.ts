@@ -1,38 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Character } from 'src/app/models/Character';
+import { Match } from 'src/app/models/Match';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
+import { MatchService } from 'src/app/services/match.service';
 
 @Component({
   selector: 'app-menu-page',
   templateUrl: './menu-page.component.html',
   styleUrls: ['./menu-page.component.scss']
 })
-export class MenuPageComponent {
+export class MenuPageComponent implements OnDestroy {
+  private matchSubscription: Subscription;
+
   processingRequest: boolean = false;
 
-  joinForm: FormGroup = new FormGroup({
-    code: new FormControl('', Validators.required)
-  });
-
-  public  _MAXCHARACTERCOUNT = 0;
-
   public characters: Character[] | undefined;
+  public match: Match | null | undefined;
 
   constructor(
     public authService: AuthService,
     private alertService: AlertService,
     private router: Router,
-    private characterService: CharacterService
+    private characterService: CharacterService,
+    private matchService: MatchService
   ) {
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
+    });
 
-      this._MAXCHARACTERCOUNT = characters.length;
-    })
+    this.matchSubscription = this.matchService.activeMatch$.subscribe((match) => {
+      this.match = match;
+    });
+
+    this.matchService.startPing();
   }
 
   public onLogOutClick() {
@@ -41,19 +46,15 @@ export class MenuPageComponent {
     this.alertService.info("You have been signed out");
   }
 
-  public onNewCharacterCardClick() {
-
+  public onCreateMatchClick() {
+    this.matchService.createMatch().then((res) => {
+      this.router.navigate(['/game/match']);
+      this.alertService.success('Match created.');
+    })
   }
 
-  public onJoinSubmit() {
-    if (this.joinForm.invalid) return;
-
-    this.processingRequest = true;
-
-    setTimeout(() => {
-      this.processingRequest = false;
-
-      this.alertService.error(`Could not find game with code ${this.joinForm.get('code')?.value}`);
-    }, 1600);
+  ngOnDestroy(): void {
+    this.matchSubscription.unsubscribe();
+    this.matchService.endPing();
   }
 }

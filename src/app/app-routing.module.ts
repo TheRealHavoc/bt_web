@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'game', canActivate: [AuthGuard], children: [
     {path: '', title: 'Menu', component: MenuPageComponent, pathMatch: 'full'},
     {path: 'character/:id', title: 'Character', component: CharacterPageComponent},
-    {path: 'match/:id', title: 'Match', component: MatchPageComponent}
+    {path: 'match', title: 'Match', component: MatchPageComponent}
   ]},
   {path: '**', title: 'Page not found', component: NotFoundPageComponent}
 ];
