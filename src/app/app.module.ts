@@ -18,6 +18,7 @@ import { OrDividerComponent } from './components/or-divider/or-divider.component
 import { FullLoaderComponent } from './components/full-loader/full-loader.component';
 import { MatchPageComponent } from './pages/match-page/match-page.component';
 import { DividerComponent } from './components/divider/divider.component';
+import { SmallLoaderComponent } from './components/small-loader/small-loader.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DividerComponent } from './components/divider/divider.component';
     OrDividerComponent,
     FullLoaderComponent,
     MatchPageComponent,
-    DividerComponent
+    DividerComponent,
+    SmallLoaderComponent
   ],
   imports: [
     BrowserModule,

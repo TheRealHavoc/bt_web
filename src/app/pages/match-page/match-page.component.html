@@ -15,7 +15,10 @@
                 </div>
 
                 <div class="flex gap-4 justify-between items-center w-full">
-                    <button class="btn-flex btn-primary text-2xl bg-green-400" disabled>Ready <span class="material-symbols-outlined">check</span></button>
+                    <div class="flex gap-4">
+                        <button class="btn-flex btn-primary text-2xl bg-green-400" disabled>Ready <span class="material-symbols-outlined">check</span></button>
+                        <button class="btn-flex btn-primary text-2xl" disabled>Start match <span class="material-symbols-outlined">start</span></button>
+                    </div>
                     <button class="btn-flex text-4xl" (click)="copyToClipboard(this.matchService.activeMatch.id)">{{this.matchService.activeMatch.id}} <span class="material-symbols-outlined">content_copy</span></button>
                 </div>
             </div>
@@ -23,42 +26,27 @@
             <app-divider class="w-full"/>
 
             <div class="flex gap-8 justify-between w-full">
-                <div *ngIf="this.characters" class="w-4/12 flex flex-col gap-4">
+                <div class="bg-appSlate900 w-full rounded-lg px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
+                    <div class="font-spectral text-2xl font-bold">{{this.matchService.activeMatch.hostUser.username}}</div>
                     <div class="flex gap-4 items-center">
-                        <div class="w-full rounded-lg px-4 py-2 relative overflow-hidden">
-                            <div class="flex gap-12 relative z-10 items-center justify-between">
-                                <div class="font-spectral text-2xl font-bold">string</div>
-                                <div class="flex gap-2 items-center">
-                                    <div class="opacity-40">Getting ready</div>
-                                    <span class="material-symbols-outlined">check_box_outline_blank</span>
-                                </div>
-                            </div>
-                            <img src="{{this.characters[0].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
-                        </div>
-
-                        <span class="w-2/12">Host</span>
-                    </div>
-                    <div class="flex gap-4 items-center">
-                        <div class="w-full outline outline-offset-2 outline-2 outline-green-400 rounded-lg px-4 py-2 relative overflow-hidden">
-                            <div class="flex gap-12 relative z-10 items-center justify-between">
-                                <div class="font-spectral text-2xl font-bold">Noobmaster69</div>
-                                <div class="flex gap-2 items-center">
-                                    <div>Ready!</div>
-                                    <span class="material-symbols-outlined">check_box</span>
-                                </div>
-                            </div>
-                            <img src="{{this.characters[1].avatarURL}}" alt="" class="transition object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
-                        </div>
-
-                        <span class="w-2/12"></span>
+                        <div class="opacity-40">Getting ready</div>
+                        <span class="material-symbols-outlined">check_box_outline_blank</span>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-4">
-                    <h2 class="text-2xl font-bold">Select a character</h2>
+                <div *ngIf="this.matchService.activeMatch.guestUser" class="bg-appSlate900 w-full rounded-lg px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
+                    <div class="font-spectral text-2xl font-bold">{{this.matchService.activeMatch.guestUser.username}}</div>
+                    <div class="flex gap-4 items-center">
+                        <div class="opacity-40">Getting ready</div>
+                        <span class="material-symbols-outlined">check_box_outline_blank</span>
+                    </div>
+                </div>
 
-                    <div class="flex flex-col gap-4 h-full">
-                        <app-character-card *ngFor="let character of this.characters" [character]="character"></app-character-card>
+                <div *ngIf="!this.matchService.activeMatch.guestUser" class="bg-appSlate900 w-full rounded-lg px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
+                    <div class="font-spectral text-2xl font-bold">-</div>
+                    <div class="flex gap-4 items-center">
+                        <div class="opacity-40">Waiting...</div>
+                        <app-small-loader/>
                     </div>
                 </div>
             </div>
