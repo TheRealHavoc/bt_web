@@ -82,6 +82,19 @@ export class MatchPageComponent implements OnDestroy {
 
     return this.isHost() ? this.matchService.activeMatch.hostIsReady : this.matchService.activeMatch.guestIsReady;
   }
+
+  public canStartMatch(): boolean {
+    if (!this.matchService.activeMatch) return false;
+
+    if (
+      this.matchService.activeMatch.hostIsReady && 
+      this.matchService.activeMatch.hostCharacter &&
+      this.matchService.activeMatch.guestIsReady &&
+      this.matchService.activeMatch.guestCharacter
+    ) return true;
+
+    return false;
+  }
   
   ngOnDestroy(): void {
     this.matchService.endPing();
