@@ -59,4 +59,17 @@ export class CharacterPageComponent {
   public onSubmit() {
     if (this.form.invalid) return;
   }
+
+  public doAction(character: Character, attack: Attack) {
+    let attackData = Helpers.generateAttackData(character, attack);
+    let damageData = Helpers.generateDamageData(character, attack, attackData.isCrit);
+
+    let string = `${character.name} strikes with a ${attackData.attack.name}!`;
+
+    string += ` Attack: ${attackData.roll}`;
+    if (attackData.isCrit) string += ` CRIT!`;
+    string += `, damage: ${damageData.roll}`;
+
+    this.alertService.info(string);
+  }
 }

@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="flex flex-col gap-2 bg-appSlate800 p-4 rounded-lg grow">
-                                <div *ngFor="let attack of this.character.attacks" class="flex justify-between">
+                                <div *ngFor="let attack of this.character.attacks" (click)="this.doAction(this.character, attack)" class="flex justify-between">
                                     <p class="font-bold w-full">{{attack.name}}</p>
                                     <p class="font-bold">{{this.generateAttackString(this.character, attack)}}</p>
                                     <p class="font-bold w-full text-right">
