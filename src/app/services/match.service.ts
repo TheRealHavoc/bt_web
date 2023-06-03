@@ -105,4 +105,14 @@ export class MatchService {
       }})
     })
   }
+
+  public setCharacter(matchId: string, characterId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/SetCharacter/?matchId=${matchId}&characterId=${characterId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
 }

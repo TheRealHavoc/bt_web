@@ -16,7 +16,7 @@
 
                 <div class="flex gap-4 justify-between items-center w-full">
                     <div class="flex gap-4">
-                        <button *ngIf="!this.isReady()" (click)="this.onReadyToggleClick()" class="btn-flex btn-primary text-2xl bg-green-400">Ready <span class="material-symbols-outlined">check</span></button>
+                        <button *ngIf="!this.isReady()" (click)="this.onReadyToggleClick()" [disabled]="!this.canReady()" class="btn-flex btn-primary text-2xl bg-green-400">Ready <span class="material-symbols-outlined">check</span></button>
                         <button *ngIf="this.isReady()" (click)="this.onReadyToggleClick()" class="btn-flex btn-secondary text-2xl">Unready <span class="material-symbols-outlined">close</span></button>
                         <button class="btn-flex btn-primary text-2xl" [disabled]="!this.canStartMatch()">Start match <span class="material-symbols-outlined">start</span></button>
                     </div>

@@ -15,7 +15,6 @@ import { MatchService } from 'src/app/services/match.service';
 })
 export class MatchPageComponent implements OnDestroy {
   public characters: Character[] | undefined;
-  public selectedCharacter: Character | undefined;
 
   constructor(
     public matchService: MatchService,
@@ -70,12 +69,23 @@ export class MatchPageComponent implements OnDestroy {
   }
 
   public selectCharacter(character: Character) {
-    this.selectedCharacter = character;
+    if (!this.matchService.activeMatch) return;
+
+    this.matchService.setCharacter(this.matchService.activeMatch.id, character.id).then(() => {
+
+    }).catch((err) => {
+      this.alertService.error("Something went wrong.");
+    });;
   }
 
   public isCharacterSelected(character: Character): string {
-    if (!this.selectedCharacter || character.name !== this.selectedCharacter.name) 
-      return "opacity-40";
+    if (!this.matchService.activeMatch) return "";
+
+    if (this.isHost()) {
+      if (this.matchService.activeMatch.hostCharacter?.id !== character.id) return "opacity-40";
+    } else {
+      if (this.matchService.activeMatch.guestCharacter?.id !== character.id) return "opacity-40";
+    }
 
     return "";
   }
@@ -104,6 +114,16 @@ export class MatchPageComponent implements OnDestroy {
       this.matchService.activeMatch.guestIsReady &&
       this.matchService.activeMatch.guestCharacter
     ) return true;
+
+    return false;
+  }
+
+  public canReady(): boolean {
+    if (!this.matchService.activeMatch) return false;
+
+    if (this.isHost() && this.matchService.activeMatch.hostCharacter) return true;
+
+    if (!this.isHost() && this.matchService.activeMatch.guestCharacter) return true;
 
     return false;
   }
