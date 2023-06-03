@@ -15,6 +15,7 @@ import { MatchService } from 'src/app/services/match.service';
 })
 export class MatchPageComponent implements OnDestroy {
   public characters: Character[] | undefined;
+  public selectedCharacter: Character | undefined;
 
   constructor(
     public matchService: MatchService,
@@ -66,6 +67,17 @@ export class MatchPageComponent implements OnDestroy {
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
     });
+  }
+
+  public selectCharacter(character: Character) {
+    this.selectedCharacter = character;
+  }
+
+  public isCharacterSelected(character: Character): string {
+    if (!this.selectedCharacter || character.name !== this.selectedCharacter.name) 
+      return "opacity-40";
+
+    return "";
   }
 
   public isHost(): boolean {

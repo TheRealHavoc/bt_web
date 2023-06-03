@@ -31,6 +31,10 @@
 
                 <app-player-plate-lobby class="w-full" [username]="this.matchService.activeMatch.guestUser?.username" [isReady]="this.matchService.activeMatch.guestIsReady"/>
             </div>
+
+            <div class="flex items-center gap-4">
+                <app-character-card *ngFor="let character of this.characters" [ngClass]="isCharacterSelected(character)" [character]="character" (click)="this.selectCharacter(character)"/>
+            </div>
         </div>
 
         <div *ngIf="!this.matchService.activeMatch" class="flex flex-col gap-4 items-center justify-center h-full">
