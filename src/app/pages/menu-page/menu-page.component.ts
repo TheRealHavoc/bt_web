@@ -22,7 +22,6 @@ export class MenuPageComponent implements OnDestroy {
   });
 
   public characters: Character[] | undefined;
-  public match: Match | null | undefined;
 
   constructor(
     public matchService: MatchService,
