@@ -9,7 +9,9 @@ export interface Match {
     guestCharacter?: Character;
     guestCurrentHitPoints?: number;
     guestUser?: User;
+    guestIsReady: boolean;
     hostCharacter?: Character;
     hostCurrentHitPoints?: number;
     hostUser: User;
+    hostIsReady: boolean;
 }

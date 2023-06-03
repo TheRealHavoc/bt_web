@@ -58,6 +58,30 @@ export class MatchPageComponent implements OnDestroy {
         this.alertService.error("You are not authorized to end the match.");
     });
   }
+
+  public onReadyToggleClick() {
+    if (!this.matchService.activeMatch) return;
+
+    this.matchService.toggleReady(this.matchService.activeMatch.id).then((match) => {
+    }).catch((err) => {
+      this.alertService.error("Something went wrong.");
+    });
+  }
+
+  public isHost(): boolean {
+    if (!this.matchService.activeMatch) return false;
+
+    if (this.authService.user?.username !== this.matchService.activeMatch?.hostUser.username)
+      return false;
+
+    return true;
+  }
+
+  public isReady(): boolean {
+    if (!this.matchService.activeMatch) return false;
+
+    return this.isHost() ? this.matchService.activeMatch.hostIsReady : this.matchService.activeMatch.guestIsReady;
+  }
   
   ngOnDestroy(): void {
     this.matchService.endPing();

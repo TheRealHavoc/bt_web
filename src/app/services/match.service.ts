@@ -96,4 +96,14 @@ export class MatchService {
       }})
     })
   }
+
+  public toggleReady(matchId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/ToggleReady/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
 }
