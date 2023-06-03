@@ -19,6 +19,7 @@ import { FullLoaderComponent } from './components/full-loader/full-loader.compon
 import { MatchPageComponent } from './pages/match-page/match-page.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { SmallLoaderComponent } from './components/small-loader/small-loader.component';
+import { PlayerPlateLobbyComponent } from './components/player-plate-lobby/player-plate-lobby.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SmallLoaderComponent } from './components/small-loader/small-loader.com
     FullLoaderComponent,
     MatchPageComponent,
     DividerComponent,
-    SmallLoaderComponent
+    SmallLoaderComponent,
+    PlayerPlateLobbyComponent
   ],
   imports: [
     BrowserModule,
