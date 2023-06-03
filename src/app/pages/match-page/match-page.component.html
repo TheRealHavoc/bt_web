@@ -2,7 +2,7 @@
     <app-menu-top-bar></app-menu-top-bar>
 
     <ng-container *ngIf="this.matchService.activeMatch !== undefined">
-        <div *ngIf="this.matchService.activeMatch" class="flex flex-col h-full gap-8 p-8 md:px-14 lg:px-28 2xl:px-56">
+        <div *ngIf="this.matchService.activeMatch" class="flex flex-col h-full gap-8 px-12 2xl:px-56">
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between items-center w-full">
                     <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
