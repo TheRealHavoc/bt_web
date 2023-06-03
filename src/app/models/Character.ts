@@ -1,3 +1,5 @@
+import { Attack } from "./Attack";
+
 export interface Character {
     id: string;
     name: string;
@@ -8,4 +10,5 @@ export interface Character {
     strengthScore: number;
     dexterityScore: number;
     constitutionScore: number;
+    attacks: Attack[];
 }

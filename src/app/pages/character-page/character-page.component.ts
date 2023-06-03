@@ -24,7 +24,6 @@ export class CharacterPageComponent {
   generateDamageString = Helpers.generateDamageString;
 
   public character: Character | undefined;
-  public attacks: Attack[] | undefined;
 
   form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
