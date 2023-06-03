@@ -30,7 +30,6 @@ export class MatchService {
 
       this.interval = setInterval(() => {
         this.getMatchByAuth().then((match) => {
-          console.log(match)
           this.activeMatch = match;
         }).catch((res) => {
           if (res.status === 404)
