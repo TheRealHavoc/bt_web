@@ -10,8 +10,8 @@
                         Go back
                     </a>
 
-                    <button *ngIf="this.matchService.activeMatch.hostUser.username === this.authService.user?.username" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
-                    <button *ngIf="this.matchService.activeMatch.hostUser.username !== this.authService.user?.username" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+                    <button *ngIf="this.isHost()" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
+                    <button *ngIf="!this.isHost()" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
                 </div>
 
                 <div class="flex gap-4 justify-between items-center w-full">
@@ -27,9 +27,9 @@
             <app-divider class="w-full"/>
 
             <div class="flex gap-8">
-                <app-player-plate-lobby class="w-full" [username]="this.matchService.activeMatch.hostUser.username" [isReady]="this.matchService.activeMatch.hostIsReady"/>
+                <app-player-plate-lobby class="w-full" [username]="'is'" [isReady]="this.isReady()"/>
 
-                <app-player-plate-lobby class="w-full" [username]="this.matchService.activeMatch.guestUser?.username" [isReady]="this.matchService.activeMatch.guestIsReady"/>
+                <app-player-plate-lobby class="w-full" [username]="'is'" [isReady]="true"/>
             </div>
 
             <div class="flex items-center gap-4">

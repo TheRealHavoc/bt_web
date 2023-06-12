@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character } from 'src/app/models/Character';
 import { Match } from 'src/app/models/Match';
+import { PlayerData } from 'src/app/models/PlayerData';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
@@ -75,45 +76,43 @@ export class MatchPageComponent implements OnDestroy {
 
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
-    });;
+    });
   }
 
   public isCharacterSelected(character: Character): string {
     if (!this.matchService.activeMatch) return "";
 
-    if (this.isHost()) {
-      if (this.matchService.activeMatch.hostCharacter?.id !== character.id) return "opacity-40";
-    } else {
-      if (this.matchService.activeMatch.guestCharacter?.id !== character.id) return "opacity-40";
-    }
+    let playerData = this.getUserPlayerData(this.matchService.activeMatch.playerData);
 
-    return "";
+    if (playerData === null) return "";
+
+    if (playerData.character.id === character.id) return "";
+
+    return "opacity-40";
   }
 
   public isHost(): boolean {
     if (!this.matchService.activeMatch) return false;
 
-    if (this.authService.user?.username !== this.matchService.activeMatch?.hostUser.username)
-      return false;
+    let playerData = this.getUserPlayerData(this.matchService.activeMatch.playerData);
 
-    return true;
+    if (playerData === null) return false;
+
+    return playerData.isHost;
   }
 
   public isReady(): boolean {
     if (!this.matchService.activeMatch) return false;
 
-    return this.isHost() ? this.matchService.activeMatch.hostIsReady : this.matchService.activeMatch.guestIsReady;
+    let playerData = this.getUserPlayerData(this.matchService.activeMatch.playerData);
+
+    if (playerData === null) return false;
+
+    return playerData.isReady;
   }
 
   public canStartMatch(): boolean {
     if (!this.matchService.activeMatch) return false;
-
-    if (
-      this.matchService.activeMatch.hostIsReady && 
-      this.matchService.activeMatch.hostCharacter &&
-      this.matchService.activeMatch.guestIsReady &&
-      this.matchService.activeMatch.guestCharacter
-    ) return true;
 
     return false;
   }
@@ -121,11 +120,15 @@ export class MatchPageComponent implements OnDestroy {
   public canReady(): boolean {
     if (!this.matchService.activeMatch) return false;
 
-    if (this.isHost() && this.matchService.activeMatch.hostCharacter) return true;
-
-    if (!this.isHost() && this.matchService.activeMatch.guestCharacter) return true;
-
     return false;
+  }
+
+  public getUserPlayerData(playerData: PlayerData[]): PlayerData | null {
+    let res = playerData.find(x => x.user.username === this.authService.user?.username);
+
+    if (res === undefined) return null;
+
+    return res;
   }
   
   ngOnDestroy(): void {
