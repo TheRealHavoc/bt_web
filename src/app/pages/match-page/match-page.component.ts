@@ -84,7 +84,7 @@ export class MatchPageComponent implements OnDestroy {
 
     let playerData = this.getUserPlayerData(this.matchService.activeMatch.playerData);
 
-    if (playerData === null || playerData.character === null) return "";
+    if (playerData === null || playerData.character === null) return "opacity-40";
 
     if (playerData.character.id === character.id) return "";
 
