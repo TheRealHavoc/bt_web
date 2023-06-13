@@ -1,0 +1,17 @@
+<div class="flex flex-col h-screen">
+    <app-menu-top-bar></app-menu-top-bar>
+
+    <div class="flex h-full gap-8 px-12 2xl:px-56">
+        <div class="flex flex-col gap-4 w-1/4">
+            <button class="btn-secondary btn-flex" [routerLink]="['/game/account']">Information</button>
+
+            <button class="btn-primary btn-flex" (click)="onLogOutClick()">Log out <span class="material-symbols-outlined">logout</span></button>
+        </div>
+
+        <div class="flex justify-center w-3/4">
+            <div class="flex flex-col gap-4 w-1/2">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

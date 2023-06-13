@@ -1,0 +1,18 @@
+<div *ngIf="this.authService.user" class="flex flex-col gap-8">
+    <p class="text-5xl font-bold">Account information</p>
+
+    <div class="flex flex-col gap-2 px-4 py-2 bg-appSlate900">
+        <p class="text-2xl font-bold">Username</p>
+        <p>{{this.authService.user.username}}</p>
+    </div>
+
+    <div class="flex flex-col gap-2 px-4 py-2 bg-appSlate900">
+        <p class="text-2xl font-bold">E-mail</p>
+        <p>{{this.authService.user.email}} <span *ngIf="this.authService.user.verified" class="material-symbols-outlined">verified</span></p>
+    </div>
+
+    <div class="flex flex-col gap-2 px-4 py-2 bg-appSlate900">
+        <p class="text-2xl font-bold">Role</p>
+        <p>{{this.authService.user.role}}</p>
+    </div>
+</div>

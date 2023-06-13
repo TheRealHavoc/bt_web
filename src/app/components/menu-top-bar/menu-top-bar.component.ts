@@ -10,14 +10,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuTopBarComponent {
   constructor(
-    public authService: AuthService,
-    private alertService: AlertService,
-    private router: Router,
+    public authService: AuthService
   ) { }
-
-  public onLogOutClick() {
-    this.authService.logOut();
-    this.router.navigate(['']);
-    this.alertService.info("You have been signed out");
-  }
 }

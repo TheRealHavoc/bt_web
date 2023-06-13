@@ -3,7 +3,8 @@
 
     <div class="flex gap-8 items-center">
         <p *ngIf="this.authService.user">Logged in as {{this.authService.user.username}}</p>
+        <button class="btn-primary btn-flex" [routerLink]="['account']">View account <span class="material-symbols-outlined">person</span></button>
 
-        <button class="btn-primary btn-flex" (click)="onLogOutClick()">Log out <span class="material-symbols-outlined">logout</span></button>
+        <!-- <button class="btn-primary btn-flex" (click)="onLogOutClick()">Log out <span class="material-symbols-outlined">logout</span></button> -->
     </div>
 </div>

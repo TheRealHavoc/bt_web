@@ -20,6 +20,8 @@ import { MatchPageComponent } from './pages/match-page/match-page.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { SmallLoaderComponent } from './components/small-loader/small-loader.component';
 import { PlayerPlateLobbyComponent } from './components/player-plate-lobby/player-plate-lobby.component';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { AccountInformationViewComponent } from './views/account-information-view/account-information-view.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { PlayerPlateLobbyComponent } from './components/player-plate-lobby/playe
     MatchPageComponent,
     DividerComponent,
     SmallLoaderComponent,
-    PlayerPlateLobbyComponent
+    PlayerPlateLobbyComponent,
+    AccountPageComponent,
+    AccountInformationViewComponent
   ],
   imports: [
     BrowserModule,
