@@ -122,7 +122,13 @@ export class MatchPageComponent implements OnDestroy {
   public canReady(): boolean {
     if (!this.matchService.activeMatch) return false;
 
-    return false;
+    let playerData = this.getUserPlayerData(this.matchService.activeMatch.playerData);
+
+    if (playerData === null) return false;
+
+    if (playerData.character === null) return false;
+
+    return true;
   }
 
   public getUserPlayerData(playerData: PlayerData[]): PlayerData | null {
