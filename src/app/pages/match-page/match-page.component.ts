@@ -32,6 +32,8 @@ export class MatchPageComponent implements OnDestroy {
   }
 
   public copyToClipboard(text: string) {
+    console.log(this.matchService.activeMatch?.playerData)
+
     navigator.clipboard.writeText(text);
     this.alertService.info('Match code copied to clipboard.');
   }
