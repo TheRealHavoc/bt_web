@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class PlayerPlateLobbyComponent {
   @Input() username: string | undefined;
   @Input() isReady: boolean | undefined;
+  @Input() isHost: boolean | undefined;
 
   public readyClasses() {
     if (this.isReady)
