@@ -116,7 +116,13 @@ export class MatchPageComponent implements OnDestroy {
   public canStartMatch(): boolean {
     if (!this.matchService.activeMatch) return false;
 
-    return false;
+    if (!this.isHost()) return false;
+
+    if (!this.matchHasMoreThanOnePlayer()) return false;
+
+    if (this.matchService.activeMatch.playerData.find(x => !x.isReady)) return false;
+
+    return true;
   }
 
   public canReady(): boolean {
@@ -127,6 +133,14 @@ export class MatchPageComponent implements OnDestroy {
     if (playerData === null) return false;
 
     if (playerData.character === null) return false;
+
+    return true;
+  }
+
+  public matchHasMoreThanOnePlayer(): boolean {
+    if (!this.matchService.activeMatch) return false;
+
+    if (this.matchService.activeMatch.playerData.length < 2) return false;
 
     return true;
   }

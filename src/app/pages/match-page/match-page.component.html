@@ -18,7 +18,7 @@
                     <div class="flex gap-4">
                         <button *ngIf="!this.isReady()" (click)="this.onReadyToggleClick()" [disabled]="!this.canReady()" class="btn-flex btn-primary text-2xl bg-green-400">Ready <span class="material-symbols-outlined">check</span></button>
                         <button *ngIf="this.isReady()" (click)="this.onReadyToggleClick()" class="btn-flex btn-secondary text-2xl">Unready <span class="material-symbols-outlined">close</span></button>
-                        <button class="btn-flex btn-primary text-2xl" [disabled]="!this.canStartMatch()">Start match <span class="material-symbols-outlined">start</span></button>
+                        <button *ngIf="this.isHost()" class="btn-flex btn-primary text-2xl" [disabled]="!this.canStartMatch()">Start match <span class="material-symbols-outlined">start</span></button>
                     </div>
                     <button class="btn-flex text-4xl" (click)="copyToClipboard(this.matchService.activeMatch.id)">{{this.matchService.activeMatch.id}} <span class="material-symbols-outlined">content_copy</span></button>
                 </div>
@@ -28,7 +28,11 @@
 
             <div class="flex w-full gap-8 justify-between">
                 <div class="flex w-1/3 flex-col gap-4">
+                    <p>Player count: {{this.matchService.activeMatch.playerData.length}}/{{this.matchService.activeMatch.maxPlayers}}</p>
+
                     <app-player-plate-lobby *ngFor="let playerData of this.matchService.activeMatch.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady"/>
+
+                    <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.activeMatch.maxPlayers - this.matchService.activeMatch.playerData.length); let i = index" class="w-full"/>
                 </div>
     
                 <div class="flex w-1/2 items-center justify-end gap-4 flex-wrap">

@@ -8,4 +8,5 @@ export interface Match {
     startedOn?: string;
     endedOn?: string;
     playerData: PlayerData[];
+    maxPlayers: number;
 }

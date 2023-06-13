@@ -1,5 +1,5 @@
 <div *ngIf="this.username" [ngClass]="readyClasses()" class="bg-appSlate900 w-full px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
-    <div class="font-spectral text-2xl font-bold">{{this.username}}</div>
+    <div class="text-xl font-bold">{{this.username}}</div>
     <div *ngIf="this.isReady" class="flex gap-4 items-center">
         <div class="opacity-40">Ready!</div>
         <span class="material-symbols-outlined">check_box</span>
@@ -12,8 +12,8 @@
 </div>
 
 
-<div *ngIf="!this.username" class="bg-appSlate900 w-full px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
-    <div class="font-spectral text-2xl font-bold">-</div>
+<div *ngIf="!this.username" class="w-full px-4 py-2 relative overflow-hidden flex gap-12 relative items-center justify-between">
+    <div class="opacity-40 text-xl">Empty slot</div>
     <div class="flex gap-4 items-center">
         <div class="opacity-40">Waiting...</div>
         <app-small-loader/>
