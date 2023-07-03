@@ -1,5 +1,5 @@
-<div class="flex flex-col p-8 justify-between gap-8 md:gap-24 md:h-screen md:flex-row md:items-center md:px-14 lg:px-28 2xl:px-56">
-    <div class="flex flex-col gap-4">
+<div class="flex flex-col pl-56 w-full md:h-screen md:flex-row md:items-center">
+    <div class="flex flex-col gap-4 w-[424px]">
         <div class="flex flex-col">
             <p>Welcome to</p>
             <p class="font-spectral text-5xl font-bold">Baldur's Trials</p>
@@ -19,9 +19,24 @@
         </button>
     </div>
 
-    <div class="flex flex-col gap-4 overflow-y-auto h-4/6 rounded-lg">
-        <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/08/dnd-5e-dragonlance-chapter-2-art-1.jpg" alt=""/>
-        <img src="https://assets1.ignimgs.com/2019/05/29/dndmobile-br-1559158957902_160w.jpg?width=1280" alt=""/>
-        <img src="https://cdn.vox-cdn.com/thumbor/28FnmSaEIlMy_w-RRvB81-v8VX8=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/66439311/DNDPress_Theros.0.jpg" alt=""/>
+    <div class="grow h-full relative">
+        <div class="absolute z-50 inset-x-0 bottom-0 gap-4 py-6 flex justify-center items-center">
+            <button (click)="this.decrementImageIndex()" class="btn-icon"><span class="material-symbols-outlined">chevron_left</span></button>
+
+            <div class="flex gap-2">
+                <div *ngFor="let item of this.images">
+                    <div *ngIf="item == this.images[this.imageIndex]" class="h-[8px] w-[8px] rounded-full bg-white"></div>
+                    <div *ngIf="item != this.images[this.imageIndex]" class="h-[8px] w-[8px] rounded-full bg-appSlate800"></div>
+                </div>
+            </div>
+            
+            <button (click)="this.incrementImageIndex()" class="btn-icon"><span class="material-symbols-outlined">chevron_right</span></button>
+        </div>
+
+        <div class="absolute h-full w-full inset-0">
+            <div class="bg-gradient-to-r from-appSlate to-transparent w-full h-full relative z-10"></div>
+
+            <img class="object-cover bg-center absolute inset-0 h-full w-full" src="{{this.images[this.imageIndex]}}">
+        </div>
     </div>
 </div>
