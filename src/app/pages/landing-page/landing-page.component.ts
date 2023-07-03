@@ -11,7 +11,8 @@ export class LandingPageComponent {
   public images: string[] = [
     "https://wallpapercave.com/wp/wp2770248.jpg",
     "https://wallup.net/wp-content/uploads/2019/09/821112-dungeons-dragons-forgotten-realms-magic-rpg-action-adventure-puzzle-fantasy-warrior-dragon-1.jpg",
-    "https://cdn.wallpapersafari.com/69/30/cOTieW.jpg"
+    "https://cdn.wallpapersafari.com/69/30/cOTieW.jpg",
+    "https://wallpapercave.com/wp/wp4786826.png"
   ];
 
   public imageIndex: number = 0;
