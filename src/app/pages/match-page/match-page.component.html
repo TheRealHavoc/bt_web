@@ -35,7 +35,7 @@
                     <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.activeMatch.maxPlayers - this.matchService.activeMatch.playerData.length); let i = index" class="w-full"/>
                 </div>
     
-                <div class="flex w-1/2 items-center justify-end gap-4 flex-wrap">
+                <div class="flex items-center justify-end gap-4 flex-wrap">
                     <app-character-card *ngFor="let character of this.characters" [ngClass]="isCharacterSelected(character)" [character]="character" (click)="this.selectCharacter(character)"/>
                 </div>
             </div>
