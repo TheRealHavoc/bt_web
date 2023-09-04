@@ -35,7 +35,10 @@ export class AlertsComponent {
     this.alerts = this.alerts.filter(a => a.id !== alert.id);
   }
 
-  className(alert: Alert): string {
+  className(alert: Alert | null): string {
+    if (alert === null)
+      return "bg-purple-400";
+
     switch (alert.type) {
       case AlertType.success:
         return "bg-green-400";
