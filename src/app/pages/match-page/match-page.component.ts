@@ -74,6 +74,8 @@ export class MatchPageComponent implements OnDestroy {
   public selectCharacter(character: Character) {
     if (!this.matchService.activeMatch) return;
 
+    if (this.isReady()) return;
+
     this.matchService.setCharacter(this.matchService.activeMatch.id, character.id).then(() => {
 
     }).catch((err) => {
