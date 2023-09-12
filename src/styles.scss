@@ -69,6 +69,10 @@
     .play-card {
         @apply aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden;
     }
+
+    .active {
+        @apply outline outline-offset-2 outline-2 outline-appSlate600;
+    }
 }
 
 .material-symbols-outlined {
