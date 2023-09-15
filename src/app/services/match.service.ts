@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Match } from '../models/Match';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { PlayerData } from '../models/PlayerData';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class MatchService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth.user?.token}`
+      'Authorization': `Bearer ${this.authService.user?.token}`
     })
   }
 
@@ -21,7 +22,7 @@ export class MatchService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private authService: AuthService
   ) { }
 
   public startPing() {
@@ -124,5 +125,67 @@ export class MatchService {
         reject(error);
       }})
     })
+  }
+
+  // Utilities
+
+  public getUserPlayerData(playerData: PlayerData[]): PlayerData | null {
+    let res = playerData.find(x => x.user.username === this.authService.user?.username);
+
+    if (res === undefined) return null;
+
+    return res;
+  }
+
+  public isHost(): boolean {
+    if (!this.activeMatch) return false;
+
+    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+
+    if (playerData === null) return false;
+
+    return playerData.isHost;
+  }
+
+  public isReady(): boolean {
+    if (!this.activeMatch) return false;
+
+    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+
+    if (playerData === null) return false;
+
+    return playerData.isReady;
+  }
+
+  public canReady(): boolean {
+    if (!this.activeMatch) return false;
+
+    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+
+    if (playerData === null) return false;
+
+    if (playerData.character === null) return false;
+
+    return true;
+  }
+
+  public matchHasMoreThanOnePlayer(): boolean {
+    if (!this.activeMatch) return false;
+
+    if (this.activeMatch.playerData.length < 2) return false;
+
+    return true;
+  }
+
+  public canStartMatch(): boolean {
+    if (!this.activeMatch) return false;
+
+    if (!this.isHost()) return false;
+
+    if (!this.matchHasMoreThanOnePlayer()) return false;
+
+    if (this.activeMatch.playerData.find(x => !x.isReady)) return false;
+
+    return true;
   }
 }

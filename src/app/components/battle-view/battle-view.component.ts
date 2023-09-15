@@ -8,11 +8,11 @@ import { CharacterService } from 'src/app/services/character.service';
 import { MatchService } from 'src/app/services/match.service';
 
 @Component({
-  selector: 'app-lobby-view',
-  templateUrl: './lobby-view.component.html',
-  styleUrls: ['./lobby-view.component.scss']
+  selector: 'app-battle-view',
+  templateUrl: './battle-view.component.html',
+  styleUrls: ['./battle-view.component.scss']
 })
-export class LobbyViewComponent {
+export class BattleViewComponent {
   @Input() match: Match | undefined;
 
   public characters: Character[] | undefined;
@@ -29,11 +29,28 @@ export class LobbyViewComponent {
     });
   }
 
-  public copyToClipboard(text: string) {
-    console.log(this.matchService.activeMatch?.playerData)
+  public getTime(): string {
+    if (this.matchService.activeMatch?.startedOn == undefined)
+      return '-';
 
-    navigator.clipboard.writeText(text);
-    this.alertService.info('Match code copied to clipboard.');
+    let date = Date.parse(this.matchService.activeMatch.startedOn);
+    let now = Date.now();
+
+    let t = new Date(now - date);
+
+    Math.abs(t.getTimezoneOffset() / 60);
+    t.setHours(t.getHours() - Math.abs(t.getTimezoneOffset() / 60));
+
+    let h = t.getHours().toString();
+    if (h.length < 2) h = `0${h}`;
+
+    let m = t.getMinutes().toString();
+    if (m.length < 2) m = `0${m}`;
+
+    let s = t.getSeconds().toString();
+    if (s.length < 2) s = `0${s}`;
+
+    return `${h}:${m}:${s}`;
   }
 
   public onEndMatchClick() {
@@ -58,48 +75,5 @@ export class LobbyViewComponent {
       if (err.status === 401)
         this.alertService.error("You are not authorized to end the match.");
     });
-  }
-
-  public onReadyToggleClick() {
-    if (!this.matchService.activeMatch) return;
-
-    this.matchService.toggleReady(this.matchService.activeMatch.id).then((match) => {
-    }).catch((err) => {
-      this.alertService.error("Something went wrong.");
-    });
-  }
-
-  public onStartMatchClick() {
-    if (!this.matchService.activeMatch) return;
-
-    this.matchService.startMatch(this.matchService.activeMatch.id).then((match) => {
-      this.alertService.success("Match started.");
-    }).catch((err) => {
-      this.alertService.error("Could not start match.");
-    });
-  }
-
-  public selectCharacter(character: Character) {
-    if (!this.matchService.activeMatch) return;
-
-    if (this.matchService.isReady()) return;
-
-    this.matchService.setCharacter(this.matchService.activeMatch.id, character.id).then(() => {
-
-    }).catch((err) => {
-      this.alertService.error("Something went wrong.");
-    });
-  }
-
-  public isCharacterSelected(character: Character): string {
-    if (!this.matchService.activeMatch) return "";
-
-    let playerData = this.matchService.getUserPlayerData(this.matchService.activeMatch.playerData);
-
-    if (playerData === null || playerData.character === null) return "opacity-40";
-
-    if (playerData.character.id === character.id) return "";
-
-    return "opacity-40";
   }
 }

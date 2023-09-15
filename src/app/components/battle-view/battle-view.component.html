@@ -1,0 +1,16 @@
+<ng-container *ngIf="this.matchService.activeMatch">
+    <div class="flex flex-col gap-4">
+        <div class="flex justify-between items-center w-full">
+            <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
+
+            <div class="flex gap-8 items-center">
+                <span>Time played: {{this.getTime()}}</span>
+
+                <button *ngIf="this.matchService.isHost()" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
+                <button *ngIf="!this.matchService.isHost()" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+            </div>
+        </div>
+    </div>
+
+    <app-divider class="w-full"/>
+</ng-container>
