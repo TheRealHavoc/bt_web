@@ -66,6 +66,16 @@ export class MatchService {
     })
   }
 
+  public startMatch(matchId: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/StartMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {

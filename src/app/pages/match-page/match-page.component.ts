@@ -71,6 +71,16 @@ export class MatchPageComponent implements OnDestroy {
     });
   }
 
+  public onStartMatchClick() {
+    if (!this.matchService.activeMatch) return;
+
+    this.matchService.startMatch(this.matchService.activeMatch.id).then((match) => {
+      this.alertService.error("Match started.");
+    }).catch((err) => {
+      this.alertService.error("Could not start match.");
+    });
+  }
+
   public selectCharacter(character: Character) {
     if (!this.matchService.activeMatch) return;
 
