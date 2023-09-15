@@ -2,6 +2,6 @@
     <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
 
     <div class="flex gap-8 items-center">
-        <button *ngIf="this.authService.user" class="btn-primary btn-flex" [routerLink]="['account']">{{this.authService.user.username}} <span class="material-symbols-outlined">person</span></button>
+        <button *ngIf="this.authService.user" class="btn-primary btn-flex" [routerLink]="['/game/account']">{{this.authService.user.username}} <span class="material-symbols-outlined">person</span></button>
     </div>
 </div>
