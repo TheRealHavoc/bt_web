@@ -4,7 +4,7 @@
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
 
             <div class="flex gap-8 items-center">
-                <span>Time played: {{this.getTime()}}</span>
+                <span>Time played: {{this.timePlayed}}</span>
 
                 <button *ngIf="this.matchService.isHost()" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
                 <button *ngIf="!this.matchService.isHost()" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>

@@ -16,6 +16,7 @@ export class BattleViewComponent {
   @Input() match: Match | undefined;
 
   public characters: Character[] | undefined;
+  public timePlayed: string | undefined;
 
   constructor(
     public matchService: MatchService,
@@ -24,19 +25,32 @@ export class BattleViewComponent {
     private characterService: CharacterService,
     private router: Router,
   ) {
+    this.timePlayed = "-";
+
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
     });
+
+    this.setTimeSpend();
   }
 
-  public getTime(): string {
-    if (this.matchService.activeMatch?.startedOn == undefined)
-      return '-';
+  public setTimeSpend(): void {
+    if (!this.matchService.activeMatch?.startedOn)
+      return;
 
-    let date = Date.parse(this.matchService.activeMatch.startedOn);
+    var start = Date.parse(this.matchService.activeMatch.startedOn);
+
+    this.timePlayed = this.getTimeSpend(start);
+
+    setInterval(() => {
+      this.timePlayed = this.getTimeSpend(start);
+    }, 1000)
+  }
+
+  public getTimeSpend(start: number): string {
     let now = Date.now();
 
-    let t = new Date(now - date);
+    let t = new Date(now - start);
 
     Math.abs(t.getTimezoneOffset() / 60);
     t.setHours(t.getHours() - Math.abs(t.getTimezoneOffset() / 60));
