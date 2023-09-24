@@ -22,8 +22,8 @@ import { SmallLoaderComponent } from './components/small-loader/small-loader.com
 import { PlayerPlateLobbyComponent } from './components/player-plate-lobby/player-plate-lobby.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { AccountInformationViewComponent } from './views/account-information-view/account-information-view.component';
-import { LobbyViewComponent } from './components/lobby-view/lobby-view.component';
-import { BattleViewComponent } from './components/battle-view/battle-view.component';
+import { LobbyViewComponent } from './views/lobby-view/lobby-view.component';
+import { BattleViewComponent } from './views/battle-view/battle-view.component';
 
 @NgModule({
   declarations: [
