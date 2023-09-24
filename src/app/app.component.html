@@ -1,3 +1,5 @@
 <app-alerts></app-alerts>
 
-<router-outlet></router-outlet>
+<app-full-loader *ngIf="this.authGuard.loading"></app-full-loader>
+
+<router-outlet *ngIf="!this.authGuard.loading"></router-outlet>
