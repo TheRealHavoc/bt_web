@@ -110,7 +110,7 @@ export class BattleViewComponent {
     this.matchService.performAttack(this.matchService.activeMatch.id, this.playerData.character.id, attack.name).then((match) => {
       
     }).catch((err) => {
-      this.alertService.error(err.message);
+      this.alertService.error("Something went wrong");
     });
   }
 }
