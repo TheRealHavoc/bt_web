@@ -4,6 +4,7 @@ import { Match } from '../models/Match';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { PlayerData } from '../models/PlayerData';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class MatchService {
   }
 
   public activeMatch: Match | null | undefined;
+  public match$: Subject<Match | null | undefined> = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -32,14 +34,20 @@ export class MatchService {
       this.interval = setInterval(() => {
         this.getMatchByAuth().then((match) => {
           this.activeMatch = match;
+          this.match$.next(match);
         }).catch((res) => {
-          if (res.status === 404)
+          if (res.status === 404) {
             this.activeMatch = null;
+            this.match$.next(null);
+          }
+            
         })
       }, environment.pingInterval);
     }).catch((res) => {
-      if (res.status === 404)
+      if (res.status === 404) {
         this.activeMatch = null;
+        this.match$.next(null);
+      }
     });
   }
 
@@ -129,7 +137,7 @@ export class MatchService {
 
   public performAttack(matchId: string, characterId: string, attackName: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.http.post(`${environment.apiUrl}Match/PerformAttack/?matchId=${matchId}&characterId=${characterId}&attackId=${attackName}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+      this.http.post(`${environment.apiUrl}Match/PerformAttack/?matchId=${matchId}&characterId=${characterId}&attackName=${attackName}`, {}, this.httpOptions).subscribe({next: (res: any) => {
         resolve(res);
       }, error: (error) => {
         reject(error);

@@ -23,8 +23,6 @@ export class BattleViewComponent {
   public generateAttackString = Helpers.generateAttackString;
   public generateDamageString = Helpers.generateDamageString;
 
-  @Input() match: Match | undefined;
-
   public timePlayed: string | undefined;
 
   public playerData: PlayerData | undefined;
@@ -36,13 +34,12 @@ export class BattleViewComponent {
     private alertService: AlertService,
     private router: Router,
   ) {
-    this.timePlayed = "-";
+    this.matchService.match$.subscribe((match) => {
+      if (!match) return;
 
-    if (!this.matchService.activeMatch)
-      return; // Show error
-
-    this.playerData = this.matchService.activeMatch?.playerData.find(x => x.user.username === this.authService.user?.username);
-    this.enemyData = this.matchService.activeMatch?.playerData.find(x => x.user.username !== this.authService.user?.username);
+      this.playerData = match.playerData.find(x => x.user.username === this.authService.user?.username);
+      this.enemyData = match.playerData.find(x => x.user.username !== this.authService.user?.username);
+    })
 
     this.setTimeSpend();
   }
@@ -108,10 +105,12 @@ export class BattleViewComponent {
     if (!this.matchService.activeMatch) return;
     if (!this.playerData) return;
 
+    console.log(attack.name)
+
     this.matchService.performAttack(this.matchService.activeMatch.id, this.playerData.character.id, attack.name).then((match) => {
       
     }).catch((err) => {
-      this.alertService.error("Something went wrong.");
+      this.alertService.error(err.message);
     });
   }
 }
