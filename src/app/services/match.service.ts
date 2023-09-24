@@ -127,6 +127,16 @@ export class MatchService {
     })
   }
 
+  public performAttack(matchId: string, characterId: string, attackName: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/PerformAttack/?matchId=${matchId}&characterId=${characterId}&attackId=${attackName}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
   // Utilities
 
   public getUserPlayerData(playerData: PlayerData[]): PlayerData | null {

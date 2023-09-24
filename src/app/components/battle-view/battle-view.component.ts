@@ -1,11 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Attack } from 'src/app/models/Attack';
 import { Character } from 'src/app/models/Character';
 import { Match } from 'src/app/models/Match';
+import { PlayerData } from 'src/app/models/PlayerData';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
 import { MatchService } from 'src/app/services/match.service';
+import { Helpers } from 'src/app/utils/helpers';
 
 @Component({
   selector: 'app-battle-view',
@@ -13,23 +16,33 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./battle-view.component.scss']
 })
 export class BattleViewComponent {
+  public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
+  public convertAttackAttrStringToValue = Helpers.convertAttackAttrStringToValue;
+  public convertModifierToString = Helpers.convertModifierToString;
+
+  public generateAttackString = Helpers.generateAttackString;
+  public generateDamageString = Helpers.generateDamageString;
+
   @Input() match: Match | undefined;
 
-  public characters: Character[] | undefined;
   public timePlayed: string | undefined;
+
+  public playerData: PlayerData | undefined;
+  public enemyData: PlayerData | undefined;
 
   constructor(
     public matchService: MatchService,
     public authService: AuthService,
     private alertService: AlertService,
-    private characterService: CharacterService,
     private router: Router,
   ) {
     this.timePlayed = "-";
 
-    this.characterService.getCharacters().then(characters => {
-      this.characters = characters;
-    });
+    if (!this.matchService.activeMatch)
+      return; // Show error
+
+    this.playerData = this.matchService.activeMatch?.playerData.find(x => x.user.username === this.authService.user?.username);
+    this.enemyData = this.matchService.activeMatch?.playerData.find(x => x.user.username !== this.authService.user?.username);
 
     this.setTimeSpend();
   }
@@ -88,6 +101,17 @@ export class BattleViewComponent {
     }).catch((err) => {
       if (err.status === 401)
         this.alertService.error("You are not authorized to end the match.");
+    });
+  }
+
+  public performAttack(attack: Attack) {
+    if (!this.matchService.activeMatch) return;
+    if (!this.playerData) return;
+
+    this.matchService.performAttack(this.matchService.activeMatch.id, this.playerData.character.id, attack.name).then((match) => {
+      
+    }).catch((err) => {
+      this.alertService.error("Something went wrong.");
     });
   }
 }

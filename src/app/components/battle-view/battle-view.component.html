@@ -12,5 +12,53 @@
         </div>
     </div>
 
-    <app-divider class="w-full"/>
+    <div class="flex gap-8 h-full">
+        <div *ngIf="this.playerData" class="rounded-lg h-full w-full play-card active">
+            <div class="flex flex-col h-full gap-6 relative z-10">
+                <h2 class="font-spectral text-5xl font-bold text-center">{{this.playerData.character.name}}</h2>
+
+                <div class="flex flex-col grow justify-center gap-4">
+                    <div class="flex flex-col items-center">
+                        <p>Armor Class</p>
+                        <p class="text-4xl font-bold">{{this.playerData.character.armorClass}}</p>
+                    </div>
+    
+                    <div class="flex flex-col items-center">
+                        <p>Hit Points</p>
+                        <div>
+                            <span class="text-4xl font-bold">{{this.playerData.character.maxHitPoints}} / </span>
+                            <span>{{this.playerData.currentHitPoints}}</span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <div class="flex justify-between">
+                        <p class="text-3xl font-bold">Actions</p>
+                    </div>
+
+                    <button *ngFor="let attack of this.playerData.character.attacks" class="btn-primary flex" (click)="performAttack(attack)">
+                        <p class="font-bold w-full text-left">{{attack.name}}</p>
+                        <p class="font-bold">{{this.generateAttackString(this.playerData.character, attack)}}</p>
+                        <p class="font-bold w-full text-right">
+                            {{this.generateDamageString(this.playerData.character, attack)}}
+                        </p>
+                    </button>
+                </div>
+            </div>
+
+            <img src="{{this.playerData.character.avatarURL}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+        </div>
+        <div class="h-full w-full">
+
+        </div>
+        <div *ngIf="this.enemyData" class="rounded-lg h-full w-full play-card">
+            <div class="relative z-10">
+                hello!
+            </div>
+
+            <img src="{{this.enemyData.character.avatarURL}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+        </div>
+    </div>
 </ng-container>
