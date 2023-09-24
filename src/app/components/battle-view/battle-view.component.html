@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.matchService.activeMatch">
+<ng-container *ngIf="this.match">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
@@ -51,7 +51,7 @@
             <img src="{{this.playerData.character.avatarURL}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
         </div>
         <div class="h-full w-full">
-
+            
         </div>
         <div *ngIf="this.enemyData" class="rounded-lg h-full w-full play-card">
             <div class="relative z-10">

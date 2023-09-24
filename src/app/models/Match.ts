@@ -1,5 +1,6 @@
 import { Character } from "./Character";
 import { PlayerData } from "./PlayerData";
+import { Turn } from "./Turn";
 import { User } from "./User";
 
 export interface Match {
@@ -7,6 +8,7 @@ export interface Match {
     createdOn: string;
     startedOn?: string;
     endedOn?: string;
-    playerData: PlayerData[];
     maxPlayers: number;
+    playerData: PlayerData[];
+    turns: Turn[];
 }
