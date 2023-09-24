@@ -41,7 +41,7 @@
 
     .btn-primary {
         @apply
-            transition bg-white text-appSlate py-2 px-6 font-bold rounded-lg
+            bg-white text-appSlate py-2 px-6 font-bold rounded-lg
             hover:opacity-60
             disabled:opacity-10;
     }

@@ -12,8 +12,8 @@
         </div>
     </div>
 
-    <div class="flex gap-8 h-full">
-        <div *ngIf="this.playerData" class="rounded-lg h-full w-full play-card active">
+    <div class="flex gap-8 flex-none">
+        <div *ngIf="this.playerData" class="rounded-lg w-full play-card active">
             <div class="flex flex-col h-full gap-6 relative z-10">
                 <h2 class="font-spectral text-5xl font-bold text-center">{{this.playerData.character.name}}</h2>
 
@@ -50,8 +50,14 @@
 
             <img src="{{this.playerData.character.avatarURL}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
         </div>
-        <div class="h-full w-full">
-            
+        <div class="w-full h-full flex flex-col gap-4 justify-end overflow-y-auto" style="max-height: 86vh;">
+            <div *ngFor="let turn of this.match.turns" class="rounded bg-appSlate900 p-4 rounded align-end">
+                <p class="font-bold w-full text-left">{{turn.character.name}}</p>
+                <div *ngFor="let action of turn.actions">
+                    {{action.description}}
+                </div>
+                <div *ngIf="turn.actions.length == 0">...</div>
+            </div>
         </div>
         <div *ngIf="this.enemyData" class="rounded-lg h-full w-full play-card">
             <div class="relative z-10">
