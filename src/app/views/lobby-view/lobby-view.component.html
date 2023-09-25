@@ -20,7 +20,7 @@
     <app-divider class="w-full"/>
 
     <div class="flex w-full gap-8 justify-between">
-        <div class="flex w-1/3 flex-col gap-4">
+        <div class="flex grow flex-col gap-4">
             <p>Player count: {{this.match.playerData.length}}/{{this.match.maxPlayers}}</p>
 
             <app-player-plate-lobby *ngFor="let playerData of this.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
@@ -28,7 +28,7 @@
             <app-player-plate-lobby *ngFor="let item of [].constructor(this.match.maxPlayers - this.match.playerData.length); let i = index" class="w-full"/>
         </div>
 
-        <div class="flex items-center justify-end gap-4 flex-wrap">
+        <div class="grid grid-cols-3 gap-4">
             <app-character-card 
                 *ngFor="let character of this.characters"
                 [character]="character"
