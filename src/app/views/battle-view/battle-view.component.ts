@@ -80,11 +80,17 @@ export class BattleViewComponent implements OnInit {
     if (!this.match) return;
 
     this.matchService.endMatch(this.match.id).then((match) => {
-      this.alertService.success("Match has ended.");
+      this.alertService.success(
+        "Match has ended",
+        "The host has ended the match."
+      );
       this.router.navigate(['/game']);
     }).catch((err) => {
       if (err.status === 401)
-        this.alertService.error("You are not authorized to end the match.");
+        this.alertService.error(
+          "Unauthorized",
+          "You are not authorized to end the match."
+        );
     });
   }
 
@@ -92,11 +98,17 @@ export class BattleViewComponent implements OnInit {
     if (!this.match) return;
 
     this.matchService.leaveMatch(this.match.id).then((match) => {
-      this.alertService.success("You have left the match.");
+      this.alertService.success(
+        "Match left",
+        "You have left the match."
+      );
       this.router.navigate(['/game']);
     }).catch((err) => {
       if (err.status === 401)
-        this.alertService.error("You are not authorized to end the match.");
+        this.alertService.error(
+          "Unauthorized",
+          "You are not authorized to end the match."
+        );
     });
   }
 

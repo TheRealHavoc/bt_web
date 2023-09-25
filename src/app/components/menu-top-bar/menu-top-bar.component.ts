@@ -13,11 +13,4 @@ export class MenuTopBarComponent {
     public authService: AuthService,
     public alertService: AlertService
   ) { }
-
-  test() {
-    this.alertService.success(
-      "yeeeeeeeeeeeeeeeeeeeeeeeeeet",
-      "this is a message"
-    );
-  }
 }

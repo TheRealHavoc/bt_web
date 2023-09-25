@@ -32,18 +32,27 @@ export class LobbyViewComponent {
   public copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
 
-    this.alertService.info('Match code copied to clipboard.');
+    this.alertService.info(
+      "Match code copied",
+      `The match code ${text} has been copied to your clipboard.`
+    );
   }
 
   public onEndMatchClick() {
     if (!this.match) return;
 
     this.matchService.endMatch(this.match.id).then((match) => {
-      this.alertService.success("Match has ended.");
+      this.alertService.success(
+        "Match has ended",
+        "The host has ended the match."
+      );
       this.router.navigate(['/game']);
     }).catch((err) => {
       if (err.status === 401)
-        this.alertService.error("You are not authorized to end the match.");
+        this.alertService.error(
+          "Unauthorized",
+          "You are not authorized to end the match."
+        );
     });
   }
 
@@ -51,11 +60,17 @@ export class LobbyViewComponent {
     if (!this.match) return;
 
     this.matchService.leaveMatch(this.match.id).then((match) => {
-      this.alertService.success("You have left the match.");
+      this.alertService.success(
+        "Match left",
+        "You have left the match."
+      );
       this.router.navigate(['/game']);
     }).catch((err) => {
       if (err.status === 401)
-        this.alertService.error("You are not authorized to end the match.");
+        this.alertService.error(
+          "Unauthorized",
+          "You are not authorized to end the match."
+        );
     });
   }
 
@@ -72,7 +87,10 @@ export class LobbyViewComponent {
     if (!this.match) return;
 
     this.matchService.startMatch(this.match.id).then((match) => {
-      this.alertService.success("Match started.");
+      this.alertService.success(
+        "Match started",
+        "Fight until the death!."
+      );
     }).catch((err) => {
       this.alertService.error("Could not start match.");
     });

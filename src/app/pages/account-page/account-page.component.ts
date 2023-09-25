@@ -16,10 +16,4 @@ export class AccountPageComponent {
   ){
 
   }
-
-  public onLogOutClick() {
-    this.authService.logOut();
-    this.router.navigate(['']);
-    this.alertService.info("You have been signed out");
-  }
 }

@@ -9,7 +9,7 @@ export class AlertService {
   private _subject = new Subject<Alert>();
   private _id = 0;
 
-  private readonly _TIMEOUT = 6000000000;
+  private readonly _TIMEOUT = 6000;
 
   constructor() { }
 

@@ -28,7 +28,10 @@ export class AuthGuard implements CanActivate {
       }).catch(() => {
         this.router.navigate(['/login']);
 
-        this.alertService.warning('You must be logged in to play.');
+        this.alertService.error(
+          "Unauthorized",
+          "You must be logged in to play."
+        );
 
         this.loading = false;
 

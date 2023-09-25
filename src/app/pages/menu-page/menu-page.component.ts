@@ -40,13 +40,19 @@ export class MenuPageComponent {
   public onLogOutClick() {
     this.authService.logOut();
     this.router.navigate(['']);
-    this.alertService.info("You have been signed out");
+    this.alertService.info(
+      "Signed out",
+      "Have a good day!"
+    );
   }
 
   public onCreateMatchClick() {
-    this.matchService.createMatch().then((res) => {
+    this.matchService.createMatch().then((match: Match) => {
       this.router.navigate(['/game/match']);
-      this.alertService.success('Match created.');
+      this.alertService.success(
+        "Match created",
+        `A new match has been created with the ID ${match.id}`
+      );
     })
   }
 
@@ -59,9 +65,12 @@ export class MenuPageComponent {
 
     if (value === null) return;
 
-    this.matchService.joinMatch(value).then((match) => {
+    this.matchService.joinMatch(value).then((match: Match) => {
       this.router.navigate(['/game/match']);
-      this.alertService.success('Match joined.');
+      this.alertService.success(
+        "Match created",
+        `You have joined a match with the ID ${match.id}`
+      );
     })
 
     this.processingJoin = false;

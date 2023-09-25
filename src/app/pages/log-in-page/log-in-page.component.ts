@@ -33,12 +33,13 @@ export class LogInPageComponent {
     this.processingRequest = true;
 
     this.authService.logIn(this.form.value).then((res) => {
-      this.alertService.success(`Welcome ${res.username}`!);
+      this.alertService.success(
+        `Welcome ${res.username}`,
+        "You are now logged in."
+      );
 
       this.router.navigate(['/game']);
     }).catch((error) => {
-      
-
       if (error.status === 0) {
         this.alertService.error("Something went wrong connecting to the server. Try again later.");
       } else {

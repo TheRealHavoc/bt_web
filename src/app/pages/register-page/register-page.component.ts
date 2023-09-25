@@ -35,18 +35,27 @@ export class RegisterPageComponent {
     this.processingRequest = true;
 
     if (this.form.get('password')?.value !== this.form.get('rePassword')?.value) {
-      this.alertService.warning("Passwords do not match.");
+      this.alertService.error(
+        "Password error",
+        "Passwords do not match."
+      );
 
       return;
     }
 
     this.authService.register(this.form.value).then((res) => {
-      this.alertService.success("Account created.");
+      this.alertService.success(
+        "Account created",
+        "A new account has been created."
+      );
 
       this.router.navigate(['/login']);
     }).catch((error) => {
       if (error.status === 0) {
-        this.alertService.error("Something went wrong connecting to the server. Try again later.");
+        this.alertService.error(
+          "Something went wrong",
+          "An error occured trying to process your request, try again later."
+        );
       } else {
         this.alertService.error(error.error);
       }
