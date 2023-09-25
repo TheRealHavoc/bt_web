@@ -44,16 +44,12 @@ export class MatchPageComponent {
       if (!this.match) 
         return;
 
-      console.log(data)
-
       this.match.playerData = this.match.playerData.map(x => x.id === data.id ? data : x);
     });
 
     this.wsService.getConnection().on("characterSelected", (data: PlayerData) => {
       if (!this.match) 
         return;
-
-      console.log(data)
 
       this.match.playerData = this.match.playerData.map(x => x.id === data.id ? data : x);
     });
