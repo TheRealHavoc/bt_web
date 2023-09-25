@@ -44,7 +44,7 @@ export class MatchPageComponent {
       if (!this.match) 
         return;
 
-      this.match.playerData = this.match.playerData.map(x => x.id === data.id ? data : x);
+      this.match.playerData = this.match.playerData.map(x => x.user.username === data.user.username ? data : x);
     });
 
     this.wsService.getConnection().on("characterSelected", (data: PlayerData) => {
@@ -58,14 +58,7 @@ export class MatchPageComponent {
       if (!this.match) 
         return;
 
-      this.match.playerData = this.match.playerData.map(x => x.id === data.id ? data : x);
-    })
-
-    this.wsService.getConnection().on("playerJoined", (data: PlayerData) => {
-      if (!this.match) 
-        return;
-
-      this.match.playerData.push(data);
+      this.match.playerData.unshift(data);
     })
 
     this.wsService.getConnection().on("playerLeft", (username: string) => {
@@ -73,6 +66,15 @@ export class MatchPageComponent {
         return;
       
       this.match.playerData = this.match.playerData.filter((x) => {return x.user.username !== username});
+    })
+
+    this.wsService.getConnection().on("matchStarted", (match: Match) => {
+      if (!this.match)
+        return;
+
+      console.log(match)
+      
+      this.match = match;
     })
 
     this.wsService.getConnection().on("matchEnded", () => {
