@@ -26,6 +26,7 @@ import { LobbyViewComponent } from './views/lobby-view/lobby-view.component';
 import { BattleViewComponent } from './views/battle-view/battle-view.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
+import { PlayViewComponent } from './views/play-view/play-view.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CharactersPageComponent } from './pages/characters-page/characters-page
     LobbyViewComponent,
     BattleViewComponent,
     MenuButtonComponent,
-    CharactersPageComponent
+    CharactersPageComponent,
+    PlayViewComponent
   ],
   imports: [
     BrowserModule,

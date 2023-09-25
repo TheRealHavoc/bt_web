@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character } from 'src/app/models/Character';
@@ -16,7 +16,7 @@ import { WsService } from 'src/app/services/ws.service';
   styleUrls: ['./match-page.component.scss']
 })
 export class MatchPageComponent {
-  public match: Match | null | undefined = undefined;
+  public match: Match | null | undefined;
   public characters: Character[] | undefined;
 
   constructor(
@@ -24,7 +24,9 @@ export class MatchPageComponent {
     public authService: AuthService,
     private characterService: CharacterService,
     private wsService: WsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+
+    private cdr: ChangeDetectorRef
   ) {
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
@@ -32,14 +34,20 @@ export class MatchPageComponent {
 
     this.matchService.getMatchByAuth().then((match) => {
       this.match = match;
-
-      this.subscribeToMatchEvents();
     }).catch((err) => {
       this.match = null;
     });
+
+    this.subscribeToMatchEvents();
   }
 
-  private subscribeToMatchEvents() : void{
+  private subscribeToMatchEvents(): void{
+    this.wsService.getConnection().on("matchCreated", (match: Match) => {
+      this.matchService.getMatchByID(match.id).then((match: Match) => {
+        this.match = match;
+      });
+    });
+
     this.wsService.getConnection().on("playerReadyToggle", (data: PlayerData) => {
       if (!this.match) 
         return;
@@ -71,8 +79,6 @@ export class MatchPageComponent {
     this.wsService.getConnection().on("matchStarted", (match: Match) => {
       if (!this.match)
         return;
-
-      console.log(match)
       
       this.match = match;
     })
@@ -81,7 +87,7 @@ export class MatchPageComponent {
       if (!this.match)
         return;
       
-      this.match = null;
+      this.match = undefined;
     })
   }
 }

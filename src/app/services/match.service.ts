@@ -27,6 +27,18 @@ export class MatchService {
     private authService: AuthService
   ) { }
 
+  public getMatchByID(matchID: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.get(`${environment.apiUrl}Match/GetMatchByID?matchID=${matchID}`, this.httpOptions).subscribe({next: (res: any) => {
+        this.activeMatch = res as Match;
+
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
   public createMatch(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/CreateMatch`, {}, this.httpOptions).subscribe({next: (res: any) => {
