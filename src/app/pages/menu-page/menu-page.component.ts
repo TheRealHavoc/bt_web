@@ -38,6 +38,8 @@ export class MenuPageComponent {
 
     this.matchService.getMatchByAuth().then((match: Match) => {
       this.match = match;
+    }).catch((err) => {
+      this.match = null;
     })
   }
 
