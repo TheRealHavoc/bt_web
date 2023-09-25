@@ -74,5 +74,12 @@ export class MatchPageComponent {
       
       this.match.playerData = this.match.playerData.filter((x) => {return x.user.username !== username});
     })
+
+    this.wsService.getConnection().on("matchEnded", () => {
+      if (!this.match)
+        return;
+      
+      this.match = null;
+    })
   }
 }
