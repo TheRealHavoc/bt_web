@@ -9,7 +9,7 @@ export class AlertService {
   private _subject = new Subject<Alert>();
   private _id = 0;
 
-  private readonly _TIMEOUT = 6000;
+  private readonly _TIMEOUT = 6000000000;
 
   constructor() { }
 
@@ -18,18 +18,45 @@ export class AlertService {
   }
 
   info(title: string, message?: string, timeout = this._TIMEOUT) {
-    this._subject.next(new Alert(this._id++, AlertType.info, title, timeout, message));
+    this._subject.next(new Alert(
+      this._id++, AlertType.info, 
+      title, 
+      timeout, 
+      message,
+      "info_i"
+    ));
   }
 
   success(title: string, message?: string, timeout = this._TIMEOUT) {
-    this._subject.next(new Alert(this._id++, AlertType.success, title, timeout, message));
+    this._subject.next(new Alert(
+      this._id++, 
+      AlertType.success, 
+      title, 
+      timeout, 
+      message,
+      "check"
+    ));
   }
 
   warning(title: string, message?: string, timeout = this._TIMEOUT) {
-    this._subject.next(new Alert(this._id++, AlertType.warning, title, timeout, message));
+    this._subject.next(new Alert(
+      this._id++, 
+      AlertType.warning, 
+      title, 
+      timeout, 
+      message,
+      "warning"
+    ));
   }
 
   error(title: string, message?: string, timeout = this._TIMEOUT) {
-    this._subject.next(new Alert(this._id++, AlertType.error, title, timeout, message));
+    this._subject.next(new Alert(
+      this._id++, 
+      AlertType.error, 
+      title, 
+      timeout, 
+      message,
+      "error"
+    ));
   }
 }

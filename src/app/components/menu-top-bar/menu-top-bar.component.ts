@@ -10,6 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuTopBarComponent {
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public alertService: AlertService
   ) { }
+
+  test() {
+    this.alertService.success(
+      "yeeeeeeeeeeeeeeeeeeeeeeeeeet",
+      "this is a message"
+    );
+  }
 }

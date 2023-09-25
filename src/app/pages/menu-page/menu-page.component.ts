@@ -23,8 +23,6 @@ export class MenuPageComponent {
     code: new FormControl('', Validators.required)
   });
 
-  public characters: Character[] | undefined;
-
   constructor(
     public matchService: MatchService,
     public authService: AuthService,
@@ -32,10 +30,6 @@ export class MenuPageComponent {
     private router: Router,
     private characterService: CharacterService,
   ) {
-    this.characterService.getCharacters().then(characters => {
-      this.characters = characters;
-    });
-
     this.matchService.getMatchByAuth().then((match: Match) => {
       this.match = match;
     }).catch((err) => {

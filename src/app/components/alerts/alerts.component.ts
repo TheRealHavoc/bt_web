@@ -37,17 +37,17 @@ export class AlertsComponent {
 
   className(alert: Alert | null): string {
     if (alert === null)
-      return "bg-purple-400";
+      return "bg-appWhite";
 
     switch (alert.type) {
       case AlertType.success:
-        return "bg-green-400";
+        return "bg-appGreen";
       case AlertType.warning:
-        return "bg-yellow-400";
+        return "bg-appWhite";
       case AlertType.error:
-        return "bg-red-400";
+        return "bg-appRed";
       default:
-        return "bg-blue-400";
+        return "bg-appBlue";
     }
   }
 }

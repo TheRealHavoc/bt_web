@@ -28,7 +28,7 @@
 
             <div class="flex gap-2">
                 <div *ngFor="let item of this.images">
-                    <div *ngIf="item == this.images[this.imageIndex]" class="h-[8px] w-[8px] rounded-full bg-white"></div>
+                    <div *ngIf="item == this.images[this.imageIndex]" class="h-[8px] w-[8px] rounded-full bg-appWhite"></div>
                     <div *ngIf="item != this.images[this.imageIndex]" class="h-[8px] w-[8px] rounded-full bg-appSlate800"></div>
                 </div>
             </div>

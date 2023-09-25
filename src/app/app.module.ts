@@ -24,6 +24,8 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { AccountInformationViewComponent } from './views/account-information-view/account-information-view.component';
 import { LobbyViewComponent } from './views/lobby-view/lobby-view.component';
 import { BattleViewComponent } from './views/battle-view/battle-view.component';
+import { MenuButtonComponent } from './components/menu-button/menu-button.component';
+import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { BattleViewComponent } from './views/battle-view/battle-view.component';
     AccountPageComponent,
     AccountInformationViewComponent,
     LobbyViewComponent,
-    BattleViewComponent
+    BattleViewComponent,
+    MenuButtonComponent,
+    CharactersPageComponent
   ],
   imports: [
     BrowserModule,

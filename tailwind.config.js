@@ -13,11 +13,15 @@ module.exports = {
         lexend: ["Lexend", "serif"]
       },
       colors: {
-        appSlate: '#141417',
-        appSlate900: '#19191C',
-        appSlate800: '#222225',
-        appSlate700: '#2B2B2E',
-        appSlate600: '#7A7A7C'
+        appSlate: '#0A0A0A',
+        appSlate900: '#141414',
+        appSlate800: '#1F1F1F',
+        appSlate700: '#292929',
+        appSlate600: '#333333',
+        appRed: '#B8543D',
+        appGreen: '#65A56D',
+        appBlue: '#81ADC8',
+        appWhite: '#F8F2DC'
       },
       aspectRatio: {
         'card': '3 / 4'

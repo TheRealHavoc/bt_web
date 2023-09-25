@@ -4,7 +4,8 @@ export class Alert {
         public type: AlertType,
         public title: string,
         public timeout: number,
-        public message?: string
+        public message?: string,
+        public icon?: string
     ) {}
 }
 

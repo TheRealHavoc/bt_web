@@ -1,0 +1,21 @@
+<div *ngIf="this.characters" class="flex flex-col h-screen justify-center items-center">
+    <div class="flex flex-col w-[1024px]">
+        <div class="flex flex-1 flex-col gap-8 h-full">
+            <div class="flex justify-between">
+                <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Go back
+                </a>
+
+                <span class="text-4xl">Characters</span>
+            </div>
+
+            <div class="flex gap-8 w-full h-full items-center justify-center">
+                <app-character-card
+                    *ngFor="let character of this.characters"
+                    [character]="character"
+                />
+            </div>
+        </div>
+    </div>
+</div>

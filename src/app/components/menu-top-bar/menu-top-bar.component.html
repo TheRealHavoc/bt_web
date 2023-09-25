@@ -1,7 +1,9 @@
-<div class="flex justify-between py-6 px-12">
-    <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
+<div class="flex justify-between py-6">
+    <div class="font-spectral text-6xl font-bold" (click)="test()">Baldur's Trials</div>
 
     <div class="flex gap-8 items-center">
-        <button *ngIf="this.authService.user" class="btn-primary btn-flex" [routerLink]="['/game/account']">{{this.authService.user.username}} <span class="material-symbols-outlined">person</span></button>
+        <div *ngIf="this.authService.user" class="btn-flex text-xl">
+            {{this.authService.user.username}} <span class="material-symbols-outlined">person</span>
+        </div>
     </div>
 </div>

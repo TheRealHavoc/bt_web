@@ -1,34 +1,27 @@
-<div class="flex flex-col h-screen">
-    <app-menu-top-bar></app-menu-top-bar>
+<div class="flex flex-col h-screen justify-center items-center">
+    <div class="flex flex-col w-[1024px] gap-12">
+        <app-menu-top-bar></app-menu-top-bar>
 
-    <div *ngIf="this.characters" class="flex items-center justify-center gap-4 h-full">
-        <div class="play-card">
-            <div class="flex flex-col justify-around gap-4 h-full">
-                <div *ngIf="this.match" class="flex flex-col items-stretch gap-4">
-                    <h1 class="text-2xl text-center">Match in progress</h1>
-                    <button class="btn-primary" [routerLink]="['match']">Join</button>
-                </div>
+        <div class="flex flex-wrap gap-x-32 gap-y-16 grow shrink-0 justify-center items-center">
+            <app-menu-button [routerLink]="['/game/match']">
+                <span icon class="material-symbols-outlined text-6xl">joystick</span>
+                <span text>Play</span>
+            </app-menu-button>
+    
+            <app-menu-button [routerLink]="['/game/characters']">
+                <span icon class="material-symbols-outlined text-6xl">groups</span>
+                <span text>Characters</span>
+            </app-menu-button>
+    
+            <app-menu-button [routerLink]="['/game/settings']">
+                <span icon class="material-symbols-outlined text-6xl">settings</span>
+                <span text>Settings</span>
+            </app-menu-button>
 
-                <div *ngIf="this.match === null" class="flex flex-col justify-around gap-4 h-full">
-                    <div class="flex flex-col items-stretch gap-4">
-                        <h1 class="text-2xl text-center">Create new match</h1>
-                        <button class="btn-primary" (click)="this.onCreateMatchClick()">Create</button>
-                    </div>
-
-                    <app-or-divider/>
-
-                    <form class="flex flex-col items-stretch gap-4" [formGroup]="joinForm" (ngSubmit)="this.onJoinSubmit()">
-                        <h1 class="text-2xl text-center">Join a game</h1>
-                        <input type="text" id="code" class="input" placeholder="HJDSAI" formControlName="code">
-                        <button *ngIf="!this.processingJoin" class="btn-primary" type="submit" [disabled]="joinForm.invalid">Join game</button>
-                        <button *ngIf="this.processingJoin" type="button" class="btn-primary" disabled>Joining game...</button>
-                    </form>
-                </div>
-
-                <app-full-loader *ngIf="this.match === undefined"/>
-            </div>
+            <app-menu-button (click)="this.onLogOutClick()">
+                <span icon class="material-symbols-outlined text-6xl">logout</span>
+                <span text>Quit</span>
+            </app-menu-button>
         </div>
-
-        <app-character-card *ngFor="let character of this.characters" [character]="character" [routerLink]="['character', character.id]" ></app-character-card>
     </div>
 </div>
