@@ -13,6 +13,8 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./lobby-view.component.scss']
 })
 export class LobbyViewComponent {
+  @Input() match: Match | null | undefined;
+
   public characters: Character[] | undefined;
 
   constructor(
@@ -28,16 +30,15 @@ export class LobbyViewComponent {
   }
 
   public copyToClipboard(text: string) {
-    console.log(this.matchService.activeMatch?.playerData)
-
     navigator.clipboard.writeText(text);
+
     this.alertService.info('Match code copied to clipboard.');
   }
 
   public onEndMatchClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.endMatch(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.endMatch(this.match.id).then((match) => {
       this.alertService.success("Match has ended.");
       this.router.navigate(['/game']);
     }).catch((err) => {
@@ -47,9 +48,9 @@ export class LobbyViewComponent {
   }
 
   public onLeaveMatchClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.leaveMatch(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.leaveMatch(this.match.id).then((match) => {
       this.alertService.success("You have left the match.");
       this.router.navigate(['/game']);
     }).catch((err) => {
@@ -59,18 +60,18 @@ export class LobbyViewComponent {
   }
 
   public onReadyToggleClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.toggleReady(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.toggleReady(this.match.id).then((match) => {
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
     });
   }
 
   public onStartMatchClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.startMatch(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.startMatch(this.match.id).then((match) => {
       this.alertService.success("Match started.");
     }).catch((err) => {
       this.alertService.error("Could not start match.");
@@ -78,11 +79,11 @@ export class LobbyViewComponent {
   }
 
   public selectCharacter(character: Character) {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
     if (this.matchService.isReady()) return;
 
-    this.matchService.setCharacter(this.matchService.activeMatch.id, character.id).then(() => {
+    this.matchService.setCharacter(this.match.id, character.id).then(() => {
 
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
@@ -90,9 +91,9 @@ export class LobbyViewComponent {
   }
 
   public isCharacterSelected(character: Character): string {
-    if (!this.matchService.activeMatch) return "";
+    if (!this.match) return "";
 
-    let playerData = this.matchService.getUserPlayerData(this.matchService.activeMatch.playerData);
+    let playerData = this.matchService.getUserPlayerData(this.match.playerData);
 
     if (playerData === null || playerData.character === null) return "opacity-40";
 

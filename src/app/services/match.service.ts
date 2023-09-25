@@ -27,34 +27,6 @@ export class MatchService {
     private authService: AuthService
   ) { }
 
-  public startPing() {
-    this.getMatchByAuth().then((match) => {
-      this.activeMatch = match;
-
-      this.interval = setInterval(() => {
-        this.getMatchByAuth().then((match) => {
-          this.activeMatch = match;
-          this.match$.next(match);
-        }).catch((res) => {
-          if (res.status === 404) {
-            this.activeMatch = null;
-            this.match$.next(null);
-          }
-            
-        })
-      }, environment.pingInterval);
-    }).catch((res) => {
-      if (res.status === 404) {
-        this.activeMatch = null;
-        this.match$.next(null);
-      }
-    });
-  }
-
-  public endPing() {
-    clearInterval(this.interval);
-  }
-
   public createMatch(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/CreateMatch`, {}, this.httpOptions).subscribe({next: (res: any) => {
@@ -88,6 +60,8 @@ export class MatchService {
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {
+        this.activeMatch = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -176,6 +150,8 @@ export class MatchService {
   }
 
   public canReady(): boolean {
+
+
     if (!this.activeMatch) return false;
 
     let playerData = this.getUserPlayerData(this.activeMatch.playerData);

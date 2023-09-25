@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.matchService.activeMatch">
+<ng-container *ngIf="this.match">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
@@ -13,7 +13,7 @@
                 <button *ngIf="this.matchService.isReady()" (click)="this.onReadyToggleClick()" class="btn-flex btn-secondary text-2xl">Unready <span class="material-symbols-outlined">close</span></button>
                 <button *ngIf="this.matchService.isHost()" (click)="this.onStartMatchClick()" class="btn-flex btn-primary text-2xl" [disabled]="!this.matchService.canStartMatch()">Start match <span class="material-symbols-outlined">start</span></button>
             </div>
-            <button class="btn-flex text-2xl" (click)="copyToClipboard(this.matchService.activeMatch.id)">{{this.matchService.activeMatch.id}} <span class="material-symbols-outlined">content_copy</span></button>
+            <button class="btn-flex text-2xl" (click)="copyToClipboard(this.match.id)">{{this.match.id}} <span class="material-symbols-outlined">content_copy</span></button>
         </div>
     </div>
 
@@ -21,11 +21,11 @@
 
     <div class="flex w-full gap-8 justify-between">
         <div class="flex w-1/3 flex-col gap-4">
-            <p>Player count: {{this.matchService.activeMatch.playerData.length}}/{{this.matchService.activeMatch.maxPlayers}}</p>
+            <p>Player count: {{this.match.playerData.length}}/{{this.match.maxPlayers}}</p>
 
-            <app-player-plate-lobby *ngFor="let playerData of this.matchService.activeMatch.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
+            <app-player-plate-lobby *ngFor="let playerData of this.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
 
-            <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.activeMatch.maxPlayers - this.matchService.activeMatch.playerData.length); let i = index" class="w-full"/>
+            <app-player-plate-lobby *ngFor="let item of [].constructor(this.match.maxPlayers - this.match.playerData.length); let i = index" class="w-full"/>
         </div>
 
         <div class="flex items-center justify-end gap-4 flex-wrap">

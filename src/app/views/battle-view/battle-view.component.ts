@@ -16,7 +16,7 @@ import { Helpers } from 'src/app/utils/helpers';
   styleUrls: ['./battle-view.component.scss']
 })
 export class BattleViewComponent {
-  public match: Match | undefined;
+  @Input() match: Match | undefined;
 
   public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
   public convertAttackAttrStringToValue = Helpers.convertAttackAttrStringToValue;
@@ -36,15 +36,6 @@ export class BattleViewComponent {
     private alertService: AlertService,
     private router: Router,
   ) {
-    this.matchService.match$.asObservable().subscribe((match) => {
-      if (!match) return;
-
-      this.match = match;
-
-      this.playerData = match.playerData.find(x => x.user.username === this.authService.user?.username);
-      this.enemyData = match.playerData.find(x => x.user.username !== this.authService.user?.username);
-    })
-
     this.setTimeSpend();
   }
 

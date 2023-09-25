@@ -14,7 +14,9 @@ import { MatchService } from 'src/app/services/match.service';
   templateUrl: './menu-page.component.html',
   styleUrls: ['./menu-page.component.scss']
 })
-export class MenuPageComponent implements OnDestroy {
+export class MenuPageComponent {
+  public match: Match | null | undefined;
+
   public processingJoin: boolean = false;
 
   public joinForm: FormGroup = new FormGroup({
@@ -34,7 +36,9 @@ export class MenuPageComponent implements OnDestroy {
       this.characters = characters;
     });
 
-    this.matchService.startPing();
+    this.matchService.getMatchByAuth().then((match: Match) => {
+      this.match = match;
+    })
   }
 
   public onLogOutClick() {
@@ -65,9 +69,5 @@ export class MenuPageComponent implements OnDestroy {
     })
 
     this.processingJoin = false;
-  }
-
-  ngOnDestroy(): void {
-    this.matchService.endPing();
   }
 }

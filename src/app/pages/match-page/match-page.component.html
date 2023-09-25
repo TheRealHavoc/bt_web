@@ -1,18 +1,16 @@
 <div class="flex flex-col h-screen overflow-hidden">
-    <ng-container *ngIf="this.matchService.activeMatch !== undefined">
-        <ng-container *ngIf="this.matchService.activeMatch">
-            <app-lobby-view *ngIf="!this.matchService.activeMatch.startedOn" class="flex flex-col h-full gap-8 px-12 py-6"></app-lobby-view>
-            <app-battle-view *ngIf="this.matchService.activeMatch.startedOn" class="flex flex-col h-full gap-8 px-12 py-6"></app-battle-view>
-        </ng-container>
-
-        <div *ngIf="!this.matchService.activeMatch" class="flex flex-col gap-4 items-center justify-center h-full">
-            <h1 class="font-spectral text-5xl font-bold">No active match</h1>
-            <button [routerLink]="['']" class="btn-flex">
-                Go home
-                <span class="material-symbols-outlined">fort</span>
-            </button>
-        </div>
+    <ng-container *ngIf="this.match">
+        <app-lobby-view *ngIf="!this.match.startedOn" class="flex flex-col h-full gap-8 px-12 py-6" [match]="this.match"></app-lobby-view>
+        <app-battle-view *ngIf="this.match.startedOn" class="flex flex-col h-full gap-8 px-12 py-6" [match]="this.match"></app-battle-view>
     </ng-container>
 
-    <app-full-loader class="h-full" *ngIf="this.matchService.activeMatch === undefined"/>
+    <div *ngIf="this.match === null" class="flex flex-col gap-4 items-center justify-center h-full">
+        <h1 class="font-spectral text-5xl font-bold">No active match</h1>
+        <button [routerLink]="['']" class="btn-flex">
+            Go home
+            <span class="material-symbols-outlined">fort</span>
+        </button>
+    </div>
+
+    <app-full-loader class="h-full" *ngIf="this.match === undefined"/>
 </div>
