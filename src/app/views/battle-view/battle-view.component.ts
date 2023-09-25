@@ -1,12 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Attack } from 'src/app/models/Attack';
-import { Character } from 'src/app/models/Character';
 import { Match } from 'src/app/models/Match';
 import { PlayerData } from 'src/app/models/PlayerData';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { CharacterService } from 'src/app/services/character.service';
 import { MatchService } from 'src/app/services/match.service';
 import { Helpers } from 'src/app/utils/helpers';
 
@@ -15,8 +13,8 @@ import { Helpers } from 'src/app/utils/helpers';
   templateUrl: './battle-view.component.html',
   styleUrls: ['./battle-view.component.scss']
 })
-export class BattleViewComponent {
-  @Input() match: Match | undefined;
+export class BattleViewComponent implements OnInit {
+  @Input() match: Match | null | undefined = undefined;
 
   public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
   public convertAttackAttrStringToValue = Helpers.convertAttackAttrStringToValue;
@@ -39,11 +37,17 @@ export class BattleViewComponent {
     this.setTimeSpend();
   }
 
+  ngOnInit(): void {
+    this.setTimeSpend();
+
+    console.log(this.match)
+  }
+
   public setTimeSpend(): void {
-    if (!this.matchService.activeMatch?.startedOn)
+    if (!this.match?.startedOn)
       return;
 
-    var start = Date.parse(this.matchService.activeMatch.startedOn);
+    var start = Date.parse(this.match.startedOn);
 
     this.timePlayed = this.getTimeSpend(start);
 
@@ -73,9 +77,9 @@ export class BattleViewComponent {
   }
 
   public onEndMatchClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.endMatch(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.endMatch(this.match.id).then((match) => {
       this.alertService.success("Match has ended.");
       this.router.navigate(['/game']);
     }).catch((err) => {
@@ -85,9 +89,9 @@ export class BattleViewComponent {
   }
 
   public onLeaveMatchClick() {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
 
-    this.matchService.leaveMatch(this.matchService.activeMatch.id).then((match) => {
+    this.matchService.leaveMatch(this.match.id).then((match) => {
       this.alertService.success("You have left the match.");
       this.router.navigate(['/game']);
     }).catch((err) => {
@@ -97,10 +101,10 @@ export class BattleViewComponent {
   }
 
   public performAttack(attack: Attack) {
-    if (!this.matchService.activeMatch) return;
+    if (!this.match) return;
     if (!this.playerData) return;
 
-    this.matchService.performAttack(this.matchService.activeMatch.id, this.playerData.character.id, attack.name).then((match) => {
+    this.matchService.performAttack(this.match.id, this.playerData.character.id, attack.name).then((match) => {
       
     }).catch((err) => {
       this.alertService.error("Something went wrong");

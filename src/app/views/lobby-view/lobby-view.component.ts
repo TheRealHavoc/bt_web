@@ -13,7 +13,7 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./lobby-view.component.scss']
 })
 export class LobbyViewComponent {
-  @Input() match: Match | null | undefined;
+  @Input() match: Match | null | undefined = undefined;
 
   public characters: Character[] | undefined;
 
