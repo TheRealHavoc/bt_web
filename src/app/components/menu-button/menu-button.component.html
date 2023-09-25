@@ -1,6 +1,6 @@
-<button class="flex flex-col gap-4 items-center transition hover:scale-110 group">
-    <div class="transition rounded-full flex items-center justify-center p-8 bg-appWhite text-appSlate group-hover:text-appRed">
-        <ng-content select="[icon]"></ng-content>
+<button class="flex flex-col gap-4 items-center transition group hover:scale-110">
+    <div class="transition rounded-full flex items-center justify-center p-8 bg-appWhite text-appSlate group-hover:text-appRed group-hover:scale-110">
+        <span class="transition material-symbols-outlined text-6xl group-hover:scale-110">{{this.icon}}</span>
     </div>
     
     <div class="text-2xl">

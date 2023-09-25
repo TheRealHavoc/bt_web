@@ -81,10 +81,9 @@ export class BattleViewComponent implements OnInit {
 
     this.matchService.endMatch(this.match.id).then((match) => {
       this.alertService.success(
-        "Match has ended",
-        "The host has ended the match."
+        "Match ended",
+        "You have ended the match."
       );
-      this.router.navigate(['/game']);
     }).catch((err) => {
       if (err.status === 401)
         this.alertService.error(

@@ -1,31 +1,26 @@
 <div class="flex flex-col h-screen justify-center items-center">
-    <div class="flex flex-col w-[1024px]">
-        <div class="flex flex-1 flex-col gap-8 h-full">
-            <div class="flex justify-between">
-                <a [routerLink]="['/game']" class="btn-flex w-fit border-b-2 py-1 font-bold">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                    Go back
-                </a>
+    <div class="flex flex-col w-[1024px] gap-8">
+        <div class="flex justify-between items-center">
+            <a [routerLink]="['/game']" class="btn-flex h-fit w-fit border-b-2 py-1 font-bold">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Go back
+            </a>
 
-                <span class="text-4xl">Play</span>
-            </div>
+            <span class="text-6xl font-bold">Play</span>
+        </div>
 
-            <div class="flex flex-wrap gap-x-32 gap-y-16 grow shrink-0 justify-center items-center">
-                <app-menu-button (click)="onQuickPlayClick()">
-                    <span icon class="material-symbols-outlined text-6xl">electric_bolt</span>
-                    <span text>Quick play</span>
-                </app-menu-button>
+        <div class="flex flex-wrap gap-x-32 gap-y-16 h-[426.667px] grow shrink-0 justify-center items-center">
+            <app-menu-button (click)="onQuickPlayClick()" [icon]="'electric_bolt'">
+                <span text>Quick play</span>
+            </app-menu-button>
 
-                <app-menu-button (click)="onCreateMatchClick()">
-                    <span icon class="material-symbols-outlined text-6xl">add_circle</span>
-                    <span text>New match</span>
-                </app-menu-button>
+            <app-menu-button (click)="onCreateMatchClick()" [icon]="'add_circle'">
+                <span text>New match</span>
+            </app-menu-button>
 
-                <app-menu-button>
-                    <span icon class="material-symbols-outlined text-6xl">login</span>
-                    <span text>Join match</span>
-                </app-menu-button>
-            </div>
+            <app-menu-button [icon]="'login'">
+                <span text>Join match</span>
+            </app-menu-button>
         </div>
     </div>
 </div>

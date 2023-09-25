@@ -1,25 +1,21 @@
 <div class="flex flex-col h-screen justify-center items-center">
-    <div class="flex flex-col w-[1024px] gap-12">
+    <div class="flex flex-col w-[1024px] gap-8">
         <app-menu-top-bar></app-menu-top-bar>
 
-        <div class="flex flex-wrap gap-x-32 gap-y-16 grow shrink-0 justify-center items-center">
-            <app-menu-button [routerLink]="['/game/match']">
-                <span icon class="material-symbols-outlined text-6xl">joystick</span>
+        <div class="flex flex-wrap gap-x-32 gap-y-16 h-[426.667px] grow shrink-0 justify-center items-center">
+            <app-menu-button [routerLink]="['/game/match']" [icon]="'joystick'">
                 <span text>Play</span>
             </app-menu-button>
     
-            <app-menu-button [routerLink]="['/game/characters']">
-                <span icon class="material-symbols-outlined text-6xl">groups</span>
+            <app-menu-button [routerLink]="['/game/characters']" [icon]="'groups'">
                 <span text>Characters</span>
             </app-menu-button>
     
-            <app-menu-button [routerLink]="['/game/settings']">
-                <span icon class="material-symbols-outlined text-6xl">settings</span>
+            <app-menu-button [routerLink]="['/game/settings']" [icon]="'settings'">
                 <span text>Settings</span>
             </app-menu-button>
 
-            <app-menu-button (click)="this.onLogOutClick()">
-                <span icon class="material-symbols-outlined text-6xl">logout</span>
+            <app-menu-button (click)="this.onLogOutClick()" [icon]="'logout'">
                 <span text>Quit</span>
             </app-menu-button>
         </div>

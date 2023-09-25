@@ -6,4 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./menu-button.component.scss']
 })
 export class MenuButtonComponent {
+  @Input() icon: string = "shield";
 }

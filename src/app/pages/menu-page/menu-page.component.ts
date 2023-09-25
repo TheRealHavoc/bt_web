@@ -15,8 +15,6 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent {
-  public match: Match | null | undefined;
-
   public processingJoin: boolean = false;
 
   public joinForm: FormGroup = new FormGroup({
@@ -30,11 +28,6 @@ export class MenuPageComponent {
     private router: Router,
     private characterService: CharacterService,
   ) {
-    this.matchService.getMatchByAuth().then((match: Match) => {
-      this.match = match;
-    }).catch((err) => {
-      this.match = null;
-    })
   }
 
   public onLogOutClick() {

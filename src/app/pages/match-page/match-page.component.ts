@@ -80,6 +80,11 @@ export class MatchPageComponent {
     this.wsService.getConnection().on("matchEnded", () => {
       if (!this.match)
         return;
+
+      this.alertService.info(
+        "Match ended",
+        "The match has ended."
+      );
       
       this.match = null;
     })
