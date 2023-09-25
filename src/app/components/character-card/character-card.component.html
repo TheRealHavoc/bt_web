@@ -1,5 +1,12 @@
 <ng-container *ngIf="this.character">
-    <div class="group play-card transition hover:scale-105 cursor-pointer">
+    <div 
+        class="play-card transition"
+        [ngClass]="{
+            'active': this.active,
+            'cursor-pointer hover:scale-105 group': !this.disabled,
+            'opacity-30': !this.active && this.disabled
+        }"
+    >
         <div class="flex flex-col h-full gap-6 relative z-10">
             <h2 class="font-spectral text-3xl font-bold text-center h-full">{{this.character.name}}</h2>
 
@@ -37,6 +44,13 @@
         </div>
         
         
-        <img src="{{this.character.avatarURL}}" alt="" class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
+        <img 
+            src="{{this.character.avatarURL}}" 
+            alt="" 
+            class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full"
+            [ngClass]="{
+                'opacity-60': this.active,
+            }"
+        >
     </div>
 </ng-container>

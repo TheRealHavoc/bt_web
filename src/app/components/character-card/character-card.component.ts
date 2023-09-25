@@ -9,6 +9,8 @@ import { Helpers } from 'src/app/utils/helpers';
 })
 export class CharacterCardComponent {
   @Input() character: Character | undefined;
+  @Input() active: boolean = false;
+  @Input() disabled: boolean = false;
 
   public calculateAbilityModifier(score: number): string {
     let modifier = Helpers.convertAbilityScoreToAbilityScoreModifier(score);

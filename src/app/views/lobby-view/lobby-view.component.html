@@ -29,7 +29,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-4 flex-wrap">
-            <app-character-card *ngFor="let character of this.characters" [ngClass]="isCharacterSelected(character)" [character]="character" (click)="this.selectCharacter(character)"/>
+            <app-character-card 
+                *ngFor="let character of this.characters"
+                [character]="character"
+                [active]="this.isCharacterSelected(character)"
+                [disabled]="this.matchService.isReady()"
+                (click)="this.selectCharacter(character)"
+            />
         </div>
     </div>
 </ng-container>

@@ -90,15 +90,16 @@ export class LobbyViewComponent {
     });
   }
 
-  public isCharacterSelected(character: Character): string {
-    if (!this.match) return "";
+  public isCharacterSelected(character: Character): boolean {
+    if (!this.match) 
+      return false;
 
     let playerData = this.matchService.getUserPlayerData(this.match.playerData);
 
-    if (playerData === null || playerData.character === null) return "opacity-40";
+    if (playerData === null || playerData.character === null) return false;
 
-    if (playerData.character.id === character.id) return "";
+    if (playerData.character.id === character.id) return true;
 
-    return "opacity-40";
+    return false;
   }
 }
