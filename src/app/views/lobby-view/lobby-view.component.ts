@@ -99,7 +99,7 @@ export class LobbyViewComponent {
   public selectCharacter(character: Character) {
     if (!this.match) return;
 
-    if (this.matchService.isReady()) return;
+    if (this.matchService.isReady(this.match)) return;
 
     this.matchService.setCharacter(this.match.id, character.id).then(() => {
 

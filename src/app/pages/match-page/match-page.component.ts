@@ -41,13 +41,7 @@ export class MatchPageComponent {
     this.subscribeToMatchEvents();
   }
 
-  private subscribeToMatchEvents(): void{
-    this.wsService.getConnection().on("matchCreated", (match: Match) => {
-      this.matchService.getMatchByID(match.id).then((match: Match) => {
-        this.match = match;
-      });
-    });
-
+  private subscribeToMatchEvents(): void {
     this.wsService.getConnection().on("playerReadyToggle", (data: PlayerData) => {
       if (!this.match) 
         return;
@@ -87,7 +81,7 @@ export class MatchPageComponent {
       if (!this.match)
         return;
       
-      this.match = undefined;
+      this.match = null;
     })
   }
 }

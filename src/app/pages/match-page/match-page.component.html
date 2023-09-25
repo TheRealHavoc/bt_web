@@ -1,6 +1,6 @@
 <div class="flex flex-col h-screen overflow-hidden">
-    <div *ngIf="this.match === null" class="flex flex-col gap-4 items-center justify-center h-full">
-        <app-play-view></app-play-view>
+    <div *ngIf="this.match === null || this.match === undefined" class="flex flex-col gap-4 items-center justify-center h-full">
+        <app-play-view (newMatchEvent)="this.match = $event"></app-play-view>
     </div>
 
     <ng-container *ngIf="this.match !== null && this.match !== undefined">

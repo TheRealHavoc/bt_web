@@ -6,8 +6,8 @@
             <div class="flex gap-8 items-center">
                 <span>Time played: {{this.timePlayed}}</span>
 
-                <button *ngIf="this.matchService.isHost()" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
-                <button *ngIf="!this.matchService.isHost()" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+                <button *ngIf="this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
+                <button *ngIf="!this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
             </div>
         </div>
     </div>

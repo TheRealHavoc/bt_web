@@ -19,9 +19,6 @@ export class MatchService {
     })
   }
 
-  public activeMatch: Match | null | undefined;
-  public match$: Subject<Match | null | undefined> = new Subject();
-
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -30,8 +27,6 @@ export class MatchService {
   public getMatchByID(matchID: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetMatchByID?matchID=${matchID}`, this.httpOptions).subscribe({next: (res: any) => {
-        this.activeMatch = res as Match;
-
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -59,6 +54,16 @@ export class MatchService {
     })
   }
 
+  public joinRandomMatch(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.http.post(`${environment.apiUrl}Match/JoinRandomMatch`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as Match);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
+
   public startMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/StartMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
@@ -72,8 +77,6 @@ export class MatchService {
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {
-        this.activeMatch = res as Match;
-
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -141,32 +144,30 @@ export class MatchService {
     return res;
   }
 
-  public isHost(): boolean {
-    if (!this.activeMatch) return false;
+  public isHost(match: Match): boolean {
+    if (!match) return false;
 
-    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+    let playerData = this.getUserPlayerData(match.playerData);
 
     if (playerData === null) return false;
 
     return playerData.isHost;
   }
 
-  public isReady(): boolean {
-    if (!this.activeMatch) return false;
+  public isReady(match: Match): boolean {
+    if (!match) return false;
 
-    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+    let playerData = this.getUserPlayerData(match.playerData);
 
     if (playerData === null) return false;
 
     return playerData.isReady;
   }
 
-  public canReady(): boolean {
+  public canReady(match: Match): boolean {
+    if (!match) return false;
 
-
-    if (!this.activeMatch) return false;
-
-    let playerData = this.getUserPlayerData(this.activeMatch.playerData);
+    let playerData = this.getUserPlayerData(match.playerData);
 
     if (playerData === null) return false;
 
@@ -175,22 +176,22 @@ export class MatchService {
     return true;
   }
 
-  public matchHasMoreThanOnePlayer(): boolean {
-    if (!this.activeMatch) return false;
+  public matchHasMoreThanOnePlayer(match: Match): boolean {
+    if (!match) return false;
 
-    if (this.activeMatch.playerData.length < 2) return false;
+    if (match.playerData.length < 2) return false;
 
     return true;
   }
 
-  public canStartMatch(): boolean {
-    if (!this.activeMatch) return false;
+  public canStartMatch(match: Match): boolean {
+    if (!match) return false;
 
-    if (!this.isHost()) return false;
+    if (!this.isHost(match)) return false;
 
-    if (!this.matchHasMoreThanOnePlayer()) return false;
+    if (!this.matchHasMoreThanOnePlayer(match)) return false;
 
-    if (this.activeMatch.playerData.find(x => !x.isReady)) return false;
+    if (match.playerData.find(x => !x.isReady)) return false;
 
     return true;
   }
