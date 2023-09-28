@@ -28,8 +28,6 @@ export class MatchPageComponent {
     private wsService: WsService,
     private alertService: AlertService,
   ) {
-    this.loaderService.started()
-
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
     });
@@ -38,9 +36,7 @@ export class MatchPageComponent {
       this.match = match;
     }).catch((err) => {
       this.match = null;
-    }).finally(() => {
-      this.loaderService.completed()
-    });
+    })
 
     this.subscribeToMatchEvents();
   }
