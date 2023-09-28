@@ -53,7 +53,7 @@ export class MatchPageComponent {
       if (!this.matchService.match) 
         return;
 
-      this.matchService.match.playerData.unshift(data);
+      this.matchService.match.playerData.push(data);
     })
 
     this.wsService.getConnection().on("playerLeft", (username: string) => {
