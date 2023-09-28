@@ -7,6 +7,7 @@ import { PlayerData } from 'src/app/models/PlayerData';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CharacterService } from 'src/app/services/character.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { MatchService } from 'src/app/services/match.service';
 import { WsService } from 'src/app/services/ws.service';
 
@@ -20,14 +21,15 @@ export class MatchPageComponent {
   public characters: Character[] | undefined;
 
   constructor(
+    public loaderService: LoaderService,
     public matchService: MatchService,
     public authService: AuthService,
     private characterService: CharacterService,
     private wsService: WsService,
     private alertService: AlertService,
-
-    private cdr: ChangeDetectorRef
   ) {
+    this.loaderService.started()
+
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
     });
@@ -36,6 +38,8 @@ export class MatchPageComponent {
       this.match = match;
     }).catch((err) => {
       this.match = null;
+    }).finally(() => {
+      this.loaderService.completed()
     });
 
     this.subscribeToMatchEvents();

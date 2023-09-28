@@ -1,5 +1,5 @@
 <app-alerts></app-alerts>
 
-<app-full-loader *ngIf="this.authGuard.loading"></app-full-loader>
+<app-full-loader *ngIf="(this.loaderService.isLoading$ | async)"></app-full-loader>
 
-<router-outlet *ngIf="!this.authGuard.loading"></router-outlet>
+<router-outlet *ngIf="!(this.loaderService.isLoading$ | async)"></router-outlet>

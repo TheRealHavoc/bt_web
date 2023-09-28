@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,6 @@ export class AppComponent {
   title = 'Baldur\'s Trials';
 
   constructor (
-    public authGuard: AuthGuard
+    public loaderService: LoaderService
   ) {}
 }

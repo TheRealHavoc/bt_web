@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from 'src/environments/environment';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,26 @@ export class AuthService {
   }
 
   constructor(
+    public loaderService: LoaderService,
+
     private http: HttpClient
   ) { }
 
   public isAuthenticated(): Promise<void> {
+    this.loaderService.started()
+
     return new Promise((resolve, reject) => {
-      if (this.user !== undefined)
-        resolve();
+      if (this.user !== undefined) {
+        this.loaderService.completed();
+        return resolve();
+      }
 
       const refreshToken: string | null = localStorage.getItem('refreshToken');
 
-      if (refreshToken === null)
+      if (refreshToken === null) {
+        this.loaderService.completed();
         return reject();
+      }
 
       this.http.post<User>(`${environment.apiUrl}User/GetUserByRefreshToken`, `"${refreshToken}"`, this.httpOptions).subscribe({next: (res) => {
         this.user = res;
@@ -36,12 +45,16 @@ export class AuthService {
         localStorage.setItem('token', res.token);
         localStorage.setItem('refreshToken', res.refreshToken);
 
-        resolve();
+        this.loaderService.completed();
+
+        return resolve();
       }, error: (error) => {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
 
-        reject();
+        this.loaderService.completed();
+
+        return reject();
       }});
     });
   }

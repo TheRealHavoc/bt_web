@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,7 +26,7 @@ export class RegisterPageComponent {
   ) {
     this.authService.isAuthenticated().then(() => {
       this.router.navigate(['/game'])
-    });
+    })
   }
 
   public onSubmit() {
