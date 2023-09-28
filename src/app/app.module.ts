@@ -27,6 +27,7 @@ import { BattleViewComponent } from './views/battle-view/battle-view.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
 import { PlayViewComponent } from './views/play-view/play-view.component';
+import { CharacterCardSmallComponent } from './components/character-card-small/character-card-small.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PlayViewComponent } from './views/play-view/play-view.component';
     BattleViewComponent,
     MenuButtonComponent,
     CharactersPageComponent,
-    PlayViewComponent
+    PlayViewComponent,
+    CharacterCardSmallComponent
   ],
   imports: [
     BrowserModule,

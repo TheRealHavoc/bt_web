@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { PlayerData } from '../models/PlayerData';
 import { Subject } from 'rxjs';
+import { Character } from '../models/Character';
 
 @Injectable({
   providedIn: 'root'
@@ -158,6 +159,16 @@ export class MatchService {
     if (res === undefined) return null;
 
     return res;
+  }
+
+  public getSelectedCharacter(): Character | null {
+    if (!this.match) return null;
+
+    let playerData = this.getUserPlayerData(this.match.playerData);
+
+    if (!playerData) return null;
+
+    return playerData.character;
   }
 
   public isHost(match: Match): boolean {

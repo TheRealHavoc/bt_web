@@ -1,0 +1,19 @@
+<ng-container *ngIf="this.character">
+    <div 
+        class="play-card-square transition flex-1 w-32"
+        [ngClass]="{
+            'active': this.active,
+            'cursor-pointer hover:scale-105 group': !this.disabled,
+            'opacity-30': !this.active && this.disabled
+        }"
+    >
+        <img 
+            src="{{this.character.avatarURL}}" 
+            alt="" 
+            class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full"
+            [ngClass]="{
+                'opacity-60': this.active,
+            }"
+        >
+    </div>
+</ng-container>

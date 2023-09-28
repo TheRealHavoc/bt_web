@@ -4,7 +4,8 @@
         [ngClass]="{
             'active': this.active,
             'cursor-pointer hover:scale-105 group': !this.disabled,
-            'opacity-30': !this.active && this.disabled
+            'opacity-30': !this.active && this.disabled,
+            'w-[500px]': this.fullSize
         }"
     >
         <div class="flex flex-col h-full gap-6 relative z-10">

@@ -19,17 +19,29 @@
 
     <app-divider class="w-full"/>
 
-    <div class="flex w-full gap-8 justify-between">
-        <div class="flex grow flex-col gap-4">
-            <p>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</p>
-
-            <app-player-plate-lobby *ngFor="let playerData of this.matchService.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
-
-            <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.match.maxPlayers - this.matchService.match.playerData.length); let i = index" class="w-full"/>
+    <div class="flex w-full h-full gap-16 justify-between items-center">
+        <div class="flex-1">
+            <div class="flex flex-col gap-4 w-3/4">
+                <p>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</p>
+    
+                <app-player-plate-lobby *ngFor="let playerData of this.matchService.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
+    
+                <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.match.maxPlayers - this.matchService.match.playerData.length); let i = index" class="w-full"/>
+            </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-            <app-character-card 
+        <div>
+            <app-character-card *ngIf="this.characters"
+                class="w-32"
+                [character]="this.matchService.getSelectedCharacter()"
+                [active]="true"
+                [disabled]="true"
+                [fullSize]="true"
+            />
+        </div>
+
+        <div class="flex flex-1 flex-wrap gap-12 justify-end">
+            <app-character-card-small
                 *ngFor="let character of this.characters"
                 [character]="character"
                 [active]="this.isCharacterSelected(character)"

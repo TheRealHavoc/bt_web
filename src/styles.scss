@@ -68,6 +68,11 @@
         @apply aspect-card bg-appSlate900 w-80 rounded-lg p-6 relative overflow-hidden;
     }
 
+    .play-card-square {
+        aspect-ratio: 1 / 1;
+        @apply bg-appSlate900 rounded-lg p-6 relative overflow-hidden;
+    }
+
     .active {
         @apply outline outline-offset-2 outline-2 outline-white;
     }
