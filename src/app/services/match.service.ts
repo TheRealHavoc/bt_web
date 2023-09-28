@@ -75,8 +75,6 @@ export class MatchService {
   public startMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/StartMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = res as Match;
-
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -113,7 +111,7 @@ export class MatchService {
   public leaveMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/LeaveMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = res as Match;
+        this.match = null;
 
         resolve(res as Match);
       }, error: (error) => {
@@ -125,8 +123,6 @@ export class MatchService {
   public toggleReady(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/ToggleReady/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = res as Match;
-
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -137,8 +133,6 @@ export class MatchService {
   public setCharacter(matchId: string, characterId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/SetCharacter/?matchId=${matchId}&characterId=${characterId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = res as Match;
-
         resolve(res);
       }, error: (error) => {
         reject(error);
@@ -149,8 +143,6 @@ export class MatchService {
   public performAttack(matchId: string, characterId: string, attackName: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/PerformAttack/?matchId=${matchId}&characterId=${characterId}&attackName=${attackName}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = res as Match;
-
         resolve(res);
       }, error: (error) => {
         reject(error);

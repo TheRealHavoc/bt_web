@@ -32,6 +32,7 @@ export class MenuPageComponent {
 
   public onLogOutClick() {
     this.authService.logOut();
+    this.matchService.match = undefined;
     this.router.navigate(['']);
     this.alertService.info(
       "Signed out",

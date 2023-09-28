@@ -18,15 +18,18 @@ export class MatchResolver implements Resolve<Match | null> {
     private loaderService: LoaderService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Match | null> {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Match | null> {
     this.loaderService.started();
 
-    return this.matchService.getMatchByAuth().then((match: Match) => {
-      return match;
-    }).catch((err) => {
-      return null;
-    }).finally(() => {
+    try {
+      try {
+        const match = await this.matchService.getMatchByAuth();
+        return match;
+      } catch (err) {
+        return null;
+      }
+    } finally {
       this.loaderService.completed();
-    });
+    }
   }
 }
