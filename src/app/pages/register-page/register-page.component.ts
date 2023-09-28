@@ -51,14 +51,10 @@ export class RegisterPageComponent {
 
       this.router.navigate(['/login']);
     }).catch((error) => {
-      if (error.status === 0) {
-        this.alertService.error(
-          "Something went wrong",
-          "An error occured trying to process your request, try again later."
-        );
-      } else {
-        this.alertService.error(error.error);
-      }
+      this.alertService.error(
+        "Something went wrong",
+        "An error occured trying to process your request, try again later."
+      );
     }).finally(() => {
       this.processingRequest = false;
     });

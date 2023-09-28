@@ -40,11 +40,7 @@ export class LogInPageComponent {
 
       this.router.navigate(['/game']);
     }).catch((error) => {
-      if (error.status === 0) {
-        this.alertService.error("Something went wrong connecting to the server. Try again later.");
-      } else {
-        this.alertService.error(error.error);
-      }
+      this.alertService.error("Something went wrong connecting to the server. Try again later.");
     }).finally(() => {
       this.processingRequest = false;
     });

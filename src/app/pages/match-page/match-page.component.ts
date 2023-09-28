@@ -39,14 +39,18 @@ export class MatchPageComponent {
       if (!this.matchService.match) 
         return;
 
-      this.matchService.match.playerData = this.matchService.match.playerData.map(x => x.user.username === data.user.username ? data : x);
+      this.matchService.match.playerData = this.matchService.match.playerData.map(x => 
+        x.user.username === data.user.username ? {...data} : x
+      );
     });
 
     this.wsService.getConnection().on("characterSelected", (data: PlayerData) => {
       if (!this.matchService.match) 
         return;
 
-      this.matchService.match.playerData = this.matchService.match.playerData.map(x => x.id === data.id ? data : x);
+      this.matchService.match.playerData = this.matchService.match.playerData.map(x => 
+        x.user.username === data.user.username ? {...data} : x
+      );
     });
 
     this.wsService.getConnection().on("playerJoined", (data: PlayerData) => {
