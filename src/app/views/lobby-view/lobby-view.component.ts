@@ -86,7 +86,7 @@ export class LobbyViewComponent {
     this.matchService.startMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match started",
-        "Fight until the death!."
+        "Fight until the death!"
       );
     }).catch((err) => {
       this.alertService.error("Could not start match.");
