@@ -17,7 +17,6 @@ import { WsService } from 'src/app/services/ws.service';
   styleUrls: ['./match-page.component.scss']
 })
 export class MatchPageComponent {
-  public match: Match | null | undefined;
   public characters: Character[] | undefined;
 
   constructor(
@@ -32,53 +31,47 @@ export class MatchPageComponent {
       this.characters = characters;
     });
 
-    this.matchService.getMatchByAuth().then((match) => {
-      this.match = match;
-    }).catch((err) => {
-      this.match = null;
-    })
-
     this.subscribeToMatchEvents();
   }
 
   private subscribeToMatchEvents(): void {
     this.wsService.getConnection().on("playerReadyToggle", (data: PlayerData) => {
-      if (!this.match) 
+      if (!this.matchService.match) 
         return;
 
-      this.match.playerData = this.match.playerData.map(x => x.user.username === data.user.username ? data : x);
+      this.matchService.match.playerData = this.matchService.match.playerData.map(x => x.user.username === data.user.username ? data : x);
     });
 
     this.wsService.getConnection().on("characterSelected", (data: PlayerData) => {
-      if (!this.match) 
+      if (!this.matchService.match) 
         return;
 
-      this.match.playerData = this.match.playerData.map(x => x.id === data.id ? data : x);
+      this.matchService.match.playerData = this.matchService.match.playerData.map(x => x.id === data.id ? data : x);
     });
 
     this.wsService.getConnection().on("playerJoined", (data: PlayerData) => {
-      if (!this.match) 
+      if (!this.matchService.match) 
         return;
 
-      this.match.playerData.unshift(data);
+      this.matchService.match.playerData.unshift(data);
     })
 
     this.wsService.getConnection().on("playerLeft", (username: string) => {
-      if (!this.match) 
+      if (!this.matchService.match) 
         return;
       
-      this.match.playerData = this.match.playerData.filter((x) => {return x.user.username !== username});
+      this.matchService.match.playerData = this.matchService.match.playerData.filter((x) => {return x.user.username !== username});
     })
 
     this.wsService.getConnection().on("matchStarted", (match: Match) => {
-      if (!this.match)
+      if (!this.matchService.match)
         return;
       
-      this.match = match;
+      this.matchService.match = match;
     })
 
     this.wsService.getConnection().on("matchEnded", () => {
-      if (!this.match)
+      if (!this.matchService.match)
         return;
 
       this.alertService.info(
@@ -86,7 +79,7 @@ export class MatchPageComponent {
         "The match has ended."
       );
       
-      this.match = null;
+      this.matchService.match = null;
     })
   }
 }

@@ -13,8 +13,6 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./lobby-view.component.scss']
 })
 export class LobbyViewComponent {
-  @Input() match: Match | null | undefined = undefined;
-
   public characters: Character[] | undefined;
 
   constructor(
@@ -39,9 +37,9 @@ export class LobbyViewComponent {
   }
 
   public onEndMatchClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.endMatch(this.match.id).then((match) => {
+    this.matchService.endMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match ended",
         "You have ended the match."
@@ -56,9 +54,9 @@ export class LobbyViewComponent {
   }
 
   public onLeaveMatchClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.leaveMatch(this.match.id).then((match) => {
+    this.matchService.leaveMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match left",
         "You have left the match."
@@ -74,18 +72,18 @@ export class LobbyViewComponent {
   }
 
   public onReadyToggleClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.toggleReady(this.match.id).then((match) => {
+    this.matchService.toggleReady(this.matchService.match.id).then((match) => {
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
     });
   }
 
   public onStartMatchClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.startMatch(this.match.id).then((match) => {
+    this.matchService.startMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match started",
         "Fight until the death!."
@@ -96,11 +94,11 @@ export class LobbyViewComponent {
   }
 
   public selectCharacter(character: Character) {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    if (this.matchService.isReady(this.match)) return;
+    if (this.matchService.isReady(this.matchService.match)) return;
 
-    this.matchService.setCharacter(this.match.id, character.id).then(() => {
+    this.matchService.setCharacter(this.matchService.match.id, character.id).then(() => {
 
     }).catch((err) => {
       this.alertService.error("Something went wrong.");
@@ -108,10 +106,10 @@ export class LobbyViewComponent {
   }
 
   public isCharacterSelected(character: Character): boolean {
-    if (!this.match) 
+    if (!this.matchService.match) 
       return false;
 
-    let playerData = this.matchService.getUserPlayerData(this.match.playerData);
+    let playerData = this.matchService.getUserPlayerData(this.matchService.match.playerData);
 
     if (playerData === null || playerData.character === null) return false;
 

@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class MatchService {
-  private interval: any;
+  public match: Match | null | undefined;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -27,6 +27,8 @@ export class MatchService {
   public getMatchByID(matchID: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetMatchByID?matchID=${matchID}`, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -37,6 +39,8 @@ export class MatchService {
   public createMatch(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/CreateMatch`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -47,6 +51,8 @@ export class MatchService {
   public joinMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/JoinMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -57,6 +63,8 @@ export class MatchService {
   public joinRandomMatch(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/JoinRandomMatch`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -67,6 +75,8 @@ export class MatchService {
   public startMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/StartMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -77,8 +87,12 @@ export class MatchService {
   public getMatchByAuth(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.get(`${environment.apiUrl}Match/GetOpenMatchByAuthenticated`, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
+        this.match = null;
+
         reject(error);
       }})
     })
@@ -87,6 +101,8 @@ export class MatchService {
   public endMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/EndMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = null;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -97,6 +113,8 @@ export class MatchService {
   public leaveMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/LeaveMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -107,6 +125,8 @@ export class MatchService {
   public toggleReady(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/ToggleReady/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res as Match);
       }, error: (error) => {
         reject(error);
@@ -117,6 +137,8 @@ export class MatchService {
   public setCharacter(matchId: string, characterId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/SetCharacter/?matchId=${matchId}&characterId=${characterId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res);
       }, error: (error) => {
         reject(error);
@@ -127,6 +149,8 @@ export class MatchService {
   public performAttack(matchId: string, characterId: string, attackName: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/PerformAttack/?matchId=${matchId}&characterId=${characterId}&attackName=${attackName}`, {}, this.httpOptions).subscribe({next: (res: any) => {
+        this.match = res as Match;
+
         resolve(res);
       }, error: (error) => {
         reject(error);

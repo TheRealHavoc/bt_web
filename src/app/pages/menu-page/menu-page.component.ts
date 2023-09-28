@@ -26,8 +26,8 @@ export class MenuPageComponent {
     public authService: AuthService,
     private alertService: AlertService,
     private router: Router,
-    private characterService: CharacterService,
   ) {
+
   }
 
   public onLogOutClick() {

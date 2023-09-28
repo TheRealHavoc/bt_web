@@ -11,6 +11,7 @@ import { MatchPageComponent } from './pages/match-page/match-page.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { AccountInformationViewComponent } from './views/account-information-view/account-information-view.component';
 import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
+import { MatchResolver } from './resolvers/match.resolver';
 
 const routes: Routes = [
   {path: '', title: 'Landing page', component: LandingPageComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
       {path: '', title: 'Characters', component: CharactersPageComponent, pathMatch: 'full'},
       {path: ':id', title: 'Character', component: CharacterPageComponent},
     ]},
-    {path: 'match', title: 'Match', component: MatchPageComponent},
+    {path: 'match', resolve: {match: MatchResolver}, title: 'Match', component: MatchPageComponent},
     {path: 'account', component: AccountPageComponent, children: [
       {path: '', title: 'Account information', component: AccountInformationViewComponent, pathMatch: 'full'},
     ]}

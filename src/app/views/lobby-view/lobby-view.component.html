@@ -1,19 +1,19 @@
-<ng-container *ngIf="this.match">
+<ng-container *ngIf="this.matchService.match">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
 
-            <button *ngIf="this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
-            <button *ngIf="!this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+            <button *ngIf="this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
+            <button *ngIf="!this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
         </div>
 
         <div class="flex gap-4 justify-between items-center w-full">
             <div class="flex gap-4">
-                <button *ngIf="!this.matchService.isReady(this.match)" (click)="this.onReadyToggleClick()" [disabled]="!this.matchService.canReady(this.match)" class="btn-flex btn-primary text-2xl bg-green-400">Ready <span class="material-symbols-outlined">check</span></button>
-                <button *ngIf="this.matchService.isReady(this.match)" (click)="this.onReadyToggleClick()" class="btn-flex btn-secondary text-2xl">Unready <span class="material-symbols-outlined">close</span></button>
-                <button *ngIf="this.matchService.isHost(this.match)" (click)="this.onStartMatchClick()" class="btn-flex btn-primary text-2xl" [disabled]="!this.matchService.canStartMatch(this.match)">Start match <span class="material-symbols-outlined">start</span></button>
+                <button *ngIf="!this.matchService.isReady(this.matchService.match)" (click)="this.onReadyToggleClick()" [disabled]="!this.matchService.canReady(this.matchService.match)" class="btn-flex btn-primary text-2xl bg-green-400">Ready <span class="material-symbols-outlined">check</span></button>
+                <button *ngIf="this.matchService.isReady(this.matchService.match)" (click)="this.onReadyToggleClick()" class="btn-flex btn-secondary text-2xl">Unready <span class="material-symbols-outlined">close</span></button>
+                <button *ngIf="this.matchService.isHost(this.matchService.match)" (click)="this.onStartMatchClick()" class="btn-flex btn-primary text-2xl" [disabled]="!this.matchService.canStartMatch(this.matchService.match)">Start match <span class="material-symbols-outlined">start</span></button>
             </div>
-            <button class="btn-flex text-2xl" (click)="copyToClipboard(this.match.id)">{{this.match.id}} <span class="material-symbols-outlined">content_copy</span></button>
+            <button class="btn-flex text-2xl" (click)="copyToClipboard(this.matchService.match.id)">{{this.matchService.match.id}} <span class="material-symbols-outlined">content_copy</span></button>
         </div>
     </div>
 
@@ -21,11 +21,11 @@
 
     <div class="flex w-full gap-8 justify-between">
         <div class="flex grow flex-col gap-4">
-            <p>Player count: {{this.match.playerData.length}}/{{this.match.maxPlayers}}</p>
+            <p>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</p>
 
-            <app-player-plate-lobby *ngFor="let playerData of this.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
+            <app-player-plate-lobby *ngFor="let playerData of this.matchService.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
 
-            <app-player-plate-lobby *ngFor="let item of [].constructor(this.match.maxPlayers - this.match.playerData.length); let i = index" class="w-full"/>
+            <app-player-plate-lobby *ngFor="let item of [].constructor(this.matchService.match.maxPlayers - this.matchService.match.playerData.length); let i = index" class="w-full"/>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
@@ -33,7 +33,7 @@
                 *ngFor="let character of this.characters"
                 [character]="character"
                 [active]="this.isCharacterSelected(character)"
-                [disabled]="this.matchService.isReady(this.match)"
+                [disabled]="this.matchService.isReady(this.matchService.match)"
                 (click)="this.selectCharacter(character)"
             />
         </div>
