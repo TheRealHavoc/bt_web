@@ -14,8 +14,6 @@ import { Helpers } from 'src/app/utils/helpers';
   styleUrls: ['./battle-view.component.scss']
 })
 export class BattleViewComponent implements OnInit {
-  @Input() match: Match | null | undefined = undefined;
-
   public convertAbilityScoreToAbilityScoreModifier = Helpers.convertAbilityScoreToAbilityScoreModifier;
   public convertAttackAttrStringToValue = Helpers.convertAttackAttrStringToValue;
   public convertModifierToString = Helpers.convertModifierToString;
@@ -39,15 +37,13 @@ export class BattleViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTimeSpend();
-
-    console.log(this.match)
   }
 
   public setTimeSpend(): void {
-    if (!this.match?.startedOn)
+    if (!this.matchService.match?.startedOn)
       return;
 
-    var start = Date.parse(this.match.startedOn);
+    var start = Date.parse(this.matchService.match.startedOn);
 
     this.timePlayed = this.getTimeSpend(start);
 
@@ -77,9 +73,9 @@ export class BattleViewComponent implements OnInit {
   }
 
   public onEndMatchClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.endMatch(this.match.id).then((match) => {
+    this.matchService.endMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match ended",
         "You have ended the match."
@@ -94,9 +90,9 @@ export class BattleViewComponent implements OnInit {
   }
 
   public onLeaveMatchClick() {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
 
-    this.matchService.leaveMatch(this.match.id).then((match) => {
+    this.matchService.leaveMatch(this.matchService.match.id).then((match) => {
       this.alertService.success(
         "Match left",
         "You have left the match."
@@ -112,10 +108,10 @@ export class BattleViewComponent implements OnInit {
   }
 
   public performAttack(attack: Attack) {
-    if (!this.match) return;
+    if (!this.matchService.match) return;
     if (!this.playerData) return;
 
-    this.matchService.performAttack(this.match.id, this.playerData.character.id, attack.name).then((match) => {
+    this.matchService.performAttack(this.matchService.match.id, this.playerData.character.id, attack.name).then((match) => {
       
     }).catch((err) => {
       this.alertService.error("Something went wrong");

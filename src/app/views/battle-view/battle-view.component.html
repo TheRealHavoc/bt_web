@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.match">
+<ng-container *ngIf="this.matchService.match">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
@@ -6,8 +6,8 @@
             <div class="flex gap-8 items-center">
                 <span>Time played: {{this.timePlayed}}</span>
 
-                <button *ngIf="this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
-                <button *ngIf="!this.matchService.isHost(this.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
+                <button *ngIf="this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
+                <button *ngIf="!this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
             <img src="{{this.playerData.character.avatarURL}}" alt="" class="object-cover bg-center absolute inset-0 opacity-30 h-full w-full">
         </div>
         <div class="w-full h-full flex flex-col gap-4 justify-end overflow-y-auto" style="max-height: 86vh;">
-            <div *ngFor="let turn of this.match.turns" class="rounded bg-appSlate900 p-4 rounded align-end">
+            <div *ngFor="let turn of this.matchService.match.turns" class="rounded bg-appSlate900 p-4 rounded align-end">
                 <p class="font-bold w-full text-left">{{turn.character.name}}</p>
                 <div *ngFor="let action of turn.actions">
                     {{action.description}}
