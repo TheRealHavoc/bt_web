@@ -93,9 +93,6 @@ export class MatchPageComponent {
     })
 
     this.wsService.getConnection().on("playerAttacked", (attackData: AttackData) => {
-      if (!this.matchService.match)
-        return;
-
       this.alertService.info(
         "Hit",
         "You have been hit."
@@ -107,6 +104,13 @@ export class MatchPageComponent {
         return;
 
       this.matchService.match = match;
+    })
+
+    this.wsService.getConnection().on("win", () => {
+      this.alertService.success(
+        "Win",
+        "You won the match!"
+      );
     })
   }
 }

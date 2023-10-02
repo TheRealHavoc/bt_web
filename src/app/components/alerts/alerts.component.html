@@ -1,5 +1,5 @@
-<div *ngIf="alerts.length > 0" class="fixed bottom-0 left-0 flex flex-col items-start p-8 gap-4" style="z-index: 999999;">
-    <div *ngFor="let alert of alerts" class="py-4 px-8 text-appSlate rounded cursor-pointer" [ngClass]="className(alert)" (click)="close(alert)">
+<div *ngIf="alerts.length > 0" class="fixed bottom-0 left-0 flex flex-col items-start p-8 gap-4 pointer-events-none" style="z-index: 999999;">
+    <div *ngFor="let alert of alerts" class="py-4 px-8 text-appSlate rounded cursor-pointer pointer-events-auto" [ngClass]="className(alert)" (click)="close(alert)">
         <div class="flex gap-8 items-center">
             <span class="material-symbols-outlined text-3xl">{{alert.icon}}</span>
 
