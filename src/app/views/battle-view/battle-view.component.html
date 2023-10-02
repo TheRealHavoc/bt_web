@@ -20,7 +20,7 @@
             [fullSize]="true"
         />
         
-        <div class="grow overflow-y-scroll">
+        <div class="grow overflow-y-scroll flex flex-col-reverse">
             <div *ngFor="let item of [].constructor(999); let i = index">
                 {{i}}
             </div>
@@ -31,5 +31,9 @@
             [disabled]="true"
             [fullSize]="true"
         />
+    </div>
+
+    <div>
+        hey hey
     </div>
 </ng-container>
