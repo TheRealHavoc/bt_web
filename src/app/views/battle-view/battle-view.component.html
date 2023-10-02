@@ -1,9 +1,9 @@
-<ng-container *ngIf="this.matchService.match">
+<ng-container *ngIf="this.matchService.match && this.getClientPlayerData()?.character">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
             <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
 
-            <div class="flex gap-8 items-center">
+            <div class="flex gap-6 items-center">
                 <span>Time played: {{this.timePlayed}}</span>
 
                 <button *ngIf="this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
@@ -12,15 +12,16 @@
         </div>
     </div>
 
-    <div class="flex gap-8 h-full items-stretch justify-stretch min-h-0">
+    <div class="flex gap-6 h-full items-stretch justify-stretch min-h-0">
         <app-character-card class="aspect-[3/4]"
             [playerData]="this.matchService.getUserPlayerData(this.matchService.match.playerData)"
-            [active]="true"
+            [active]="this.matchService.isCharacterTurn(this.getClientPlayerData()!.character)"
             [disabled]="true"
             [fullSize]="true"
+            [battle]="true"
         />
         
-        <div class="flex flex-col grow gap-8">
+        <div class="flex flex-col grow gap-6">
             <div class="overflow-y-scroll flex flex-col-reverse h-full bg-appSlate900 rounded-lg p-4 gap-4">
                 <div *ngFor="let turn of this.matchService.match.turns"
                     class="flex flex-col gap-2 p-4 bg-appSlate800 rounded-lg"
@@ -41,17 +42,31 @@
                 <div class="font-spectral text-2xl text-center">Match started</div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <button class="btn-primary col-span-2">Attack</button>
+            <div *ngIf="this.getClientPlayerData()?.character?.attacks" class="grid grid-cols-1 gap-2">
+                <button 
+                    *ngFor="let attack of this.getClientPlayerData()!.character.attacks" 
+                    class="btn-primary btn-flex font-bold"
+                    [disabled]="!this.matchService.isCharacterTurn(this.getClientPlayerData()!.character)"
+                    (click)="this.performAttack(attack)"
+                >
+                    <p class="w-full text-left">{{attack.name}}</p>
+                    <p>
+                        {{this.generateAttackString(this.getClientPlayerData()!.character, attack)}}
+                    </p>
+                    <p class="w-full text-right">
+                        {{this.generateDamageString(this.getClientPlayerData()!.character, attack)}}
+                    </p>
+                </button>
             </div>
         </div>
 
 
         <app-character-card class="aspect-[3/4]"
             [playerData]="this.matchService.getEnemyPlayerData(this.matchService.match.playerData)"
-            [active]="false"
+            [active]="!this.matchService.isCharacterTurn(this.getClientPlayerData()!.character)"
             [disabled]="true"
             [fullSize]="true"
+            [battle]="true"
         />
     </div>
 

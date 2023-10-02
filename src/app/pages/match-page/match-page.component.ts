@@ -10,6 +10,7 @@ import { CharacterService } from 'src/app/services/character.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { MatchService } from 'src/app/services/match.service';
 import { WsService } from 'src/app/services/ws.service';
+import { AttackData } from 'src/app/utils/AttackData';
 
 @Component({
   selector: 'app-match-page',
@@ -89,6 +90,23 @@ export class MatchPageComponent {
       );
       
       this.matchService.match = null;
+    })
+
+    this.wsService.getConnection().on("playerAttacked", (attackData: AttackData) => {
+      if (!this.matchService.match)
+        return;
+
+      this.alertService.info(
+        "Hit",
+        "You have been hit."
+      );
+    })
+
+    this.wsService.getConnection().on("matchUpdated", (match: Match) => {
+      if (!this.matchService.match)
+        return;
+
+      this.matchService.match = match;
     })
   }
 }

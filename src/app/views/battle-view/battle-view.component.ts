@@ -36,6 +36,13 @@ export class BattleViewComponent implements OnInit {
     this.setTimeSpend();
   }
 
+  public getClientPlayerData() : PlayerData | null {
+    if (!this.matchService.match)
+      return null;
+
+    return this.matchService.getUserPlayerData(this.matchService.match.playerData);
+  }
+
   public setTimeSpend(): void {
     if (!this.matchService.match?.startedOn)
       return;
@@ -105,6 +112,18 @@ export class BattleViewComponent implements OnInit {
   }
 
   public performAttack(attack: Attack) {
+    if (!this.matchService.match) return;
 
+    this.matchService.performAttack(this.matchService.match?.id, this.getClientPlayerData()!.character.id, attack.name).then((match: Match) => {
+      this.alertService.success(
+        "Attacked",
+        `You attacked the enemy with your ${attack.name}!`
+      );
+    }).catch((err) => {
+      this.alertService.error(
+        "Error",
+        "Something went wrong when attacking the enemy."
+      );
+    })
   }
 }

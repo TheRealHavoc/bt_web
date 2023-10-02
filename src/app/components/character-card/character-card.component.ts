@@ -14,6 +14,8 @@ export class CharacterCardComponent {
   @Input() disabled: boolean = false;
   @Input() fullSize: boolean = false;
 
+  @Input() battle: boolean = false;
+
   public calculateAbilityModifier(score: number): string {
     let modifier = Helpers.convertAbilityScoreToAbilityScoreModifier(score);
 

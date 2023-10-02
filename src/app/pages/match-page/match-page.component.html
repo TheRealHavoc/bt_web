@@ -4,8 +4,8 @@
     </div>
 
     <ng-container *ngIf="this.matchService.match !== null && this.matchService.match !== undefined">
-        <app-lobby-view *ngIf="!this.matchService.match.startedOn" class="flex flex-col gap-8 px-12 py-6 h-full max-h-screen"></app-lobby-view>
-        <app-battle-view *ngIf="this.matchService.match.startedOn" class="flex flex-col gap-8 px-12 py-6 h-full max-h-screen"></app-battle-view>
+        <app-lobby-view *ngIf="!this.matchService.match.startedOn" class="flex flex-col gap-6 px-12 py-6 h-full max-h-screen"></app-lobby-view>
+        <app-battle-view *ngIf="this.matchService.match.startedOn" class="flex flex-col gap-6 px-12 py-6 h-full max-h-screen"></app-battle-view>
     </ng-container>
 
     <app-full-loader class="h-full" *ngIf="this.matchService.match === undefined"/>

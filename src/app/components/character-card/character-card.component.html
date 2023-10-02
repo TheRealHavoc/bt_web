@@ -8,35 +8,54 @@
     }"
 >
     <div *ngIf="this.playerData && this.playerData.character" class="flex flex-col h-full gap-6 relative z-10">
-        <h2 class="font-spectral text-3xl font-bold text-center h-full">{{this.playerData.character.name}}</h2>
+        <h2 class="font-spectral text-3xl font-bold text-center h-full"
+            [ngClass]="{'text-5xl': this.fullSize}"
+        >{{this.playerData.character.name}}</h2>
 
         <div class="flex flex-col grow justify-center gap-4">
             <div class="flex flex-col items-center">
-                <p>Armor Class</p>
+                <p [ngClass]="{'text-2xl': this.fullSize}">Armor Class</p>
                 <p class="text-5xl font-bold">{{this.playerData.character.armorClass}}</p>
             </div>
 
-            <div class="flex flex-col items-center">
-                <p>Max Hit Points</p>
+            <div *ngIf="!this.battle" class="flex flex-col items-center">
+                <p [ngClass]="{'text-2xl': this.fullSize}">Max Hit Points</p>
                 <p class="text-5xl font-bold">{{this.playerData.character.maxHitPoints}}</p>
+            </div>
+
+            <div *ngIf="this.battle" class="flex flex-col items-center">
+                <p [ngClass]="{'text-2xl': this.fullSize}">Hit Points</p>
+                <div>
+                    <span class="text-5xl font-bold">{{this.playerData.currentHitPoints}} / </span>
+                    <span
+                        [ngClass]="{'text-2xl': this.fullSize}"
+                    >{{this.playerData.character.maxHitPoints}}</span>
+                </div>
+
             </div>
         </div>
 
         <div class="flex justify-around items-end w-full h-full">
             <div class="flex flex-col items-center">
-                <h3 class="font-spectral text-xl font-bold">STR</h3>
+                <h3 class="font-spectral text-xl font-bold"
+                    [ngClass]="{'text-3xl': this.fullSize}"
+                >STR</h3>
                 <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.strengthScore)}}</p>
                 <p>{{this.playerData.character.strengthScore}}</p>
             </div>
 
             <div class="flex flex-col items-center">
-                <h3 class="font-spectral text-xl font-bold">DEX</h3>
+                <h3 class="font-spectral text-xl font-bold"
+                    [ngClass]="{'text-3xl': this.fullSize}"
+                >DEX</h3>
                 <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.dexterityScore)}}</p>
                 <p>{{this.playerData.character.dexterityScore}}</p>
             </div>
 
             <div class="flex flex-col items-center">
-                <h3 class="font-spectral text-xl font-bold">CON</h3>
+                <h3 class="font-spectral text-xl font-bold"
+                    [ngClass]="{'text-3xl': this.fullSize}"
+                >CON</h3>
                 <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.constitutionScore)}}</p>
                 <p>{{this.playerData.character.constitutionScore}}</p>
             </div>

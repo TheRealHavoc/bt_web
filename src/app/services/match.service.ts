@@ -153,6 +153,15 @@ export class MatchService {
 
   // Utilities
 
+  public isCharacterTurn(character: Character): boolean {
+    if (!this.match)
+      return false;
+
+    let turn = this.match.turns.find(x => x.character.id === character.id && !x.endedOn);
+
+    return (turn ? true : false);
+  }
+
   public getUserPlayerData(playerData: PlayerData[]): PlayerData | null {
     let res = playerData.find(x => x.user.username === this.authService.user?.username);
 
