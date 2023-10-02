@@ -26,8 +26,6 @@ export class AuthService {
   ) { }
 
   public isAuthenticated(): Promise<void> {
-    this.loaderService.started()
-
     return new Promise((resolve, reject) => {
       if (this.user !== undefined) {
         this.loaderService.completed();
@@ -37,7 +35,6 @@ export class AuthService {
       const refreshToken: string | null = this.cookiesService.get('refreshToken');
 
       if (refreshToken === null) {
-        this.loaderService.completed();
         return reject();
       }
 
@@ -47,14 +44,10 @@ export class AuthService {
         this.cookiesService.set('token', res.token);
         this.cookiesService.set('refreshToken', res.refreshToken);
 
-        this.loaderService.completed();
-
         return resolve();
       }, error: (error) => {
         this.cookiesService.delete('token');
         this.cookiesService.delete('refreshToken');
-
-        this.loaderService.completed();
 
         return reject();
       }});
