@@ -70,6 +70,11 @@ export class MatchPageComponent {
     this.wsService.getConnection().on("matchStarted", (match: Match) => {
       if (!this.matchService.match)
         return;
+
+      this.alertService.info(
+        "Match started",
+        "The match has started."
+      );
       
       this.matchService.match = match;
     })
