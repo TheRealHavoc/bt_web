@@ -25,6 +25,11 @@
                 {{i}}
             </div>
         </div>
-        <div class="bg-red-400 aspect-[3/4]"></div>
+        <app-character-card class="aspect-[3/4]"
+            [playerData]="this.matchService.getEnemyPlayerData(this.matchService.match.playerData)"
+            [active]="false"
+            [disabled]="true"
+            [fullSize]="true"
+        />
     </div>
 </ng-container>
