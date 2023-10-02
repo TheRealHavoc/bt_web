@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
-    "docker:build": "docker build --rm -t Angular-Interface:latest ."
+    "test:build": "ng build --configuration production",
+    "docker:build": "docker build --rm -t bt_web:latest ."
   },
   "private": true,
   "dependencies": {
