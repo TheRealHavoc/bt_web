@@ -90,7 +90,7 @@ export class MatchService {
 
         resolve(res as Match);
       }, error: (error) => {
-        this.match = undefined;
+        this.match = null;
 
         reject(error);
       }})
@@ -100,7 +100,7 @@ export class MatchService {
   public endMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/EndMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = undefined;
+        this.match = null;
 
         resolve(res as Match);
       }, error: (error) => {
@@ -112,7 +112,7 @@ export class MatchService {
   public leaveMatch(matchId: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.http.post(`${environment.apiUrl}Match/LeaveMatch/?matchId=${matchId}`, {}, this.httpOptions).subscribe({next: (res: any) => {
-        this.match = undefined;
+        this.match = null;
 
         resolve(res as Match);
       }, error: (error) => {

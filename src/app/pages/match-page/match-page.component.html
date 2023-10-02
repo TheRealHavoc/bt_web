@@ -1,5 +1,5 @@
 <div class="flex flex-col h-screen">
-    <div *ngIf="this.matchService.match === null || this.matchService.match === undefined" class="flex flex-col gap-4 items-center justify-center h-full">
+    <div *ngIf="this.matchService.match === null" class="flex flex-col gap-4 items-center justify-center h-full">
         <app-play-view></app-play-view>
     </div>
 
@@ -7,6 +7,4 @@
         <app-lobby-view *ngIf="!this.matchService.match.startedOn" class="flex flex-col gap-6 px-12 py-6 h-full max-h-screen"></app-lobby-view>
         <app-battle-view *ngIf="this.matchService.match.startedOn" class="flex flex-col gap-6 px-12 py-6 h-full max-h-screen"></app-battle-view>
     </ng-container>
-
-    <app-full-loader class="h-full" *ngIf="this.matchService.match === undefined"/>
 </div>

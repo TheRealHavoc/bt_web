@@ -30,6 +30,7 @@ export class MatchResolver implements Resolve<Match | null> {
       }
     } finally {
       this.loaderService.completed();
+      return null;
     }
   }
 }
