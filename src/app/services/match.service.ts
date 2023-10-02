@@ -161,6 +161,14 @@ export class MatchService {
     return res;
   }
 
+  public getEnemyPlayerData(playerData: PlayerData[]): PlayerData | null {
+    let res = playerData.find(x => x.user.username !== this.authService.user?.username);
+
+    if (res === undefined) return null;
+
+    return res;
+  }
+
   public getSelectedCharacter(): Character | null {
     if (!this.match) return null;
 

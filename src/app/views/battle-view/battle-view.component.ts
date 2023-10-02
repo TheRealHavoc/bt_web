@@ -23,9 +23,6 @@ export class BattleViewComponent implements OnInit {
 
   public timePlayed: string | undefined;
 
-  public playerData: PlayerData | undefined;
-  public enemyData: PlayerData | undefined;
-
   constructor(
     public matchService: MatchService,
     public authService: AuthService,
@@ -108,13 +105,6 @@ export class BattleViewComponent implements OnInit {
   }
 
   public performAttack(attack: Attack) {
-    if (!this.matchService.match) return;
-    if (!this.playerData) return;
 
-    this.matchService.performAttack(this.matchService.match.id, this.playerData.character.id, attack.name).then((match) => {
-      
-    }).catch((err) => {
-      this.alertService.error("Something went wrong");
-    });
   }
 }

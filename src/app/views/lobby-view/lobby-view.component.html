@@ -19,9 +19,9 @@
 
     <app-divider class="w-full"/>
 
-    <div class="flex w-full h-full gap-16 justify-between items-center">
+    <div class="flex w-full h-full gap-16 justify-between items-center min-h-0 py-12">
         <div class="flex-1">
-            <div class="flex flex-col gap-4 w-3/4">
+            <div class="flex flex-col gap-4">
                 <p>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</p>
     
                 <app-player-plate-lobby *ngFor="let playerData of this.matchService.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
@@ -30,17 +30,16 @@
             </div>
         </div>
 
-        <div>
+        <div class="w-1/4">
             <app-character-card *ngIf="this.characters"
-                class="w-32"
-                [character]="this.matchService.getSelectedCharacter()"
+                [playerData]="this.matchService.getUserPlayerData(this.matchService.match.playerData)"
                 [active]="true"
                 [disabled]="true"
                 [fullSize]="true"
             />
         </div>
 
-        <div class="flex flex-1 flex-wrap gap-12 justify-end">
+        <div class="flex flex-1 flex-wrap gap-6 justify-end">
             <app-character-card-small
                 *ngFor="let character of this.characters"
                 [character]="character"

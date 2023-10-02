@@ -1,57 +1,55 @@
-<ng-container *ngIf="this.character">
-    <div 
-        class="play-card transition"
-        [ngClass]="{
-            'active': this.active,
-            'cursor-pointer hover:scale-105 group': !this.disabled,
-            'opacity-30': !this.active && this.disabled,
-            'w-[500px]': this.fullSize
-        }"
-    >
-        <div class="flex flex-col h-full gap-6 relative z-10">
-            <h2 class="font-spectral text-3xl font-bold text-center h-full">{{this.character.name}}</h2>
+<div 
+    class="play-card transition"
+    [ngClass]="{
+        'active': this.active,
+        'cursor-pointer hover:scale-105 group': !this.disabled,
+        'opacity-30': !this.active && this.disabled,
+        'w-full': this.fullSize
+    }"
+>
+    <div *ngIf="this.playerData && this.playerData.character" class="flex flex-col h-full gap-6 relative z-10">
+        <h2 class="font-spectral text-3xl font-bold text-center h-full">{{this.playerData.character.name}}</h2>
 
-            <div class="flex flex-col grow justify-center gap-4">
-                <div class="flex flex-col items-center">
-                    <p>Armor Class</p>
-                    <p class="text-3xl font-bold">{{this.character.armorClass}}</p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <p>Max Hit Points</p>
-                    <p class="text-3xl font-bold">{{this.character.maxHitPoints}}</p>
-                </div>
+        <div class="flex flex-col grow justify-center gap-4">
+            <div class="flex flex-col items-center">
+                <p>Armor Class</p>
+                <p class="text-5xl font-bold">{{this.playerData.character.armorClass}}</p>
             </div>
 
-            <div class="flex justify-around items-end w-full h-full">
-                <div class="flex flex-col items-center">
-                    <h3 class="font-spectral text-xl font-bold">STR</h3>
-                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.character.strengthScore)}}</p>
-                    <p>{{this.character.strengthScore}}</p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <h3 class="font-spectral text-xl font-bold">DEX</h3>
-                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.character.dexterityScore)}}</p>
-                    <p>{{this.character.dexterityScore}}</p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <h3 class="font-spectral text-xl font-bold">CON</h3>
-                    <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.character.constitutionScore)}}</p>
-                    <p>{{this.character.constitutionScore}}</p>
-                </div>
+            <div class="flex flex-col items-center">
+                <p>Max Hit Points</p>
+                <p class="text-5xl font-bold">{{this.playerData.character.maxHitPoints}}</p>
             </div>
         </div>
-        
-        
-        <img 
-            src="{{this.character.avatarURL}}" 
-            alt="" 
-            class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full"
-            [ngClass]="{
-                'opacity-60': this.active,
-            }"
-        >
+
+        <div class="flex justify-around items-end w-full h-full">
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">STR</h3>
+                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.strengthScore)}}</p>
+                <p>{{this.playerData.character.strengthScore}}</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">DEX</h3>
+                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.dexterityScore)}}</p>
+                <p>{{this.playerData.character.dexterityScore}}</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <h3 class="font-spectral text-xl font-bold">CON</h3>
+                <p class="text-3xl font-bold">{{this.calculateAbilityModifier(this.playerData.character.constitutionScore)}}</p>
+                <p>{{this.playerData.character.constitutionScore}}</p>
+            </div>
+        </div>
     </div>
-</ng-container>
+    
+    
+    <img *ngIf="this.playerData && this.playerData.character"
+        src="{{this.playerData.character.avatarURL}}" 
+        alt="" 
+        class="transition group-hover:scale-110 group-hover:opacity-60 object-cover bg-center absolute inset-0 opacity-30 h-full w-full"
+        [ngClass]="{
+            'opacity-60': this.active,
+        }"
+    >
+</div>

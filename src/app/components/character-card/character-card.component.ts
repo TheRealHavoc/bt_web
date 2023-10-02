@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Character } from 'src/app/models/Character';
+import { PlayerData } from 'src/app/models/PlayerData';
 import { Helpers } from 'src/app/utils/helpers';
 
 @Component({
@@ -8,7 +8,8 @@ import { Helpers } from 'src/app/utils/helpers';
   styleUrls: ['./character-card.component.scss']
 })
 export class CharacterCardComponent {
-  @Input() character: Character | null | undefined;
+  @Input() playerData: PlayerData | null | undefined;
+  
   @Input() active: boolean = false;
   @Input() disabled: boolean = false;
   @Input() fullSize: boolean = false;
