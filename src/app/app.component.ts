@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthGuard } from './guards/auth.guard';
 import { LoaderService } from './services/loader.service';
+import { CookiesService } from './services/cookies.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'Baldur\'s Trials';
 
   constructor (
-    public loaderService: LoaderService
+    public loaderService: LoaderService,
+    public cookiesService: CookiesService
   ) {}
 }

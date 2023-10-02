@@ -1,5 +1,7 @@
 <app-alerts></app-alerts>
 
+<app-cookie-modal *ngIf="!this.cookiesService.enabledCookies()"/>
+
 <app-full-loader *ngIf="(this.loaderService.isLoading$ | async)"></app-full-loader>
 
 <router-outlet *ngIf="!(this.loaderService.isLoading$ | async)"></router-outlet>

@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from './loader.service';
+import { CookiesService } from './cookies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
   constructor(
     public loaderService: LoaderService,
 
-    private http: HttpClient
+    private http: HttpClient,
+    private cookiesService: CookiesService
   ) { }
 
   public isAuthenticated(): Promise<void> {
@@ -32,7 +34,7 @@ export class AuthService {
         return resolve();
       }
 
-      const refreshToken: string | null = localStorage.getItem('refreshToken');
+      const refreshToken: string | null = this.cookiesService.get('refreshToken');
 
       if (refreshToken === null) {
         this.loaderService.completed();
@@ -42,15 +44,15 @@ export class AuthService {
       this.http.post<User>(`${environment.apiUrl}User/GetUserByRefreshToken`, `"${refreshToken}"`, this.httpOptions).subscribe({next: (res) => {
         this.user = res;
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('refreshToken', res.refreshToken);
+        this.cookiesService.set('token', res.token);
+        this.cookiesService.set('refreshToken', res.refreshToken);
 
         this.loaderService.completed();
 
         return resolve();
       }, error: (error) => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
+        this.cookiesService.delete('token');
+        this.cookiesService.delete('refreshToken');
 
         this.loaderService.completed();
 
@@ -64,8 +66,8 @@ export class AuthService {
       this.http.post<User>(`${environment.apiUrl}User/Login`, body, this.httpOptions).subscribe({next: (res) => {
         this.user = res;
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('refreshToken', res.refreshToken);
+        this.cookiesService.set('token', res.token);
+        this.cookiesService.set('refreshToken', res.refreshToken);
 
         resolve(res);
       }, error: (error) => {
@@ -87,7 +89,7 @@ export class AuthService {
   public logOut() {
     this.user = undefined;
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
+    this.cookiesService.delete('token');
+    this.cookiesService.delete('refreshToken');
   }
 }

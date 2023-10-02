@@ -28,6 +28,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
 import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
 import { PlayViewComponent } from './views/play-view/play-view.component';
 import { CharacterCardSmallComponent } from './components/character-card-small/character-card-small.component';
+import { CookieModalComponent } from './components/cookie-modal/cookie-modal.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { CharacterCardSmallComponent } from './components/character-card-small/c
     MenuButtonComponent,
     CharactersPageComponent,
     PlayViewComponent,
-    CharacterCardSmallComponent
+    CharacterCardSmallComponent,
+    CookieModalComponent
   ],
   imports: [
     BrowserModule,
