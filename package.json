@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:build": "ng build --configuration production",
-    "docker:build": "docker build --rm -t Angular-Interface:latest ."
+    "docker:build": "docker build --rm -t bt_web:latest ."
   },
   "private": true,
   "dependencies": {
