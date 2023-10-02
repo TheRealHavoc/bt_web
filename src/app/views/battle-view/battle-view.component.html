@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="flex gap-8 bg-appSlate900 p-8 rounded-lg h-full items-stretch justify-stretch min-h-0">
+    <div class="flex gap-8 h-full items-stretch justify-stretch min-h-0">
         <app-character-card class="aspect-[3/4]"
             [playerData]="this.matchService.getUserPlayerData(this.matchService.match.playerData)"
             [active]="true"
@@ -20,11 +20,33 @@
             [fullSize]="true"
         />
         
-        <div class="grow overflow-y-scroll flex flex-col-reverse">
-            <div *ngFor="let item of [].constructor(999); let i = index">
-                {{i}}
+        <div class="flex flex-col grow gap-8">
+            <div class="overflow-y-scroll flex flex-col-reverse h-full bg-appSlate900 rounded-lg p-4 gap-4">
+                <div *ngFor="let turn of this.matchService.match.turns"
+                    class="flex flex-col gap-2 p-4 bg-appSlate800 rounded-lg"
+                >
+                    <div class="flex justify-between">
+                        <div class="opacity-60 font-bold">{{turn.character.name}}'s turn</div>
+                    </div>
+
+                    <div *ngFor="let action of turn.actions">
+                        {{action.description}}
+                    </div>
+
+                    <div *ngIf="turn.endedOn" class="flex justify-between">
+                        <div class="opacity-60 font-bold">Turn ended</div>
+                    </div>
+                </div>
+                
+                <div class="font-spectral text-2xl text-center">Match started</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <button class="btn-primary col-span-2">Attack</button>
             </div>
         </div>
+
+
         <app-character-card class="aspect-[3/4]"
             [playerData]="this.matchService.getEnemyPlayerData(this.matchService.match.playerData)"
             [active]="false"
@@ -33,7 +55,8 @@
         />
     </div>
 
-    <div>
-        hey hey
+    <div class="flex justify-between">
+        <span>Made by Bradley Oosterveen</span>
+        <a class="underline">Report a bug</a>
     </div>
 </ng-container>
