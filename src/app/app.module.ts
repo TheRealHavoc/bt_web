@@ -29,6 +29,7 @@ import { CharactersPageComponent } from './pages/characters-page/characters-page
 import { PlayViewComponent } from './views/play-view/play-view.component';
 import { CharacterCardSmallComponent } from './components/character-card-small/character-card-small.component';
 import { CookieModalComponent } from './components/cookie-modal/cookie-modal.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { CookieModalComponent } from './components/cookie-modal/cookie-modal.com
     CharactersPageComponent,
     PlayViewComponent,
     CharacterCardSmallComponent,
-    CookieModalComponent
+    CookieModalComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
