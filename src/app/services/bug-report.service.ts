@@ -30,4 +30,14 @@ export class BugReportService {
       }})
     })
   }
+
+  public getBugReports(): Promise<BugReport[]> {
+    return new Promise<BugReport[]>((resolve, reject) => {
+      this.http.get(`${environment.apiUrl}BugReport/GetBugReports`, this.httpOptions).subscribe({next: (res: any) => {
+        resolve(res as BugReport[]);
+      }, error: (error) => {
+        reject(error);
+      }})
+    })
+  }
 }
