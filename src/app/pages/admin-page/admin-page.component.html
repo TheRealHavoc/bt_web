@@ -11,6 +11,11 @@
         </div>
     </div>
 
+    <a [routerLink]="['/game']" class="btn-flex h-fit w-fit border-b-2 py-1 font-bold">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Go back
+    </a>
+
     <div class="h-full min-h-0">
         <div class="overflow-y-scroll flex flex-col h-full bg-appSlate900 rounded-lg p-4 gap-4">
             <div *ngFor="let bugReport of this.bugReports"
