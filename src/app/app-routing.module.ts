@@ -12,6 +12,8 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { AccountInformationViewComponent } from './views/account-information-view/account-information-view.component';
 import { CharactersPageComponent } from './pages/characters-page/characters-page.component';
 import { MatchResolver } from './resolvers/match.resolver';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { IsAdminGuard } from './guards/is-admin.guard';
 
 const routes: Routes = [
   {path: '', title: 'Landing page', component: LandingPageComponent},
@@ -28,6 +30,7 @@ const routes: Routes = [
       {path: '', title: 'Account information', component: AccountInformationViewComponent, pathMatch: 'full'},
     ]}
   ]},
+  {path: 'admin', title: 'Admin', component: AdminPageComponent, canActivate: [AuthGuard, IsAdminGuard]},
   {path: '**', title: 'Page not found', component: NotFoundPageComponent}
 ];
 

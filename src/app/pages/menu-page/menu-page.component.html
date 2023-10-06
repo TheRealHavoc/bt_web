@@ -7,8 +7,8 @@
                 <span text>Play</span>
             </app-menu-button>
     
-            <app-menu-button [routerLink]="['/game/settings']" [icon]="'settings'">
-                <span text>Settings</span>
+            <app-menu-button *ngIf="this.authService.user?.role == 'Admin'" [routerLink]="['/admin']" [icon]="'shield_person'">
+                <span text>Admin</span>
             </app-menu-button>
 
             <app-menu-button (click)="this.onLogOutClick()" [icon]="'logout'">
