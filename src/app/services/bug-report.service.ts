@@ -23,7 +23,7 @@ export class BugReportService {
 
   public addBugReport(bugReport: BugReport): Promise<BugReport> {
     return new Promise<BugReport>((resolve, reject) => {
-      this.http.post(`${environment.apiUrl}BugReport`, bugReport, this.httpOptions).subscribe({next: (res: any) => {
+      this.http.post(`${environment.apiUrl}BugReport/AddBugReport`, bugReport, this.httpOptions).subscribe({next: (res: any) => {
         resolve(res as BugReport);
       }, error: (error) => {
         reject(error);
