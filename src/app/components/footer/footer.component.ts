@@ -15,8 +15,8 @@ export class FooterComponent {
   processingRequest: boolean = false;
 
   form: FormGroup = new FormGroup({
-    subject: new FormControl('', Validators.required),
-    message: new FormControl('', Validators.required),
+    subject: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    message: new FormControl('', [Validators.required, Validators.maxLength(600)]),
   });
 
   public constructor(
