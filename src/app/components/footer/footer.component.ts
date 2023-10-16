@@ -11,22 +11,36 @@ import { BugReportService } from 'src/app/services/bug-report.service';
 })
 export class FooterComponent {
   public modalOpen: boolean = false;
+  public sum: number[] = [];
 
   processingRequest: boolean = false;
 
   form: FormGroup = new FormGroup({
     subject: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     message: new FormControl('', [Validators.required, Validators.maxLength(600)]),
+    sumGame: new FormControl('', [Validators.required]),
   });
 
   public constructor(
     private bugReportService: BugReportService,
     private alertService: AlertService
-  ) {}
+  ) {
+    this.sum[0] = Math.floor(Math.random() * 10) + 1;
+    this.sum[1] = Math.floor(Math.random() * 10) + 1;
+  }
 
   public onSubmit(): void {
     if (this.form.invalid) return;
 
+    if (this.form.get('sumGame')?.value !== (this.sum[0] + this.sum[1])) {
+      this.alertService.error(
+        "Error",
+        "You are a robot! :("
+      );
+
+      return;
+    }
+    
     this.processingRequest = true;
 
     this.bugReportService.addBugReport(this.form.value).then((bugReport: BugReport) => {
