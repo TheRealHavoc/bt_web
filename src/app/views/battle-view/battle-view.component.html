@@ -1,7 +1,7 @@
 <ng-container *ngIf="this.matchService.match && this.getClientPlayerData()?.character">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
-            <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
+            <h4>Baldur's Trials</h4>
 
             <div class="flex gap-6 items-center">
                 <span>Time played: {{this.timePlayed}}</span>
@@ -49,13 +49,13 @@
                     [disabled]="!this.matchService.isCharacterTurn(this.getClientPlayerData()!.character)"
                     (click)="this.performAttack(attack)"
                 >
-                    <p class="w-full text-left">{{attack.name}}</p>
-                    <p>
+                    <span class="w-full text-left">{{attack.name}}</span>
+                    <span>
                         {{this.generateAttackString(this.getClientPlayerData()!.character, attack)}}
-                    </p>
-                    <p class="w-full text-right">
+                    </span>
+                    <span class="w-full text-right">
                         {{this.generateDamageString(this.getClientPlayerData()!.character, attack)}}
-                    </p>
+                    </span>
                 </button>
             </div>
         </div>

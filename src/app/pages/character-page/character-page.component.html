@@ -19,26 +19,26 @@
                         <div class="flex flex-col gap-2">
                             <div class="flex flex-col justify-between items-center w-full h-full gap-4">
                                 <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                    <h3 class="font-spectral text-xl font-bold">STR</h3>
-                                    <p class="text-3xl font-bold">{{this.convertModifierToString(
+                                    <h5>STR</h5>
+                                    <span class="text-3xl font-bold">{{this.convertModifierToString(
                                         this.convertAbilityScoreToAbilityScoreModifier(this.form.get('strScore')?.value)
-                                    )}}</p>
+                                    )}}</span>
                                     <input readonly type="number" class="input w-12 px-0 text-center" formControlName="strScore">
                                 </div>
                 
                                 <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                    <h3 class="font-spectral text-xl font-bold">DEX</h3>
-                                    <p class="text-3xl font-bold">{{this.convertModifierToString(
+                                    <h5>DEX</h5>
+                                    <span class="text-3xl font-bold">{{this.convertModifierToString(
                                         this.convertAbilityScoreToAbilityScoreModifier(this.form.get('dexScore')?.value)
-                                    )}}</p>
+                                    )}}</span>
                                     <input readonly type="number" class="input w-12 px-0 text-center" formControlName="dexScore">
                                 </div>
                 
                                 <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg">
-                                    <h3 class="font-spectral text-xl font-bold">CON</h3>
-                                    <p class="text-3xl font-bold">{{this.convertModifierToString(
+                                    <h5>CON</h5>
+                                    <span class="text-3xl font-bold">{{this.convertModifierToString(
                                         this.convertAbilityScoreToAbilityScoreModifier(this.form.get('conScore')?.value)
-                                    )}}</p>
+                                    )}}</span>
                                     <input readonly type="number" class="input w-12 px-0 text-center" formControlName="conScore">
                                 </div>
                             </div>
@@ -47,22 +47,22 @@
                         <div class="flex flex-col gap-6 grow">
                             <div class="flex gap-4">
                                 <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
-                                    <h3 class="font-spectral text-xl font-bold">AC</h3>
-                                    <p class="text-3xl font-bold">{{this.character.armorClass}}</p>
+                                    <h5>AC</h5>
+                                    <span class="text-3xl font-bold">{{this.character.armorClass}}</span>
                                 </div>
                                 <div class="flex flex-col items-center bg-appSlate800 p-4 rounded-lg w-1/2">
-                                    <h3 class="font-spectral text-xl font-bold">Max HP</h3>
-                                    <p class="text-3xl font-bold">{{(this.form.get('conScore')?.value * 2) + this.convertAbilityScoreToAbilityScoreModifier(this.form.get('conScore')?.value)}}</p>
+                                    <h5>Max HP</h5>
+                                    <span class="text-3xl font-bold">{{(this.form.get('conScore')?.value * 2) + this.convertAbilityScoreToAbilityScoreModifier(this.form.get('conScore')?.value)}}</span>
                                 </div>
                             </div>
 
                             <div class="flex flex-col gap-2 bg-appSlate800 p-4 rounded-lg grow">
                                 <div *ngFor="let attack of this.character.attacks" (click)="this.doAction(this.character, attack)" class="flex justify-between">
-                                    <p class="font-bold w-full">{{attack.name}}</p>
-                                    <p class="font-bold">{{this.generateAttackString(this.character, attack)}}</p>
-                                    <p class="font-bold w-full text-right">
+                                    <span class="font-bold w-full">{{attack.name}}</span>
+                                    <span class="font-bold">{{this.generateAttackString(this.character, attack)}}</span>
+                                    <span class="font-bold w-full text-right">
                                         {{this.generateDamageString(this.character, attack)}}
-                                    </p>
+                                    </span>
                                 </div>
                             </div>
                         </div>

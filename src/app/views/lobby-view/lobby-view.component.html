@@ -1,7 +1,7 @@
 <ng-container *ngIf="this.matchService.match">
     <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center w-full">
-            <div class="font-spectral text-2xl font-bold">Baldur's Trials</div>
+            <h4>Baldur's Trials</h4>
 
             <button *ngIf="this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onEndMatchClick()">End match</button>
             <button *ngIf="!this.matchService.isHost(this.matchService.match)" class="btn-secondary" (click)="this.onLeaveMatchClick()">Leave match</button>
@@ -22,7 +22,7 @@
     <div class="flex w-full h-full gap-16 justify-between items-center min-h-0 py-12">
         <div class="flex-1">
             <div class="flex flex-col gap-4">
-                <p>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</p>
+                <span>Player count: {{this.matchService.match.playerData.length}}/{{this.matchService.match.maxPlayers}}</span>
     
                 <app-player-plate-lobby *ngFor="let playerData of this.matchService.match.playerData" class="w-full" [username]="playerData.user.username" [isReady]="playerData.isReady" [isHost]="playerData.isHost"/>
     

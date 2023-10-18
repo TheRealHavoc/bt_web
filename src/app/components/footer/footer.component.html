@@ -1,6 +1,6 @@
 <div *ngIf="this.modalOpen" class="flex justify-center items-center absolute inset-0 bg-appSlate900/50 z-[999] backdrop-blur">
     <div class="flex flex-col gap-6 bg-appSlate900 px-12 py-6 rounded-lg w-1/2">
-        <div class="font-spectral text-4xl font-bold">Bug report</div>
+        <h2>Bug report</h2>
 
         <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="flex flex-col gap-2">
@@ -9,7 +9,7 @@
             </div>
 
             <div class="flex flex-col gap-2">
-                <label for="message">Subject</label>
+                <label for="message">Description</label>
                 <textarea id="message" class="input" formControlName="message"></textarea>
             </div>
 
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="flex w-full justify-between">
+<footer class="flex w-full justify-between">
     <span>Made by Bradley Oosterveen</span>
     <a class="underline" (click)="this.modalOpen = true;">Report a bug</a>
-</div>
+</footer>
