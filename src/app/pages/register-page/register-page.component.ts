@@ -40,6 +40,8 @@ export class RegisterPageComponent {
         "Passwords do not match."
       );
 
+      this.processingRequest = false;
+
       return;
     }
 
